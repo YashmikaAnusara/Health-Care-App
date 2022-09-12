@@ -1,32 +1,8 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react'
+import AppRoutes from './routes';
 
-function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>My Health Care App</Text>
-      <View>
-        <Text style={styles.footer}>footter</Text>
-      </View>
-    </View>
-  );
+const App = () => {
+  return <AppRoutes />;
 }
 
-const styles = StyleSheet.create({
-  footer: {
-    color: 'blue',
-
-  },
-  container: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'red',
-    fontSize: 20,
-    fontWeight: '500',
-  },
-});
-
-export default App;
+export default App
