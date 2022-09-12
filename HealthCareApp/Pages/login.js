@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputWrapper: {
-    padding: 30,
+    padding: 20,
     flex: 1,
   },
   input: {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
 
   signup: {
-    marginTop: 20,
+    marginTop: 15,
     alignItems: 'center',
     borderRadius: 20,
     padding: 5,

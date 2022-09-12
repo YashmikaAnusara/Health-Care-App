@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputWrapper: {
-    paddingRight: 30,
-    paddingLeft: 30,
+    paddingRight: 20,
+    paddingLeft: 20,
     paddingTop: 10,
     flex: 1,
   },
@@ -131,7 +131,14 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#5DB075',
-    marginTop: 15,
+    marginTop: 20,
+    alignItems: 'center',
+    borderRadius: 20,
+    padding: 14,
+  },
+  button2: {
+    backgroundColor: 'rgb(84, 145, 101)',
+    marginTop: 20,
     alignItems: 'center',
     borderRadius: 20,
     padding: 14,
