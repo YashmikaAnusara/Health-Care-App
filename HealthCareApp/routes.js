@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from './Pages/splash';
 import Login from './Pages/login';
 import Registration from './Pages/registration';
+import Navpage from './Pages/navpage';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,11 @@ const AppRoutes = () => {
           name="Login"
           options={{headerShown: false}}
           component={Login}
+        />
+        <Stack.Screen
+          name="Nav"
+          options={{headerShown: false}}
+          component={Navpage}
         />
       </Stack.Navigator>
     </NavigationContainer>

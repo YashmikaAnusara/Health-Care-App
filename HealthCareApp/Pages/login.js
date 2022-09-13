@@ -9,15 +9,18 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React from 'react';
-import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 
 const Login = () => {
-  const navigation=useNavigation()
+  const navigation = useNavigation();
 
   const signUpHandler = () => {
     navigation.navigate('Registration');
-}
+  };
 
+  const test = () => {
+    navigation.navigate('Nav');
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -46,7 +49,8 @@ const Login = () => {
             </Pressable>
 
             <Pressable
-              style={({pressed}) => (pressed ? styles.button2 : styles.button)}>
+              style={({pressed}) => (pressed ? styles.button2 : styles.button)}
+              onPress={test}>
               <Text style={styles.btnText}>SIGN IN</Text>
             </Pressable>
 
