@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
 
-export default function Proflie({navigation}) {
+export default function Proflie({ navigation }) {
+    const logoutHandler = () => {
+      navigation.navigate('Login');
+    };
+  
   return (
     <View style={styles.container}>
       <View style={styles.box}>
         <Text style={styles.setting}>Setting</Text>
-        <Text style={styles.logout}>Logout</Text>
+        <Text style={styles.logout} onPress={logoutHandler}>
+          Logout
+        </Text>
         <Text style={styles.topic}>Profile</Text>
         <Image
           source={require('../../Assets/pic.png')}
@@ -105,10 +111,11 @@ const styles = StyleSheet.create({
   },
   profileboxtopicsub1: {
     fontSize: 20,
-    top: 10,
+    top: 12,
     left: 70,
     color: 'black',
     fontWeight: 'bold',
+    textDecorationLine: 'underline',
     // backgroundColor:"red"
   },
   profileboxtopicsub2: {
