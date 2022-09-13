@@ -2,7 +2,7 @@ import React, {} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import Home from './NavPages/home';
+import Feed from './NavPages/Feed';
 import Proflie from './NavPages/proflie';
 import Stats from './NavPages/stats';
 import Pins from './NavPages/pins';
@@ -28,8 +28,8 @@ export default function Navpage() {
         },
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Feed"
+        component={Feed}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -54,7 +54,7 @@ export default function Navpage() {
                   fontSize: 12,
                   //   textAlign:'center'
                 }}>
-                Home
+                My Feed
               </Text>
             </View>
           ),
