@@ -7,7 +7,7 @@ export default function Stats({navigation}) {
       <Text>Stats Page</Text>
       <Button
         title="Press Me"
-        onPress={() => alert('wow You press me settings')}
+        onPress={() => alert('wow You press me Stats')}
       />
     </View>
   );

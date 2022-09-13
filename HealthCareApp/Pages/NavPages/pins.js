@@ -5,7 +5,7 @@ export default function Pins({navigation}) {
   return (
     <View style={styles.container}>
       <Text>Pins Page</Text>
-      <Button title="Press Me" onPress={() => alert('wow You press me')} />
+      <Button title="Press Me" onPress={() => alert('wow You press me Pins')} />
     </View>
   );
 }
