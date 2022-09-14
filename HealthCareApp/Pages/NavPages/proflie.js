@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
 
 export default function Proflie({navigation}) {
   const [photo, setphoto] = useState(false);
-  const [posts, setposts] = useState(false);
+  const [posts, setposts] = useState(true);
 
   const logoutHandler = () => {
     navigation.navigate('Login');
