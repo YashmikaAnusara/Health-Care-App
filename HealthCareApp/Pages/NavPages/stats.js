@@ -1,23 +1,58 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 
-export default function Stats({navigation}) {
+export default function Stats() {
   return (
-    <View style={styles.container}>
-      <Text>Stats Page</Text>
-      <Button
-        title="Press Me"
-        onPress={() => alert('wow You press me Stats')}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.Body}>
+        <ScrollView>
+          <View style={styles.ItemHeader}>
+            <Text
+              style={{
+                fontSize: 30,
+                fontWeight: 'bold',
+                color: 'green',
+                fontFamily: 'Arial',
+                marginTop: 20,
+              }}>
+              My Stats
+            </Text>
+          </View>
+          <View style={styles.ItemBody}>
+             
+          </View>
+        </ScrollView>
+      </View>
+      <View style={styles.Footter}></View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'white',
     flex: 1,
+  },
+  Body: {
+    flex: 8,
+    backgroundColor: 'white',
+    flexDirection: 'column',
+  },
+  ItemHeader: {alignItems: 'center', justifyContent: 'center'},
+  ItemBody: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#5DB075',
+  },
+
+  Footter: {
+    flex: 1.7,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

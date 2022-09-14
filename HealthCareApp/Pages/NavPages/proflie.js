@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 export default function Proflie({navigation}) {
   const [photo, setphoto] = useState(false);
@@ -22,10 +29,12 @@ export default function Proflie({navigation}) {
       <View style={{flex: 8}}>
         <ScrollView>
           <View style={styles.box}>
-            <Text style={styles.setting}>Setting</Text>
-            <Text style={styles.logout} onPress={logoutHandler}>
-              Logout
-            </Text>
+            <TouchableOpacity>
+              <Text style={styles.setting}>Setting</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={logoutHandler}>
+              <Text style={styles.logout}>Logout</Text>
+            </TouchableOpacity>
             <Text style={styles.topic}>Profile</Text>
             <Image
               source={require('../../Assets/pic.png')}
