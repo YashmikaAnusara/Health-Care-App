@@ -52,6 +52,17 @@ router.route("/user/signin/:email/:password").get((req, res) => {
 
 });
 
+router.route("/one/:groupID").get((req, res) => {
+  let groupID = req.params.groupID;
+  User.find({ groupID: groupID })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 // router.route("/chat/update/:groupID").put((req, res) => {
 //   let groupID = req.params.groupID;
 //   const messages = req.body;

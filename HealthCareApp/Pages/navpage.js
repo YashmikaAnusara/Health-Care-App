@@ -52,7 +52,7 @@ export default function Navpage({route}) {
                   style={{
                     width: 35,
                     height: 35,
-                    tintColor: focused ? '#007AFF' : '#3C3C43',
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
                   }}
                 />
                 <Text
@@ -86,7 +86,7 @@ export default function Navpage({route}) {
                   style={{
                     width: 35,
                     height: 35,
-                    tintColor: focused ? '#007AFF' : '#3C3C43',
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
                   }}
                 />
                 <Text
@@ -121,7 +121,7 @@ export default function Navpage({route}) {
                   style={{
                     width: 35,
                     height: 35,
-                    tintColor: focused ? '#007AFF' : '#3C3C43',
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
                   }}
                 />
                 <Text
@@ -155,7 +155,7 @@ export default function Navpage({route}) {
                   style={{
                     width: 35,
                     height: 35,
-                    tintColor: focused ? '#007AFF' : '#3C3C43',
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
                   }}
                 />
                 <Text
@@ -190,7 +190,7 @@ export default function Navpage({route}) {
                   style={{
                     width: 35,
                     height: 35,
-                    tintColor: focused ? '#007AFF' : '#3C3C43',
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
                   }}
                 />
                 <Text
@@ -225,7 +225,7 @@ export default function Navpage({route}) {
                   style={{
                     width: 35,
                     height: 35,
-                    tintColor: focused ? '#007AFF' : '#3C3C43',
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
                   }}
                 />
                 <Text
@@ -259,7 +259,7 @@ export default function Navpage({route}) {
                   style={{
                     width: 35,
                     height: 35,
-                    tintColor: focused ? '#007AFF' : '#3C3C43',
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
                   }}
                 />
                 <Text
