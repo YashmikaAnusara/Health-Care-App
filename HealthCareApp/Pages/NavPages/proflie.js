@@ -60,12 +60,15 @@ export default function Proflie({navigation}) {
           </View>
           {photo ? (
             <View style={styles.profileboxsub1}>
-              <Text>Test One Two Three Four Five photo</Text>
+              <Text>
+                Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf jsdn
+                fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+              </Text>
             </View>
           ) : null}
           {posts ? (
             <View style={styles.profileboxsub1}>
-              <Text>Test One Two Three Four Five posts</Text>
+              <Text>ssfdfsdfsdfsdf sdf sdfsdfsdfsd posts</Text>
             </View>
           ) : null}
         </View>
