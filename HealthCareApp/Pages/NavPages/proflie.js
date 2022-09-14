@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from 'react-native';
 
 export default function Proflie({navigation}) {
   const [photo, setphoto] = useState(false);
@@ -59,17 +65,49 @@ export default function Proflie({navigation}) {
             </Text>
           </View>
           {photo ? (
-            <View style={styles.profileboxsub1}>
-              <Text>
-                Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf jsdn
-                fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-              </Text>
-            </View>
+            <ScrollView>
+              <View style={styles.profileboxsub1}>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+              </View>
+            </ScrollView>
           ) : null}
           {posts ? (
-            <View style={styles.profileboxsub1}>
-              <Text>ssfdfsdfsdfsdf sdf sdfsdfsdfsd posts</Text>
-            </View>
+            <ScrollView>
+              <View style={styles.profileboxsub1}>
+                <Text>ssfdfsdfsdfsdf sdf sdfsdfsdfsd posts</Text>
+              </View>
+            </ScrollView>
           ) : null}
         </View>
       </View>
@@ -78,6 +116,7 @@ export default function Proflie({navigation}) {
         onPress={() => alert('wow You press me Proflie')}
       /> */}
     </View>
+    // </SafeAreaView>
   );
 }
 
@@ -131,19 +170,19 @@ const styles = StyleSheet.create({
     marginTop: 9,
     padding: 5,
     width: '100%',
-    height: '120%',
+    // height: '120%',
     // backgroundColor: 'red',
   },
   profileboxtopic: {
     width: '100%',
-    height: '20%',
+    // height: '20%',
     backgroundColor: '#E8E8E8',
     borderRadius: 100,
   },
   profileboxsub1: {
     paddingTop: 20,
     width: '100%',
-    height: '90%',
+    // height: '90%',
     // backgroundColor: 'blue',
   },
   profileboxtopicsub1: {
