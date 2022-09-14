@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-} from 'react-native';
+import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
 
 export default function Proflie({navigation}) {
   const [photo, setphoto] = useState(false);
@@ -25,96 +19,97 @@ export default function Proflie({navigation}) {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
-        <Text style={styles.setting}>Setting</Text>
-        <Text style={styles.logout} onPress={logoutHandler}>
-          Logout
-        </Text>
-        <Text style={styles.topic}>Profile</Text>
-        <Image
-          source={require('../../Assets/pic.png')}
-          resizeMode="contain"
-          style={{
-            width: 200,
-            height: 200,
-            top: 10,
-            alignSelf: 'center',
-          }}
-        />
-        <Text style={styles.name}>Thivanka Saparamadu</Text>
-        <Text style={styles.subname}>A mantra goes here</Text>
-        <View style={styles.profilebox}>
-          <View style={styles.profileboxtopic}>
-            <Text
-              style={
-                photo
-                  ? styles.profileboxtopicsub1press
-                  : styles.profileboxtopicsub1
-              }
-              onPress={postshandler}>
-              Posts
+      <View style={{flex: 8}}>
+        <ScrollView>
+          <View style={styles.box}>
+            <Text style={styles.setting}>Setting</Text>
+            <Text style={styles.logout} onPress={logoutHandler}>
+              Logout
             </Text>
-            <Text
-              style={
-                posts
-                  ? styles.profileboxtopicsub2press
-                  : styles.profileboxtopicsub2
-              }
-              onPress={photohandler}>
-              Photos
-            </Text>
+            <Text style={styles.topic}>Profile</Text>
+            <Image
+              source={require('../../Assets/pic.png')}
+              resizeMode="contain"
+              style={{
+                width: 200,
+                height: 200,
+                top: 10,
+                alignSelf: 'center',
+              }}
+            />
+            <Text style={styles.name}>Thivanka Saparamadu</Text>
+            <Text style={styles.subname}>A mantra goes here</Text>
+            <View style={styles.profilebox}>
+              <View style={styles.profileboxtopic}>
+                <Text
+                  style={
+                    photo
+                      ? styles.profileboxtopicsub1press
+                      : styles.profileboxtopicsub1
+                  }
+                  onPress={postshandler}>
+                  Posts
+                </Text>
+                <Text
+                  style={
+                    posts
+                      ? styles.profileboxtopicsub2press
+                      : styles.profileboxtopicsub2
+                  }
+                  onPress={photohandler}>
+                  Photos
+                </Text>
+              </View>
+              {photo && (
+                <View style={styles.profileboxsub1}>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                  <Text>
+                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                  </Text>
+                </View>
+              )}
+              {posts && (
+                <View style={styles.profileboxsub1}>
+                  <Text>ssfdfsdfsdfsdf sdf sdfsdfsdfsd posts</Text>
+                </View>
+              )}
+            </View>
           </View>
-          {photo ? (
-            <ScrollView>
-              <View style={styles.profileboxsub1}>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-              </View>
-            </ScrollView>
-          ) : null}
-          {posts ? (
-            <ScrollView>
-              <View style={styles.profileboxsub1}>
-                <Text>ssfdfsdfsdfsdf sdf sdfsdfsdfsd posts</Text>
-              </View>
-            </ScrollView>
-          ) : null}
-        </View>
-      </View>
-      {/* <Button
+          {/* <Button
         title="Press Me"
         onPress={() => alert('wow You press me Proflie')}
       /> */}
+        </ScrollView>
+      </View>
+      <View style={{flex: 1.7}}></View>
     </View>
     // </SafeAreaView>
   );

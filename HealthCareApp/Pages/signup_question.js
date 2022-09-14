@@ -7,12 +7,20 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import React from 'react';
+import React,{useEffect} from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
 
 const job = ['Managment', 'Development'];
 
 const SignupQuestion = () => {
+
+  // let email = route.params.email
+
+  // useEffect(() => {
+  //   console.log(email);
+  // },[])
+
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

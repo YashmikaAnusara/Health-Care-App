@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
-const Feed = () => {
+const MyFeed = () => {
   const [active, setActive] = useState(true);
 
   const butttonOneHandler = () => {
@@ -66,64 +66,9 @@ const Feed = () => {
                 <View style={styles.QuestionContainer}>
                   <Text>Suggestion</Text>
                 </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Suggestion</Text>
-                </View>
               </View>
             ) : (
               <View style={styles.ContentBody}>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
-                <View style={styles.QuestionContainer}>
-                  <Text>Question</Text>
-                </View>
                 <View style={styles.QuestionContainer}>
                   <Text>Question</Text>
                 </View>
@@ -138,7 +83,9 @@ const Feed = () => {
           </View>
         </ScrollView>
       </View>
-      <View style={styles.Footter}></View>
+      <View style={styles.Footter}>
+        <Text style={{fontSize: 30}}>My Health Info</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -159,9 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   Footter: {
-    flex: 1.7,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'green',
   },
   ButtonWrapper: {
     flexDirection: 'row',
@@ -202,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Feed;
+export default MyFeed;
