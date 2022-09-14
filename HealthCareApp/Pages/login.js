@@ -35,13 +35,25 @@ const Login = () => {
           if (res.data.status === true) {
             if (res.data.type === 'User') {
               // alert(res.data.type);
-              navigation.navigate('Nav', {position: res.data.type});
+              navigation.navigate(
+                'Nav',
+                {position: res.data.type},
+                {email: res.data.email},
+              );
             } else if (res.data.type === 'Doctor') {
               // alert(res.data.type);
-              navigation.navigate('Nav', {position: res.data.type});
+              navigation.navigate(
+                'Nav',
+                {position: res.data.type},
+                {email: res.data.email},
+              );
             } else {
               // alert(res.data.type);
-              navigation.navigate('Nav', {position: res.data.type});
+              navigation.navigate(
+                'Nav',
+                {position: res.data.type},
+                {email: res.data.email},
+              );
             }
           } else {
             alert(res.data.message);
