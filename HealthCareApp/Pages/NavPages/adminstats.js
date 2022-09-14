@@ -1,11 +1,14 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
-export default function Feed({navigation}) {
+export default function Admin_stats({navigation}) {
   return (
     <View style={styles.container}>
-      <Text>Feed Page</Text>
-      <Button title="Press Me" onPress={() => alert('wow You press me Feed')} />
+      <Text>Admin Stats Page</Text>
+      <Button
+        title="Press Me"
+        onPress={() => alert('wow You press me Stats')}
+      />
     </View>
   );
 }

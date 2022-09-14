@@ -10,13 +10,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
-import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import axios from 'axios';
 import IP from '../ip_address';
 
 const Login = () => {
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
   const signUpHandler = () => {
@@ -24,24 +24,24 @@ const Login = () => {
   };
 
   const signInHandler = () => {
-    if (email.trim().length===0) {
-      alert("Please Enter Your Email...");
-    }
-    else if (password.trim().length===0) {
+    if (email.trim().length === 0) {
+      alert('Please Enter Your Email...');
+    } else if (password.trim().length === 0) {
       alert('Please Enter Your password...');
     } else {
       axios
         .get(`http://${IP}:8000/details/user/signin/${email}/${password}`)
-        .then(res => {
+        .then(async res => {
           if (res.data.status === true) {
-            if (res.data.type === "User") {
-              alert(res.data.type);
-            }
-            else if (res.data.type === 'Doctor') {
-              alert(res.data.type);
-            }
-            else {
-              alert(res.data.type);
+            if (res.data.type === 'User') {
+              // alert(res.data.type);
+              navigation.navigate('Nav', {position: res.data.type});
+            } else if (res.data.type === 'Doctor') {
+              // alert(res.data.type);
+              navigation.navigate('Nav', {position: res.data.type});
+            } else {
+              // alert(res.data.type);
+              navigation.navigate('Nav', {position: res.data.type});
             }
           } else {
             alert(res.data.message);
@@ -51,7 +51,7 @@ const Login = () => {
           alert(err.message);
         });
     }
- 
+
     // navigation.navigate('Nav');
   };
 
