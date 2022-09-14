@@ -5,6 +5,7 @@ import Splash from './Pages/splash';
 import Login from './Pages/login';
 import Registration from './Pages/registration';
 import SignupQuestion from './Pages/signup_question';
+import Navpage from './Pages/navpage';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +33,11 @@ const AppRoutes = () => {
           options={{headerShown: false}}
           component={SignupQuestion}
         />
-        
+        <Stack.Screen
+          name="Nav"
+          options={{headerShown: false}}
+          component={Navpage}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
