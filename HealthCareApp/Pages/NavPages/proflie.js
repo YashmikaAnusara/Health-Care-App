@@ -1,11 +1,22 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
 
-export default function Proflie({ navigation }) {
-    const logoutHandler = () => {
-      navigation.navigate('Login');
-    };
-  
+export default function Proflie({navigation}) {
+  const [photo, setphoto] = useState(false);
+  const [posts, setposts] = useState(false);
+
+  const logoutHandler = () => {
+    navigation.navigate('Login');
+  };
+
+  const photohandler = () => {
+    setphoto(true);
+    setposts(false);
+  };
+  const postshandler = () => {
+    setposts(true);
+    setphoto(false);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -28,12 +39,35 @@ export default function Proflie({ navigation }) {
         <Text style={styles.subname}>A mantra goes here</Text>
         <View style={styles.profilebox}>
           <View style={styles.profileboxtopic}>
-            <Text style={styles.profileboxtopicsub1}>Posts</Text>
-            <Text style={styles.profileboxtopicsub2}>Photos</Text>
+            <Text
+              style={
+                photo
+                  ? styles.profileboxtopicsub1press
+                  : styles.profileboxtopicsub1
+              }
+              onPress={postshandler}>
+              Posts
+            </Text>
+            <Text
+              style={
+                posts
+                  ? styles.profileboxtopicsub2press
+                  : styles.profileboxtopicsub2
+              }
+              onPress={photohandler}>
+              Photos
+            </Text>
           </View>
-          <View style={styles.profileboxsub1}>
-            <Text>Test One Two Three Four Five</Text>
-          </View>
+          {photo ? (
+            <View style={styles.profileboxsub1}>
+              <Text>Test One Two Three Four Five photo</Text>
+            </View>
+          ) : null}
+          {posts ? (
+            <View style={styles.profileboxsub1}>
+              <Text>Test One Two Three Four Five posts</Text>
+            </View>
+          ) : null}
         </View>
       </View>
       {/* <Button
@@ -118,7 +152,21 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     // backgroundColor:"red"
   },
+  profileboxtopicsub1press: {
+    fontSize: 20,
+    top: 12,
+    left: 70,
+    color: 'black',
+  },
   profileboxtopicsub2: {
+    fontSize: 20,
+    left: 260,
+    top: -15,
+    color: 'black',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+  },
+  profileboxtopicsub2press: {
     fontSize: 20,
     left: 260,
     top: -15,
