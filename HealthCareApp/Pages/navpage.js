@@ -17,7 +17,7 @@ export default function Navpage() {
         tabBarStyle: {
           //   display: 'flex',
           position: 'absolute',
-          bottom: 25,
+          bottom: 15,
           left: 20,
           right: 20,
           elevation: 0,
