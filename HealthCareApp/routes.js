@@ -6,6 +6,8 @@ import Login from './Pages/login';
 import Registration from './Pages/registration';
 import SignupQuestion from './Pages/signup_question';
 import Navpage from './Pages/navpage';
+import MyFeed from './Pages/my_feed';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -13,16 +15,23 @@ const AppRoutes = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        
         <Stack.Screen
+          name="MyFeed"
+          options={{headerShown: false}}
+          component={MyFeed}
+        />
+
+        <Stack.Screen 
           name="Splash"
           options={{headerShown: false}}
           component={Splash}
         />
-          <Stack.Screen
-            name="Login"
-            options={{headerShown: false}}
-            component={Login}
-          />
+        <Stack.Screen
+          name="Login"
+          options={{headerShown: false}}
+          component={Login}
+        />
         <Stack.Screen
           name="Registration"
           options={{headerShown: false}}

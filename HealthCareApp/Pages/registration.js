@@ -19,10 +19,10 @@ import IP from '../ip_address';
 const job = ['User', 'Doctor', 'Manager'];
 
 const Registration = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [type, setType] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [type, setType] = useState('');
+  const [password, setPassword] = useState('');
   const [permission, setPermission] = useState(true);
 
   const navigation = useNavigation();
@@ -32,24 +32,34 @@ const Registration = () => {
   };
 
   const signUpHandler = () => {
-    const data = {
-      name,
-      email,
-      type,
-      password,
-      permission,
-    };
-    axios
-      .post(`http://${IP}:8000/details/user/save`, data)
-      .then(res => {
-        if (res.data.status === true) { navigation.navigate('signupQuestion'); }
-        else {
-          alert(res.data.message);
-        }
-      })
-      .catch(err => {
-        alert(err.message);
-      });
+    if (name.trim().length === 0) {
+      alert('Please Enter Your Name...');
+    } else if (email.trim().length === 0) {
+      alert('Please Enter Your Email...');
+    } else if (password.trim().length === 0) {
+      alert('Please Enter Your Password...');
+    } else if (type.trim().length === 0) {
+      alert('Please Select a User ...');
+    } else {
+      const data = {
+        name,
+        email,
+        type,
+        password,
+        permission,
+      };
+      axios
+        .post(`http://${IP}:8000/details/user/save`, data)
+        .then(res => {
+          if (res.data.status === true) { navigation.navigate('signupQuestion'); }
+          else {
+            alert(res.data.message);
+          }
+        })
+        .catch(err => {
+          alert(err.message);
+        });
+    }
   };
 
   return (
