@@ -38,20 +38,19 @@ router.route("/user/save").post((req, res) => {
     });
 });
 
-// router.route("/messenger/start/:id").post((req, res) => {
-//   const id = req.params.id;
-//   const chat = new StudentChat({ groupID: id });
-//   chat.save((err, data) => {
-//     if (err) {
-//       return res.status(400).json({
-//         error: err,
-//       });
-//     }
-//     return res.status(200).json({
-//       data: data,
-//     });
-//   });
-// });
+router.route("/user/signin/:email/:password").get((req, res) => {
+  const email = req.params.email;
+  const password = req.params.password;
+  User.findOne({
+    $and: [{ email: { $eq: email } }, { password: { $eq: password } }],
+  }).then((data) => {
+    res.json({ status: true, type: data.type, email: data.email });
+  })
+    .catch((err)=> {
+    res.json({status:false,message:"Invalid Login Credintials!"})
+  })
+
+});
 
 // router.route("/chat/update/:groupID").put((req, res) => {
 //   let groupID = req.params.groupID;

@@ -9,19 +9,52 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
-import {useNavigation} from '@react-navigation/core';
+import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/core';
+import axios from 'axios';
+import IP from '../ip_address';
 
 const Login = () => {
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
   const signUpHandler = () => {
     navigation.navigate('Registration');
   };
 
-  const test = () => {
-    navigation.navigate('Nav');
+  const signInHandler = () => {
+    if (email.trim().length===0) {
+      alert("Please Enter Your Email...");
+    }
+    else if (password.trim().length===0) {
+      alert('Please Enter Your password...');
+    } else {
+      axios
+        .get(`http://${IP}:8000/details/user/signin/${email}/${password}`)
+        .then(res => {
+          if (res.data.status === true) {
+            if (res.data.type === "User") {
+              alert(res.data.type);
+            }
+            else if (res.data.type === 'Doctor') {
+              alert(res.data.type);
+            }
+            else {
+              alert(res.data.type);
+            }
+          } else {
+            alert(res.data.message);
+          }
+        })
+        .catch(err => {
+          alert(err.message);
+        });
+    }
+ 
+    // navigation.navigate('Nav');
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -32,7 +65,7 @@ const Login = () => {
                 fontSize: 30,
                 fontWeight: 'bold',
                 color: 'green',
-                fontFamily:"Arial",
+                fontFamily: 'Arial',
                 marginTop: 25,
               }}>
               SIGN-IN
@@ -40,11 +73,16 @@ const Login = () => {
             <Image source={require('../Assets/login.png')} />
           </View>
           <View style={styles.inputWrapper}>
-            <TextInput style={styles.input} placeholder="Emaill..." />
+            <TextInput
+              style={styles.input}
+              placeholder="Emaill..."
+              onChangeText={setEmail}
+            />
             <TextInput
               style={styles.input}
               placeholder="Password..."
               textContentType="password"
+              onChangeText={setPassword}
             />
             <TouchableOpacity style={styles.forgot}>
               <Text style={styles.forgotText}>Forgot password?</Text>
@@ -52,7 +90,7 @@ const Login = () => {
 
             <Pressable
               style={({pressed}) => (pressed ? styles.button2 : styles.button)}
-              onPress={test}>
+              onPress={signInHandler}>
               <Text style={styles.btnText}>SIGN IN</Text>
             </Pressable>
 
