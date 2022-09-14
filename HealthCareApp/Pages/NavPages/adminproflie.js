@@ -1,22 +1,19 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
 
-export default function Admin_proflie({navigation}) {
-  const [photo, setphoto] = useState(false);
-  const [posts, setposts] = useState(true);
-
+export default function Admin_proflie({navigation, route}) {
   const logoutHandler = () => {
     navigation.navigate('Login');
   };
 
-  const photohandler = () => {
-    setphoto(true);
-    setposts(false);
-  };
-  const postshandler = () => {
-    setposts(true);
-    setphoto(false);
-  };
+  const {position} = route.params;
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://${IP}:8000/details/profile/${route.params.email}`)
+  //     .then(res => {});
+  // });
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -37,6 +34,7 @@ export default function Admin_proflie({navigation}) {
         />
         <Text style={styles.name}>Yashmika Saparamadu</Text>
         <Text style={styles.subname}>A mantra goes here</Text>
+        <Text style={styles.subname}>{position} </Text>
       </View>
       {/* <Button
         title="Press Me"
