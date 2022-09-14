@@ -7,6 +7,7 @@ import {
   Pressable,
   ScrollView,
   SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/core';
@@ -27,7 +28,8 @@ const Login = () => {
               style={{
                 fontSize: 30,
                 fontWeight: 'bold',
-                color: 'black',
+                color: 'green',
+                fontFamily:"Arial",
                 marginTop: 25,
               }}>
               SIGN-IN
@@ -41,18 +43,18 @@ const Login = () => {
               placeholder="Password..."
               textContentType="password"
             />
-            <Pressable style={styles.forgot}>
+            <TouchableOpacity style={styles.forgot}>
               <Text style={styles.forgotText}>Forgot password?</Text>
-            </Pressable>
+            </TouchableOpacity>
 
             <Pressable
               style={({pressed}) => (pressed ? styles.button2 : styles.button)}>
               <Text style={styles.btnText}>SIGN IN</Text>
             </Pressable>
 
-            <Pressable style={styles.signup} onPress={signUpHandler}>
+            <TouchableOpacity style={styles.signup} onPress={signUpHandler}>
               <Text style={styles.signupText}>Sign Up</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
