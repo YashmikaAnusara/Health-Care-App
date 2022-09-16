@@ -1,13 +1,12 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Splash from './Pages/splash';
 import Login from './Pages/login';
 import Registration from './Pages/registration';
 import SignupQuestion from './Pages/signup_question';
 import Navpage from './Pages/navpage';
-// import MyFeed from './Pages/my_feed';
-
+import Addfeed from './Pages/addfeed';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,14 +39,14 @@ const AppRoutes = () => {
           options={{headerShown: false}}
           component={Navpage}
         />
-        {/* <Stack.Screen
-          name="MyFeed"
+        <Stack.Screen
+          name="AddFeed"
           options={{headerShown: false}}
-          component={MyFeed}
-        /> */}
+          component={Addfeed}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default AppRoutes;

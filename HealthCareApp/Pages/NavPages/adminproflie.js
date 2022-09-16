@@ -34,7 +34,7 @@ export default function Admin_proflie({navigation, route}) {
         />
         <Text style={styles.name}>Yashmika Saparamadu</Text>
         <Text style={styles.subname}>A mantra goes here</Text>
-        <Text style={styles.subname}>Position </Text>
+        <Text style={styles.subname}>Admin </Text>
       </View>
       {/* <Button
         title="Press Me"
