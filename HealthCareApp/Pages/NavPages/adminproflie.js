@@ -7,7 +7,7 @@ export default function Admin_proflie({navigation, route}) {
     navigation.navigate('Login');
   };
 
-  const {position} = route.params;
+  // const {position} = route.params;
 
   // useEffect(() => {
   //   axios
@@ -34,7 +34,7 @@ export default function Admin_proflie({navigation, route}) {
         />
         <Text style={styles.name}>Yashmika Saparamadu</Text>
         <Text style={styles.subname}>A mantra goes here</Text>
-        <Text style={styles.subname}>{position} </Text>
+        <Text style={styles.subname}>Position </Text>
       </View>
       {/* <Button
         title="Press Me"
