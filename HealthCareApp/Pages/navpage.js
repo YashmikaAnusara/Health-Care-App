@@ -15,7 +15,7 @@ import Admin_feed from './NavPages/adminfeed';
 
 const Tab = createBottomTabNavigator();
 
-export default function Navpage({route}) {
+export default function Navpage({route, navigation}) {
   return (
     <Tab.Navigator
       screenOptions={{

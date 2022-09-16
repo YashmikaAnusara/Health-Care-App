@@ -52,9 +52,9 @@ router.route("/user/signin/:email/:password").get((req, res) => {
 
 });
 
-router.route("/one/:groupID").get((req, res) => {
-  let groupID = req.params.groupID;
-  User.find({ groupID: groupID })
+router.route("/profile/:email").get((req, res) => {
+  let email = req.params.email;
+  User.find({ email: email })
     .then((data) => {
       res.json(data);
     })
