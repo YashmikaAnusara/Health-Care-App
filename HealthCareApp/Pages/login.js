@@ -41,22 +41,14 @@ const Login = () => {
                   'Nav',
                   {position: res.data.type},
                   {email: res.data.email},
-                )
+                ),
               );
             } else if (res.data.type === 'Doctor') {
               // alert(res.data.type);
-              navigation.navigate(
-                'Nav',
-                {position: res.data.type},
-                {email: res.data.email},
-              );
+              navigation.navigate('Nav', {position: res.data.type});
             } else {
               // alert(res.data.type);
-              navigation.navigate(
-                'Nav',
-                {position: res.data.type},
-                {email: res.data.email},
-              );
+              navigation.navigate('Nav', {position: res.data.type});
             }
           } else {
             alert(res.data.message);
