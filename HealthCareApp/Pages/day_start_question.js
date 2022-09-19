@@ -1,22 +1,15 @@
 import {
   View,
   Text,
+  Modal,
   StyleSheet,
-  Pressable,
   ScrollView,
-  SafeAreaView,
+  Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
-import IP from '../ip_address';
-import axios from 'axios';
-import { useNavigation } from '@react-navigation/core';
-import {StackActions} from '@react-navigation/native';
 
-const SignupQuestion = ({route}) => {
-  const navigation = useNavigation();
-  const {name, email, type, password, permission} = route.params;
-
+const DayStartQuestion = props => {
   const [q1a1, setQ1A1] = useState(false);
   const [q1a2, setQ1A2] = useState(false);
   const [q1a3, setQ1A3] = useState(false);
@@ -43,97 +36,26 @@ const SignupQuestion = ({route}) => {
   const [q6a2, setQ6A2] = useState(false);
   const [answer6, setQuestion6] = useState('Normal');
 
-  const [q7a1, setQ7A1] = useState(false);
-  const [q7a2, setQ7A2] = useState(false);
-  const [answer7, setQuestion7] = useState();
-
-  const continueHandler = () => {
-    const data = {
-      name,
-      email,
-      type,
-      password,
-      permission,
+    const continueHandler = () => {
+      props.setVisible(false)
     };
-    const data1 = {
-      question1: answer1,
-      question2: answer2,
-      question3: answer3,
-      question4: answer4,
-      question5: answer5,
-      question6: answer6,
-      question7: answer7,
-    };
-
-    axios
-      .post(`http://${IP}:8000/details/user/save`, data)
-      .then(res => {
-        if (res.data.status === true) {
-          axios
-            .post(
-              `http://${IP}:8000/details/user/helth/info/save/${email}`,
-              data1,
-            )
-            .then(res => {
-              if (res.data.status === true) {
-                alert(res.data.message);
-                setTimeout(() => {
-                  navigation.dispatch(StackActions.replace('Login'));
-                }, 2000);
-              } else {
-                alert(res.data.message);
-                setTimeout(() => {
-                  navigation.dispatch(StackActions.replace('Login'));
-                }, 2000);
-              }
-            })
-            .catch(err => {
-              alert(err.message);
-            });
-        } else {
-          alert(res.data.message);
-        }
-      })
-      .catch(err => {
-        alert(err.message);
-      });
-  };
-  // let email = route.params.email
-
-  // useEffect(() => {
-  //   console.log(email);
-  // },[])
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.container}>
-          <View
-            style={{
-              backgroundColor: 'white',
-              flex: 1,
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: 30,
-                fontWeight: 'bold',
-                color: 'green',
-                marginTop: 20,
-                marginBottom: 15,
-              }}>
-              HEALTH INFO
-            </Text>
+    <Modal visible={props.visible}>
+      <View style={{flex: 1, backgroundColor: 'gray'}}>
+        <ScrollView style={styles.Container}>
+          <View style={styles.Topic}>
+            <Text style={styles.TopicText}>Today Target</Text>
           </View>
-          <View style={styles.ContentBody}>
+          <View style={styles.Body}>
             <View style={styles.QuestionContainer}>
               <Text style={{color: 'rgb(119, 119, 119)'}}>
-                01. How old are you?
+                01. How many water do you think to drink?
               </Text>
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  20 - 30
+                  2 Liters
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
@@ -153,7 +75,7 @@ const SignupQuestion = ({route}) => {
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  31 - 40
+                  3 Liters
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
@@ -173,7 +95,7 @@ const SignupQuestion = ({route}) => {
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  Above 40
+                  4 Liters
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
@@ -429,92 +351,40 @@ const SignupQuestion = ({route}) => {
               </View>
             </View>
 
-            <View style={styles.QuestionContainer}>
-              <Text style={{color: 'rgb(119, 119, 119)'}}>
-                07. Do you smoke??
-              </Text>
-              <View style={styles.AnswerWrapper}>
-                <Text
-                  style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  Yes
-                </Text>
-                <View style={{flex: 1}}>
-                  <CheckBox
-                    disabled={false}
-                    value={q7a1}
-                    onValueChange={newValue => {
-                      setQ7A1(newValue),
-                        setQ7A2(!newValue),
-                        setQuestion7('Yes');
-                    }}
-                    tintColor={'green'}
-                    onCheckColor={'green'}
-                  />
-                </View>
-              </View>
-              <View style={styles.AnswerWrapper}>
-                <Text
-                  style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  No
-                </Text>
-                <View style={{flex: 1}}>
-                  <CheckBox
-                    disabled={false}
-                    value={q7a2}
-                    onValueChange={newValue => {
-                      setQ7A1(!newValue), setQ7A2(newValue), setQuestion7('No');
-                    }}
-                    tintColor={'green'}
-                    onCheckColor={'green'}
-                  />
-                </View>
-              </View>
-            </View>
-
             <Pressable
               style={({pressed}) => (pressed ? styles.button2 : styles.button)}
               onPress={continueHandler}>
-              <Text style={styles.btnText}>SIGN UP</Text>
+              <Text style={styles.btnText}>Save</Text>
             </Pressable>
           </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
+  Container: {
     flex: 1,
-    justifyContent: 'center',
-    textAlign: 'center',
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 8,
   },
-
-  button: {
-    backgroundColor: '#5DB075',
-    marginTop: 10,
+  Topic: {
+    flex: 1,
     alignItems: 'center',
-    borderRadius: 20,
-    padding: 10,
-    marginBottom: 20,
+    paddingBottom: 10,
   },
-  button2: {
-    backgroundColor: 'rgb(84, 145, 101)',
-    marginTop: 10,
-    alignItems: 'center',
-    borderRadius: 20,
-    padding: 10,
-    marginBottom: 20,
-  },
-  btnText: {
-    fontSize: 20,
+  TopicText: {
+    fontSize: 30,
     fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
+    color: 'green',
+    fontFamily: 'Arial',
+    marginTop: 20,
   },
-  selector: {
-    width: 800,
+  Body: {
+    flex: 1,
+    padding: 10,
   },
   AnswerWrapper: {
     flexDirection: 'row',
@@ -529,10 +399,28 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 5,
   },
-  ContentBody: {
-    width: '100%',
+  button: {
+    backgroundColor: '#5DB075',
+    marginTop: 10,
+    alignItems: 'center',
+    borderRadius: 20,
     padding: 10,
+    marginBottom: 10,
+  },
+  button2: {
+    backgroundColor: 'rgb(84, 145, 101)',
+    marginTop: 10,
+    alignItems: 'center',
+    borderRadius: 20,
+    padding: 10,
+    marginBottom: 10,
+  },
+  btnText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
 });
 
-export default SignupQuestion;
+export default DayStartQuestion;
