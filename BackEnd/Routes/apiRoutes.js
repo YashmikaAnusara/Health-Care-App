@@ -180,6 +180,16 @@ router.route("/feed").get((req, res) => {
       console.log(err);
     });
 });
+router.route("/emp").get((req, res) => {
+  let type = "User";
+  User.find({ type: type })
+    .then((emp) => {
+      res.json(emp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // router.route("/chat").get((req, res) => {
 //   StudentChat.find()

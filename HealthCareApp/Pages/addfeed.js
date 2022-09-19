@@ -59,7 +59,7 @@ export default function Addfeed({navigation}) {
           <TouchableOpacity on onPress={submit}>
             <Text
               style={{
-                marginTop: -30,
+                marginTop: -31,
                 marginLeft: 310,
                 fontSize: 20,
                 color: '#5DB075',

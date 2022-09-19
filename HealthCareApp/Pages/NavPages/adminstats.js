@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,18 +6,23 @@ import {
   Dimensions,
   Image,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 import {BarChart} from 'react-native-chart-kit';
+import IP from '../../ip_address';
+import axios from 'axios';
 
 export default function Admin_stats({navigation}) {
+  const [emp, setemp] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://${IP}:8000/details/emp`).then(res => {
+      setemp(res.data);
+    });
+  }, []);
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
         <ScrollView>
-          {/* <TouchableOpacity>
-            <Text style={styles.back}>Back</Text>
-          </TouchableOpacity> */}
           <Text style={styles.topic}>Employee Stats</Text>
           <View style={styles.chartcontainer}>
             <BarChart
@@ -57,282 +62,34 @@ export default function Admin_stats({navigation}) {
             This Month Stats
           </Text>
           <View style={styles.contentbody}>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
+            {emp.map((data, index) => (
+              <View
+                key={index}
                 style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            {/* ======================================================= */}
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(38, 38, 38, .2)',
-              }}>
-              <Image
-                source={require('../../Assets/dot.png')}
-                resizeMode="contain"
-                style={{
-                  marginLeft: 10,
-                  width: 12,
-                  height: 12,
-                  top: 10,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                Employee 01
-              </Text>
-              <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                Statistic
-              </Text>
-            </View>
+                  marginTop: 10,
+                  paddingBottom: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: 'rgba(38, 38, 38, .2)',
+                }}>
+                <Image
+                  source={require('../../Assets/dot.png')}
+                  resizeMode="contain"
+                  style={{
+                    marginLeft: 10,
+                    width: 12,
+                    height: 12,
+                    top: 10,
+                    // alignSelf: 'center',
+                  }}
+                />
+                <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
+                  {data.name}
+                </Text>
+                <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
+                  Statistic
+                </Text>
+              </View>
+            ))}
           </View>
         </ScrollView>
       </View>
