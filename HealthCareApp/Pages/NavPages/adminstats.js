@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     alignSelf: 'center',
     color: '#5DB075',
+    fontWeight: 'bold',
   },
   back: {
     marginTop: 30,

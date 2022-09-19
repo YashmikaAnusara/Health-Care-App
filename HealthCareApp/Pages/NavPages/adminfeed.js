@@ -22,7 +22,7 @@ export default function Admin_feed({navigation}) {
     axios.get(`http://${IP}:8000/details/feed`).then(res => {
       setfeed(res.data);
     });
-  }, []);
+  }, [feed]);
 
   const feeds = feed.filter(data => {
     return data.feedtopic.toLowerCase().includes(search.toLowerCase());
@@ -37,6 +37,7 @@ export default function Admin_feed({navigation}) {
               fontSize: 30,
               marginTop: 20,
               color: '#5DB075',
+              fontWeight: 'bold',
             }}>
             Feed
           </Text>
