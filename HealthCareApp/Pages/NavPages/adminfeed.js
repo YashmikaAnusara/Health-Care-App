@@ -8,15 +8,44 @@ import {
   TextInput,
   ScrollView,
   Image,
+  Alert,
 } from 'react-native';
 import IP from '../../ip_address';
 
 export default function Admin_feed({navigation}) {
   const [feed, setfeed] = useState([]);
   const [search, setsearch] = useState('');
+
   const addfeed = () => {
     navigation.navigate('AddFeed');
   };
+
+  const deletehandler = id =>
+    Alert.alert(
+      '',
+      'Do you want to delete this feed ?',
+      [
+        {
+          text: 'Cancel',
+          // onPress: () => console.log(''),
+        },
+
+        {
+          text: 'Delete',
+          onPress: () => {
+            axios
+              .delete(`http://${IP}:8000/details/feed/${id}`)
+              .then(res => {
+                console.log(`This ${id} deleted`);
+              })
+              .catch(err => {
+                alert(err);
+              });
+          },
+        },
+      ],
+      {cancelable: false},
+    );
 
   useEffect(() => {
     axios.get(`http://${IP}:8000/details/feed`).then(res => {
@@ -67,38 +96,39 @@ export default function Admin_feed({navigation}) {
           />
           {feeds.map((data, index) => (
             <View style={{flex: 2, marginTop: 10}} key={index}>
-              <View style={{paddingRight: 10, paddingLeft: 10}}>
-                <Image
-                  source={require('../../Assets/feed_i.png')}
-                  resizeMode="contain"
-                  style={{
-                    marginTop: 10,
-                    marginLeft: 10,
-                    width: 25,
-                    height: 25,
-                    top: 22,
-                    // alignSelf: 'center',
-                  }}
-                />
-                <Text
-                  style={{
-                    marginLeft: 50,
-                    fontWeight: 'bold',
-                    marginTop: -15,
-                    fontSize: 18,
-                  }}>
-                  {data.feedtopic}
-                </Text>
-                <Text
-                  style={{
-                    marginLeft: 50,
-                    marginTop: 0,
-                    fontSize: 18,
-                  }}>
-                  {data.feedbody}
-                </Text>
-              </View>
-
+              <TouchableOpacity onPress={() => deletehandler(data._id)}>
+                <View style={{paddingRight: 10, paddingLeft: 10}}>
+                  <Image
+                    source={require('../../Assets/feed_i.png')}
+                    resizeMode="contain"
+                    style={{
+                      marginTop: 10,
+                      marginLeft: 10,
+                      width: 25,
+                      height: 25,
+                      top: 22,
+                      // alignSelf: 'center',
+                    }}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 50,
+                      fontWeight: 'bold',
+                      marginTop: -15,
+                      fontSize: 18,
+                    }}>
+                    {data.feedtopic}
+                  </Text>
+                  <Text
+                    style={{
+                      marginLeft: 50,
+                      marginTop: 0,
+                      fontSize: 18,
+                    }}>
+                    {data.feedbody}
+                  </Text>
+                </View>
+              </TouchableOpacity>
               {/* ============================================= */}
             </View>
           ))}

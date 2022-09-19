@@ -191,6 +191,16 @@ router.route("/emp").get((req, res) => {
     });
 });
 
+router.route("/feed/:_id").delete((req, res) => {
+  let _id = req.params._id;
+  AdminFeed.findOneAndDelete({ _id: _id })
+    .then((emp) => {
+      res.json(emp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // router.route("/chat").get((req, res) => {
 //   StudentChat.find()
 //     .then((data) => {
