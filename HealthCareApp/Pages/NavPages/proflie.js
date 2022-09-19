@@ -7,13 +7,17 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-
+import {StackActions} from '@react-navigation/native';
 export default function Proflie({navigation}) {
   const [photo, setphoto] = useState(false);
   const [posts, setposts] = useState(true);
 
   const logoutHandler = () => {
-    navigation.navigate('Login');
+    navigation.dispatch(
+      StackActions.replace(
+        'Login' 
+      )
+    );
   };
 
   const photohandler = () => {
@@ -46,7 +50,7 @@ export default function Proflie({navigation}) {
                 alignSelf: 'center',
               }}
             />
-            <Text style={styles.name}>Thivanka Saparamadu</Text>
+            <Text style={styles.name}>Andrea Carol</Text>
             <Text style={styles.subname}>A mantra goes here</Text>
             <View style={styles.profilebox}>
               <View style={styles.profileboxtopic}>
@@ -107,7 +111,7 @@ export default function Proflie({navigation}) {
               )}
               {posts && (
                 <View style={styles.profileboxsub1}>
-                  <Text>ssfdfsdfsdfsdf sdf sdfsdfsdfsd posts</Text>
+                  <Text>Sample Text</Text>
                 </View>
               )}
             </View>

@@ -13,6 +13,7 @@ import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import axios from 'axios';
 import IP from '../ip_address';
+import {StackActions} from '@react-navigation/native';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -35,10 +36,12 @@ const Login = () => {
           if (res.data.status === true) {
             if (res.data.type === 'User') {
               // alert(res.data.type);
-              navigation.navigate(
-                'Nav',
-                {position: res.data.type},
-                {email: res.data.email},
+              navigation.dispatch(
+                StackActions.replace(
+                  'Nav',
+                  {position: res.data.type},
+                  {email: res.data.email},
+                )
               );
             } else if (res.data.type === 'Doctor') {
               // alert(res.data.type);
@@ -88,12 +91,14 @@ const Login = () => {
             <TextInput
               style={styles.input}
               placeholder="Emaill..."
+              placeholderTextColor="rgb(119, 119, 119)"
               onChangeText={setEmail}
             />
             <TextInput
               style={styles.input}
               placeholder="Password..."
               textContentType="password"
+              placeholderTextColor="rgb(119, 119, 119)"
               onChangeText={setPassword}
             />
             <TouchableOpacity style={styles.forgot}>
@@ -141,6 +146,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 8,
     height: 47,
+    color: 'rgb(119, 119, 119)',
   },
 
   button: {

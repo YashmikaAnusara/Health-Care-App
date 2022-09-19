@@ -15,7 +15,10 @@ import Admin_feed from './NavPages/adminfeed';
 
 const Tab = createBottomTabNavigator();
 
-export default function Navpage({route}) {
+export default function Navpage({ route }) {
+  const user = route.params.position;
+  // route.params.position;
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -33,7 +36,7 @@ export default function Navpage({route}) {
           ...styles.shadow,
         },
       }}>
-      {route.params.position === 'User' ? (
+      {user === 'User' ? (
         <Tab.Screen
           name="Feed"
           component={Feed}
@@ -102,7 +105,7 @@ export default function Navpage({route}) {
           }}
         />
       )}
-      {route.params.position === 'User' ? (
+      {user === 'User' ? (
         <Tab.Screen
           name="Stats"
           component={Stats}
@@ -171,7 +174,7 @@ export default function Navpage({route}) {
           }}
         />
       )}
-      {route.params.position === 'User' ? (
+      {user === 'User' ? (
         <Tab.Screen
           name="Pins"
           component={Pins}
@@ -206,7 +209,7 @@ export default function Navpage({route}) {
           }}
         />
       ) : null}
-      {route.params.position === 'User' ? (
+      {user === 'User' ? (
         <Tab.Screen
           name="Profile"
           component={Proflie}

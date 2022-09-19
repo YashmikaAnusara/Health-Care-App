@@ -13,8 +13,7 @@ import {
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import SelectDropdown from 'react-native-select-dropdown';
-import axios from 'axios';
-import IP from '../ip_address';
+ 
 
 const job = ['User', 'Doctor', 'Manager'];
 
@@ -41,25 +40,16 @@ const Registration = () => {
     } else if (type.trim().length === 0) {
       alert('Please Select a User ...');
     } else {
-      const data = {
-        name,
-        email,
-        type,
-        password,
-        permission,
-      };
-      axios
-        .post(`http://${IP}:8000/details/user/save`, data)
-        .then(res => {
-          if (res.data.status === true) { navigation.navigate('signupQuestion'); }
-          else {
-            alert(res.data.message);
-          }
-        })
-        .catch(err => {
-          alert(err.message);
-        });
+       
+      navigation.navigate('signupQuestion', {
+        name: name,
+        email: email,
+        type: type,
+        password: password,
+        permission: permission
+      });
     }
+          
   };
 
   return (
@@ -119,16 +109,19 @@ const Registration = () => {
             <TextInput
               style={styles.input}
               placeholder="Name..."
+              placeholderTextColor="rgb(119, 119, 119)"
               onChangeText={setName}
             />
             <TextInput
               style={styles.input}
               placeholder="Email..."
+              placeholderTextColor="rgb(119, 119, 119)"
               onChangeText={setEmail}
             />
             <TextInput
               style={styles.input}
               placeholder="Password..."
+              placeholderTextColor="rgb(119, 119, 119)"
               textContentType="password"
               onChangeText={setPassword}
             />
@@ -139,6 +132,7 @@ const Registration = () => {
                   fontSize: 18,
                   marginRight: 20,
                   marginLeft: 10,
+                  color: 'rgb(119, 119, 119)',
                 }}>
                 User Type:
               </Text>
@@ -165,7 +159,7 @@ const Registration = () => {
             <Pressable
               style={({pressed}) => (pressed ? styles.button2 : styles.button)}
               onPress={signUpHandler}>
-              <Text style={styles.btnText}>SIGN UP</Text>
+              <Text style={styles.btnText}>CONTINUE</Text>
             </Pressable>
           </View>
         </View>
@@ -204,6 +198,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 12,
     height: 47,
+    color: 'rgb(119, 119, 119)'
   },
   button: {
     backgroundColor: '#5DB075',
