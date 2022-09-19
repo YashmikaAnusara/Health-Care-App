@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,12 +9,24 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import IP from '../../ip_address';
 
 export default function Admin_feed({navigation}) {
+  const [feed, setfeed] = useState([]);
+   const [search, setsearch] = useState('');
   const addfeed = () => {
     navigation.navigate('AddFeed');
   };
 
+  useEffect(() => {
+    axios.get(`http://${IP}:8000/details/feed`).then(res => {
+      setfeed(res.data);
+    });
+  });
+
+    const feeds = feed.filter(data => {
+      return data.feedtopic.toLowerCase().includes(search.toLowerCase());
+    });
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
@@ -47,45 +60,47 @@ export default function Admin_feed({navigation}) {
               padding: 10,
               borderRadius: 20,
             }}
-            // onChangeText={onChangeNumber}
-            // value={number}
+            onChangeText={setsearch}
             placeholder="Search"
             keyboardType="default"
           />
-          <View style={{flex: 2, marginTop: 10}}>
-            <View style={{paddingRight: 10, paddingLeft: 10}}>
-              <Image
-                source={require('../../Assets/feed_i.png')}
-                resizeMode="contain"
-                style={{
-                  marginTop: 10,
-                  marginLeft: 10,
-                  width: 25,
-                  height: 25,
-                  top: 22,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text
-                style={{
-                  marginLeft: 50,
-                  fontWeight: 'bold',
-                  marginTop: -15,
-                  fontSize: 18,
-                }}>
-                Test
-              </Text>
-              <Text
-                style={{
-                  marginLeft: 50,
-                  marginTop: 0,
-                  fontSize: 18,
-                }}>
-                dsfsdfdsfdsfdsfsdfdsfsd df sd fsdfsd fhsd fsd fsd f
-              </Text>
+          {feeds.map((data, index) => (
+            <View style={{flex: 2, marginTop: 10}} key={index}>
+              <View style={{paddingRight: 10, paddingLeft: 10}}>
+                <Image
+                  source={require('../../Assets/feed_i.png')}
+                  resizeMode="contain"
+                  style={{
+                    marginTop: 10,
+                    marginLeft: 10,
+                    width: 25,
+                    height: 25,
+                    top: 22,
+                    // alignSelf: 'center',
+                  }}
+                />
+                <Text
+                  style={{
+                    marginLeft: 50,
+                    fontWeight: 'bold',
+                    marginTop: -15,
+                    fontSize: 18,
+                  }}>
+                  {data.feedtopic}
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: 50,
+                    marginTop: 0,
+                    fontSize: 18,
+                  }}>
+                  {data.feedbody}
+                </Text>
+              </View>
+
+              {/* ============================================= */}
             </View>
-            {/* ============================================= */}
-          </View>
+          ))}
         </ScrollView>
       </View>
       <View style={{flex: 1.4}}></View>

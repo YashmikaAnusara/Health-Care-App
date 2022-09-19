@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../Models/user");
+const AdminFeed = require("../Models/adminfeed");
 
 router.route("/user/save").post((req, res) => {
   const { name, email, password, type, permission } = req.body;
@@ -43,13 +44,13 @@ router.route("/user/signin/:email/:password").get((req, res) => {
   const password = req.params.password;
   User.findOne({
     $and: [{ email: { $eq: email } }, { password: { $eq: password } }],
-  }).then((data) => {
-    res.json({ status: true, type: data.type, email: data.email });
   })
-    .catch((err)=> {
-    res.json({status:false,message:"Invalid Login Credintials!"})
-  })
-
+    .then((data) => {
+      res.json({ status: true, type: data.type, email: data.email });
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Invalid Login Credintials!" });
+    });
 });
 
 router.route("/profile/:email").get((req, res) => {
@@ -66,7 +67,7 @@ router.route("/profile/:email").get((req, res) => {
 router.route("/user/remind/update/:email").post((req, res) => {
   let email = req.params.email;
   const { r1, r2, r3, r4, r5, r6, r7, r8 } = req.body;
-  
+
   User.findOneAndUpdate(
     { email: email },
     {
@@ -79,20 +80,18 @@ router.route("/user/remind/update/:email").post((req, res) => {
           { r5: r5 },
           { r6: r6 },
           { r7: r7 },
-          { r8: r8 }
+          { r8: r8 },
         ],
       },
     }
   )
     .then((data) => {
-      res.json({status:true,message:"Updated!"});
+      res.json({ status: true, message: "Updated!" });
     })
     .catch((err) => {
-       res.json({ status: false , message: "Try again!" });
+      res.json({ status: false, message: "Try again!" });
     });
 });
-
-
 
 router.route("/rimind/:email").get((req, res) => {
   let email = req.params.email;
@@ -150,6 +149,35 @@ router.route("/user/helth/info/save/:email").post((req, res) => {
     })
     .catch((err) => {
       res.json({ status: false, message: "Try again!" });
+    });
+});
+
+router.route("/addfeed").post((req, res) => {
+  const feedtopic = req.body.feedtopic;
+  const feedbody = req.body.feedbody;
+
+  const newfeed = new AdminFeed({
+    feedtopic: feedtopic,
+    feedbody: feedbody,
+  });
+
+  newfeed
+    .save()
+    .then(() => {
+      res.json("Feed Added");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.route("/feed").get((req, res) => {
+  AdminFeed.find()
+    .then((feed) => {
+      res.json(feed);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 

@@ -5,11 +5,29 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
+import IP from '../ip_address';
 
 export default function Addfeed({navigation}) {
+  const [feedtopic, setfeedtopic] = useState('');
+  const [feedbody, setfeedbody] = useState('');
+
   const back = () => {
     navigation.navigate('Admin_feed');
+  };
+
+  const submit = () => {
+    const feed = {feedtopic, feedbody};
+    if (feedtopic === '') {
+      alert('Enter the Feed Topic');
+    } else if (feedbody === '') {
+      alert('Ente the Feed Body');
+    } else {
+      axios.post(`http://${IP}:8000/details/addfeed`, feed).then(res => {
+        navigation.navigate('Admin_feed');
+      });
+    }
   };
 
   return (
@@ -38,15 +56,17 @@ export default function Addfeed({navigation}) {
               Add Feed
             </Text>
           </TouchableOpacity>
-          <Text
-            style={{
-              marginTop: -30,
-              marginLeft: 310,
-              fontSize: 20,
-              color: '#5DB075',
-            }}>
-            Submit
-          </Text>
+          <TouchableOpacity on onPress={submit}>
+            <Text
+              style={{
+                marginTop: -30,
+                marginLeft: 310,
+                fontSize: 20,
+                color: '#5DB075',
+              }}>
+              Submit
+            </Text>
+          </TouchableOpacity>
           <View style={{marginTop: 15}}>
             <Text style={{marginLeft: 20, marginTop: 10}}>
               Enter the Feed Topic
@@ -60,8 +80,7 @@ export default function Addfeed({navigation}) {
                 padding: 10,
                 borderRadius: 20,
               }}
-              // onChangeText={onChangeNumber}
-              // value={number}
+              onChangeText={setfeedtopic}
               placeholder="Enter the Feed Topic"
               keyboardType="default"
             />
@@ -77,8 +96,7 @@ export default function Addfeed({navigation}) {
                 padding: 10,
                 borderRadius: 20,
               }}
-              // onChangeText={onChangeNumber}
-              // value={number}
+              onChangeText={setfeedbody}
               placeholder="Enter the Feed Body"
               keyboardType="default"
               multiline={true}
