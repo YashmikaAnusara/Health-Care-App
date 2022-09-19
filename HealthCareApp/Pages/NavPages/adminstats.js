@@ -18,7 +18,7 @@ export default function Admin_stats({navigation}) {
     axios.get(`http://${IP}:8000/details/emp`).then(res => {
       setemp(res.data);
     });
-  }, []);
+  }, [emp]);
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>

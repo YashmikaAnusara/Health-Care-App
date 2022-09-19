@@ -52,6 +52,7 @@ export default function Addfeed({navigation}) {
                 fontSize: 30,
                 alignSelf: 'center',
                 color: '#5DB075',
+                fontWeight: 'bold',
               }}>
               Add Feed
             </Text>

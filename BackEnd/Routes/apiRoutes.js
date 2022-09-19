@@ -201,6 +201,17 @@ router.route("/feed/:_id").delete((req, res) => {
       console.log(err);
     });
 });
+
+router.route("/chart").get((req, res) => {
+  let type = "User";
+  User.find()
+    .then((emp) => {
+      res.json(emp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // router.route("/chat").get((req, res) => {
 //   StudentChat.find()
 //     .then((data) => {
