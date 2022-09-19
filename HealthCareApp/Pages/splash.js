@@ -1,12 +1,15 @@
 import React,{useEffect} from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
+import {StackActions} from '@react-navigation/native';
 
 const Splash = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.dispatch(
+        StackActions.replace('Login')
+      );
     },3000)
   },[])
   return (

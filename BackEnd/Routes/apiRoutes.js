@@ -63,31 +63,95 @@ router.route("/profile/:email").get((req, res) => {
     });
 });
 
-// router.route("/chat/update/:groupID").put((req, res) => {
-//   let groupID = req.params.groupID;
-//   const messages = req.body;
-//   StudentChat.findOneAndUpdate(
-//     { groupID: groupID },
-//     { $push: { messages: messages } }
-//   )
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
+router.route("/user/remind/update/:email").post((req, res) => {
+  let email = req.params.email;
+  const { r1, r2, r3, r4, r5, r6, r7, r8 } = req.body;
+  
+  User.findOneAndUpdate(
+    { email: email },
+    {
+      $set: {
+        reminder: [
+          { r1: r1 },
+          { r2: r2 },
+          { r3: r3 },
+          { r4: r4 },
+          { r5: r5 },
+          { r6: r6 },
+          { r7: r7 },
+          { r8: r8 }
+        ],
+      },
+    }
+  )
+    .then((data) => {
+      res.json({status:true,message:"Updated!"});
+    })
+    .catch((err) => {
+       res.json({ status: false , message: "Try again!" });
+    });
+});
 
-// router.route("/one/:groupID").get((req, res) => {
-//   let groupID = req.params.groupID;
-//   StudentChat.find({ groupID: groupID })
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
+
+
+router.route("/rimind/:email").get((req, res) => {
+  let email = req.params.email;
+  User.findOne({ email: email })
+    .then((data) => {
+      res.json({
+        r1: data.reminder[0].r1,
+        r2: data.reminder[1].r2,
+        r3: data.reminder[2].r3,
+        r4: data.reminder[3].r4,
+        r5: data.reminder[4].r5,
+        r6: data.reminder[5].r6,
+        r7: data.reminder[6].r7,
+        r8: data.reminder[7].r8,
+      });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+router.route("/user/helth/info/save/:email").post((req, res) => {
+  let email = req.params.email;
+  const {
+    question1,
+    question2,
+    question3,
+    question4,
+    question5,
+    question6,
+    question7,
+  } = req.body;
+
+  User.findOneAndUpdate(
+    { email: email },
+    {
+      $push: {
+        healthInfo: [
+          { question1: question1 },
+          { question2: question2 },
+          { question3: question3 },
+          { question4: question4 },
+          { question5: question5 },
+          { question6: question6 },
+          { question7: question7 },
+        ],
+      },
+    }
+  )
+    .then((data) => {
+      res.json({
+        status: true,
+        message: "Congregation! Your sign-up is successful.",
+      });
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Try again!" });
+    });
+});
 
 // router.route("/chat").get((req, res) => {
 //   StudentChat.find()

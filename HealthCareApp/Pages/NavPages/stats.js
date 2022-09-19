@@ -25,7 +25,42 @@ export default function Stats() {
             </Text>
           </View>
           <View style={styles.ItemBody}>
-             
+            <View style={{padding: 20}}>
+              <Text style={{fontSize: 25, fontWeight: '600', color: 'black'}}>
+                Daily Measures
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '500',
+                  marginTop: 8,
+                  color: 'rgb(119, 119, 119)',
+                }}>
+                The value each share was expected to gain vs. the value that
+                each share actually gained.
+              </Text>
+            </View>
+            <View
+              style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                color: 'rgb(119, 119, 119)',
+              }}>
+              <Text>Graph 01</Text>
+            </View>
+            <View style={{padding: 20}}>
+              <Text style={{fontSize: 25, fontWeight: '600', color: 'black'}}>
+                Stats
+              </Text>
+            </View>
+            <View
+              style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                 
+              }}>
+              <Text>Graph 02</Text>
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -46,8 +81,7 @@ const styles = StyleSheet.create({
   },
   ItemHeader: {alignItems: 'center', justifyContent: 'center'},
   ItemBody: {
-    alignItems: 'center',
-    justifyContent: 'center',
+     
   },
 
   Footter: {
