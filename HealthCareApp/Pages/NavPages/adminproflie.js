@@ -1,6 +1,13 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 export default function Admin_proflie({navigation, route}) {
   const logoutHandler = () => {
@@ -37,12 +44,45 @@ export default function Admin_proflie({navigation, route}) {
             <Text style={styles.name}>Yashmika Saparamadu</Text>
             <Text style={styles.subname}>A mantra goes here</Text>
             <Text style={styles.subname}>Admin </Text>
+
             <View
               style={{
-                backgroundColor: 'red',
+                // backgroundColor: 'red',
+                marginTop: 50,
                 width: '100%',
+                paddingLeft: 20,
+                paddingRight: 20,
               }}>
-              <Text></Text>
+              <TouchableOpacity>
+                <View
+                  style={{
+                    borderRadius: 25,
+                    borderWidth: 2,
+                    width: '100%',
+                    height: 120,
+                    backgroundColor: '#3C3C43',
+                  }}>
+                  <Image
+                    source={require('../../Assets/doctor.png')}
+                    resizeMode="contain"
+                    style={{
+                      width: 100,
+                      height: 100,
+                      top: 2,
+                      left: 2,
+                    }}
+                  />
+                  <Text
+                    style={{
+                      color: '#ffffff',
+                      left: 110,
+                      marginTop: -60,
+                      fontSize: 25,
+                    }}>
+                    Doctor Registration
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -61,7 +101,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '100%',
-    height: '55%',
+    height: '40%',
     backgroundColor: '#5DB075',
     display: 'flex',
     // alignItems: 'center',

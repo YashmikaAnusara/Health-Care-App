@@ -13,6 +13,7 @@ import axios from 'axios';
 
 export default function Admin_stats({navigation}) {
   const [emp, setemp] = useState([]);
+  const [empnull, setempnull] = useState(false);
   const [chart, setchart] = useState([]);
 
   const requestmonth = new Date();
@@ -37,6 +38,9 @@ export default function Admin_stats({navigation}) {
   useEffect(() => {
     axios.get(`http://${IP}:8000/details/emp/${months[month]}`).then(res => {
       setemp(res.data);
+      if (emp === '') {
+        setempnull(true);
+      }
     });
   }, [emp]);
   return (
@@ -78,38 +82,64 @@ export default function Admin_stats({navigation}) {
               fontSize: 25,
               marginTop: 10,
               fontWeight: 'bold',
+              textDecorationLine: 'underline',
             }}>
             This Month Stats
           </Text>
           <View style={styles.contentbody}>
-            {emp.map((data, index) => (
-              <View
-                key={index}
-                style={{
-                  marginTop: 10,
-                  paddingBottom: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: 'rgba(38, 38, 38, .2)',
-                }}>
-                <Image
-                  source={require('../../Assets/dot.png')}
-                  resizeMode="contain"
+            {empnull ? (
+              <View style={{marginTop: 40}}>
+                <Text
                   style={{
-                    marginLeft: 10,
-                    width: 12,
-                    height: 12,
-                    top: 10,
-                    // alignSelf: 'center',
-                  }}
-                />
-                <Text style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                  {data.name}
+                    fontSize: 22,
+                    alignSelf: 'center',
+                    fontWeight: 'bold',
+                  }}>
+                  oops...!
                 </Text>
-                <Text style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                  Statistic
+                <Text
+                  style={{
+                    fontSize: 22,
+                    fontWeight: 'bold',
+                    alignSelf: 'center',
+                  }}>
+                  no data found
                 </Text>
               </View>
-            ))}
+            ) : (
+              <>
+                {emp.map((data, index) => (
+                  <View
+                    key={index}
+                    style={{
+                      marginTop: 10,
+                      paddingBottom: 10,
+                      borderBottomWidth: 1,
+                      borderBottomColor: 'rgba(38, 38, 38, .2)',
+                    }}>
+                    <Image
+                      source={require('../../Assets/dot.png')}
+                      resizeMode="contain"
+                      style={{
+                        marginLeft: 10,
+                        width: 12,
+                        height: 12,
+                        top: 10,
+                        // alignSelf: 'center',
+                      }}
+                    />
+                    <Text
+                      style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
+                      {data.name}
+                    </Text>
+                    <Text
+                      style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
+                      Statistic
+                    </Text>
+                  </View>
+                ))}
+              </>
+            )}
           </View>
         </ScrollView>
       </View>
