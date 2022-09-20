@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../Models/user");
+const DayStart = require("../Models/dayStart");
 
 router.route("/user/save").post((req, res) => {
   const { name, email, password, type, permission } = req.body;
@@ -43,13 +44,13 @@ router.route("/user/signin/:email/:password").get((req, res) => {
   const password = req.params.password;
   User.findOne({
     $and: [{ email: { $eq: email } }, { password: { $eq: password } }],
-  }).then((data) => {
-    res.json({ status: true, type: data.type, email: data.email });
   })
-    .catch((err)=> {
-    res.json({status:false,message:"Invalid Login Credintials!"})
-  })
-
+    .then((data) => {
+      res.json({ status: true, type: data.type, email: data.email });
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Invalid Login Credintials!" });
+    });
 });
 
 router.route("/profile/:email").get((req, res) => {
@@ -66,7 +67,7 @@ router.route("/profile/:email").get((req, res) => {
 router.route("/user/remind/update/:email").post((req, res) => {
   let email = req.params.email;
   const { r1, r2, r3, r4, r5, r6, r7, r8 } = req.body;
-  
+
   User.findOneAndUpdate(
     { email: email },
     {
@@ -79,20 +80,18 @@ router.route("/user/remind/update/:email").post((req, res) => {
           { r5: r5 },
           { r6: r6 },
           { r7: r7 },
-          { r8: r8 }
+          { r8: r8 },
         ],
       },
     }
   )
     .then((data) => {
-      res.json({status:true,message:"Updated!"});
+      res.json({ status: true, message: "Updated!" });
     })
     .catch((err) => {
-       res.json({ status: false , message: "Try again!" });
+      res.json({ status: false, message: "Try again!" });
     });
 });
-
-
 
 router.route("/rimind/:email").get((req, res) => {
   let email = req.params.email;
@@ -150,6 +149,162 @@ router.route("/user/helth/info/save/:email").post((req, res) => {
     })
     .catch((err) => {
       res.json({ status: false, message: "Try again!" });
+    });
+});
+
+router.route("/day-start/targert/find/:email").get((req, res) => {
+  const email = req.params.email;
+
+  let dateObj = new Date();
+  let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  let year = dateObj.getFullYear();
+  let day = String(dateObj.getDate()).padStart(2, "0");
+  let today = year + "-" + month + "-" + day;
+
+  DayStart.findOne({ email: { $eq: email } })
+    .then((data) => {
+      if (data === null) {
+        res.json({ status: true });
+      } else {
+        const check = () => {
+          for (let i = 0; i < data.todayPlan.length; i++) {
+            if (data.todayPlan[i].date === today) {
+              return { status: false, state: data.todayPlan[i].state };
+            }
+          }
+          return { status: true};
+        }
+
+        let statee =check()
+        if (statee.status === true) {
+          res.json(statee);
+        } else {
+          res.json(statee);
+        }
+      }
+    })
+    .catch((err) => {
+      res.json({
+        status: false,
+        message: "Something went wrong!",
+      });
+    });
+});
+
+router.route("/day-start/targert/save").post((req, res) => {
+  const {
+    email,
+    question1,
+    question2,
+    question3,
+    question4,
+    question5,
+    question6,
+  } = req.body;
+
+    let dateObj = new Date();
+  let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  let year = dateObj.getFullYear();
+  let day = String(dateObj.getDate()).padStart(2, "0");
+  let todayDate = year + "-" + month + "-" + day;
+
+  var todayTime = new Date();
+  var time = todayTime.getHours() + ":" + todayTime.getMinutes();
+
+  DayStart.findOne({ email: email })
+    .then((data) => {
+      if (data === null) {
+        const data = new DayStart({
+          email: email,
+        });
+        data.save((error, data) => {
+          if (error) {
+            return res.status(400).json({
+              status: false,
+              err: error,
+            });
+          } else {
+            DayStart.findOneAndUpdate(
+              { email: email },
+              {
+                $push: {
+                  todayPlan: [
+                    {
+                      date: todayDate,
+                      time: time,
+                      question1: question1,
+                      question2: question2,
+                      question3: question3,
+                      question4: question4,
+                      question5: question5,
+                      question6: question6,
+                      state: "ongoing",
+                    },
+                  ],
+                },
+              }
+            )
+              .then((data) => {
+                res.json({
+                  status: true,
+                });
+              })
+              .catch((err) => {
+                res.json({ status: false, message: "Something went wrong!" });
+              });
+          }
+        });
+      } else {
+        DayStart.findOneAndUpdate(
+          { email: email },
+          {
+            $push: {
+              todayPlan: [
+                {
+                  date: todayDate,
+                  time: time,
+                  question1: question1,
+                  question2: question2,
+                  question3: question3,
+                  question4: question4,
+                  question5: question5,
+                  question6: question6,
+                  state: "ongoing",
+                },
+              ],
+            },
+          }
+        )
+          .then((data) => {
+            res.json({
+              status: true,
+            });
+          })
+          .catch((err) => {
+            res.json({ status: false, message: "Something went wrong!" });
+          });
+      }
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Something went wrong!" });
+    });
+});
+
+router.route("/day-end/target/update/:email").post((req, res) => {
+  let email = req.params.email;
+  const { id,question1,question2,question3,question4,question5,question6 } = req.body;
+
+  DayStart.updateOne(
+    { email: email, "todayPlan._id": id },
+    { $set: { "todayPlan.$.state": "finished" } }
+  )
+    .then((data) => {
+      res.json({ status: true, message: "Updated!" });
+      // res.json(data);
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Try again!" });
+      // res.send(err);
     });
 });
 

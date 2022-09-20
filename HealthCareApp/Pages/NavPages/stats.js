@@ -5,9 +5,34 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+  Dimensions,
 } from 'react-native';
+import {
+ 
+  BarChart,
+  
+} from 'react-native-chart-kit';
 
 export default function Stats() {
+  const data = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+      },
+    ],
+  };
+
+  const chartConfig = {
+    backgroundGradientFrom: 'gray',
+    backgroundGradientTo: 'gray',
+    color: (opacity = 255) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 3, // optional, default 3
+    useShadowColorFromDataset: false, // optional
+    decimalPlaces:0
+    
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.Body}>
@@ -42,12 +67,21 @@ export default function Stats() {
             </View>
             <View
               style={{
-                paddingLeft: 20,
-                paddingRight: 20,
-                color: 'rgb(119, 119, 119)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
               }}>
-              <Text>Graph 01</Text>
+              <BarChart
+                data={data}
+                width={Dimensions.get('window').width}
+                height={220}
+                yAxisLabel="$"
+                chartConfig={chartConfig}
+                verticalLabelRotation={0}
+              />
             </View>
+
             <View style={{padding: 20}}>
               <Text style={{fontSize: 25, fontWeight: '600', color: 'black'}}>
                 Stats
@@ -57,7 +91,6 @@ export default function Stats() {
               style={{
                 paddingLeft: 20,
                 paddingRight: 20,
-                 
               }}>
               <Text>Graph 02</Text>
             </View>
@@ -80,9 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   ItemHeader: {alignItems: 'center', justifyContent: 'center'},
-  ItemBody: {
-     
-  },
+  ItemBody: {},
 
   Footter: {
     flex: 1.7,

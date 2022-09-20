@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,17 @@ import {
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import DayStartQuestion from '../day_start_question';
+import IP from '../../ip_address';
+import axios from 'axios';
+import DayEndQuestion from '../day_end_question';
 
 const Feed = () => {
   const [active, setActive] = useState(true);
+  const email = 'test2';
+
+  var todayTime = new Date();
+  var time = todayTime.getHours() + ':' + todayTime.getMinutes();
+
   const butttonOneHandler = () => {
     setActive(true);
   };
@@ -27,25 +35,51 @@ const Feed = () => {
   const [q2a1, setQ2A1] = useState(false);
   const [q2a2, setQ2A2] = useState(false);
   const [q2a3, setQ2A3] = useState(false);
-
   const [question1, setQuestion1] = useState();
   const [question2, setQuestion2] = useState();
-
-  const [isVisible,setVisible]=useState(false)
+  const [isVisible, setVisible] = useState(false);
+  const [isVisible2, setVisible2] = useState(false);
 
   const saveInHandler = () => {
-    alert(question1+"+"+ question2)
+    alert(question1 + '+' + question2);
   };
+
   useEffect(() => {
-    setTimeout(() => {
-      setVisible(true)
-    },2000)
-  },[])
+    axios
+      .get(`http://${IP}:8000/details/day-start/targert/find/${email}`)
+      .then(res => {
+        if (res.data.status === true) {
+          setTimeout(() => {
+            setVisible(true);
+          }, 3000);
+        } else {
+          if (res.data.state === 'ongoing') {
+              setTimeout(() => {
+                setVisible2(true);
+              }, 3000);
+          }
+        }
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+    
+    
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.Body}>
-        <DayStartQuestion visible={isVisible} setVisible={setVisible} />
+        <DayStartQuestion
+          visible={isVisible}
+          setVisible={setVisible}
+          email={email}
+        />
+        <DayEndQuestion
+          visible={isVisible2}
+          setVisible={setVisible2}
+          email={email}
+        />
         <ScrollView>
           <View style={styles.ItemHeader}>
             <Text
@@ -339,7 +373,8 @@ const Suggestion = () => {
           style={{
             marginLeft: 8,
             marginBottom: 8,
-            marginRight: 8,color: 'rgb(119, 119, 119)'
+            marginRight: 8,
+            color: 'rgb(119, 119, 119)',
           }}>
           Every 3 hour you get a remainder for drink water in a day time.
         </Text>
