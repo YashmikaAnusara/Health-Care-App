@@ -12,6 +12,7 @@ import Pins from './NavPages/pins';
 import Admin_proflie from './NavPages/adminproflie';
 import Admin_stats from './NavPages/adminstats';
 import Admin_feed from './NavPages/adminfeed';
+import Admin_alert from './NavPages/adminalert';
 
 const Tab = createBottomTabNavigator();
 
@@ -207,7 +208,41 @@ export default function Navpage({route}) {
             ),
           }}
         />
-      ) : null}
+      ) : (
+        <Tab.Screen
+          name="Admin_alert"
+          component={Admin_alert}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({focused}) => (
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  top: 5,
+                }}>
+                <Image
+                  source={require('../Assets/bell.png')}
+                  resizeMode="contain"
+                  style={{
+                    width: 35,
+                    height: 35,
+                    tintColor: focused ? '#5DB075' : '#3C3C43',
+                  }}
+                />
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 12,
+                    //   textAlign:'center'
+                  }}>
+                  Alert
+                </Text>
+              </View>
+            ),
+          }}
+        />
+      )}
       {user === 'User' ? (
         <Tab.Screen
           name="Profile"

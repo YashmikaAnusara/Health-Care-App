@@ -16,32 +16,39 @@ export default function Admin_proflie({navigation, route}) {
   // });
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
-        <Text style={styles.setting}>Setting</Text>
-        <Text style={styles.logout} onPress={logoutHandler}>
-          Logout
-        </Text>
-        <Text style={styles.topic}>Profile</Text>
-        <Image
-          source={require('../../Assets/pic.png')}
-          resizeMode="contain"
-          style={{
-            width: 200,
-            height: 200,
-            top: 10,
-            alignSelf: 'center',
-          }}
-        />
-        <Text style={styles.name}>Yashmika Saparamadu</Text>
-        <Text style={styles.subname}>A mantra goes here</Text>
-        <Text style={styles.subname}>Admin </Text>
+      <View style={{flex: 8}}>
+        <ScrollView>
+          <View style={styles.box}>
+            <Text style={styles.setting}></Text>
+            <Text style={styles.logout} onPress={logoutHandler}>
+              Logout
+            </Text>
+            <Text style={styles.topic}>Profile</Text>
+            <Image
+              source={require('../../Assets/pic.png')}
+              resizeMode="contain"
+              style={{
+                width: 200,
+                height: 200,
+                top: 10,
+                alignSelf: 'center',
+              }}
+            />
+            <Text style={styles.name}>Yashmika Saparamadu</Text>
+            <Text style={styles.subname}>A mantra goes here</Text>
+            <Text style={styles.subname}>Admin </Text>
+            <View
+              style={{
+                backgroundColor: 'red',
+                width: '100%',
+              }}>
+              <Text></Text>
+            </View>
+          </View>
+        </ScrollView>
       </View>
-      {/* <Button
-        title="Press Me"
-        onPress={() => alert('wow You press me Proflie')}
-      /> */}
+      <View style={{flex: 1.7}}></View>
     </View>
-    // </SafeAreaView>
   );
 }
 
@@ -54,7 +61,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '100%',
-    height: '30%',
+    height: '55%',
     backgroundColor: '#5DB075',
     display: 'flex',
     // alignItems: 'center',

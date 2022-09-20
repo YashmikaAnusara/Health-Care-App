@@ -44,6 +44,10 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
+  month: {
+    type: String,
+    require: true,
+  },
   reminder: [remind],
   healthInfo: [info],
 });

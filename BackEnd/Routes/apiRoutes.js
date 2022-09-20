@@ -4,7 +4,24 @@ const AdminFeed = require("../Models/adminfeed");
 
 router.route("/user/save").post((req, res) => {
   const { name, email, password, type, permission } = req.body;
+  const requestmonth = new Date();
 
+  const month = requestmonth.getMonth();
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   User.findOne({ email: email })
     .then((data) => {
       if (data) {
@@ -180,9 +197,12 @@ router.route("/feed").get((req, res) => {
       console.log(err);
     });
 });
-router.route("/emp").get((req, res) => {
+router.route("/emp/:month").get((req, res) => {
   let type = "User";
-  User.find({ type: type })
+  let month = req.params.month;
+  User.find({
+    $and: [{ type: { $eq: type } }, { month: { $eq: month } }],
+  })
     .then((emp) => {
       res.json(emp);
     })
@@ -202,25 +222,15 @@ router.route("/feed/:_id").delete((req, res) => {
     });
 });
 
-router.route("/chart").get((req, res) => {
-  let type = "User";
+router.route("/chat").get((req, res) => {
   User.find()
-    .then((emp) => {
-      res.json(emp);
+    .then((data) => {
+      res.json(data);
     })
     .catch((err) => {
-      console.log(err);
+      res.json(err);
     });
 });
-// router.route("/chat").get((req, res) => {
-//   StudentChat.find()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
 
 // // student Registration
 

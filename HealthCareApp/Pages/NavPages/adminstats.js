@@ -13,9 +13,29 @@ import axios from 'axios';
 
 export default function Admin_stats({navigation}) {
   const [emp, setemp] = useState([]);
+  const [chart, setchart] = useState([]);
+
+  const requestmonth = new Date();
+
+  const month = requestmonth.getMonth();
+
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 
   useEffect(() => {
-    axios.get(`http://${IP}:8000/details/emp`).then(res => {
+    axios.get(`http://${IP}:8000/details/emp/${months[month]}`).then(res => {
       setemp(res.data);
     });
   }, [emp]);
