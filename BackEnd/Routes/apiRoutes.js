@@ -33,6 +33,7 @@ router.route("/user/save").post((req, res) => {
           password: password,
           type: type,
           permission: permission,
+          month: months[month],
         });
         data.save((error, data) => {
           if (error) {
@@ -204,10 +205,14 @@ router.route("/emp/:month").get((req, res) => {
     $and: [{ type: { $eq: type } }, { month: { $eq: month } }],
   })
     .then((emp) => {
-      res.json(emp);
+      if (emp.length === 0) {
+        res.json({ status: false, emp });
+      } else {
+        res.json({ status: true, emp });
+      }
     })
     .catch((err) => {
-      console.log(err);
+      res.json(err);
     });
 });
 

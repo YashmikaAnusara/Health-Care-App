@@ -37,9 +37,11 @@ export default function Admin_stats({navigation}) {
 
   useEffect(() => {
     axios.get(`http://${IP}:8000/details/emp/${months[month]}`).then(res => {
-      setemp(res.data);
-      if (emp === '') {
+      setemp(res.data.emp);
+      if (res.data.status === 'true') {
         setempnull(true);
+      } else {
+        setempnull(false);
       }
     });
   }, [emp]);
