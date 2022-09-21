@@ -14,6 +14,9 @@ export default function Admin_proflie({navigation, route}) {
     navigation.navigate('Login');
   };
 
+  const doctorreg = () => {
+    navigation.navigate('DoctorRegistration');
+  };
   // const {position} = route.params;
 
   // useEffect(() => {
@@ -53,14 +56,15 @@ export default function Admin_proflie({navigation, route}) {
                 paddingLeft: 20,
                 paddingRight: 20,
               }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={doctorreg}>
                 <View
                   style={{
                     borderRadius: 25,
                     borderWidth: 2,
+                    borderColor: '#6b6b6b',
                     width: '100%',
                     height: 120,
-                    backgroundColor: '#3C3C43',
+                    backgroundColor: '#6b6b6b',
                   }}>
                   <Image
                     source={require('../../Assets/doctor.png')}

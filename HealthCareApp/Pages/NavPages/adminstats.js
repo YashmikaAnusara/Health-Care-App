@@ -86,7 +86,7 @@ export default function Admin_stats({navigation}) {
               fontWeight: 'bold',
               textDecorationLine: 'underline',
             }}>
-            This Month Stats
+            Stats
           </Text>
           <View style={styles.contentbody}>
             {empnull ? (
