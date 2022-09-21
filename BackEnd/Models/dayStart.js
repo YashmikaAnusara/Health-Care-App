@@ -12,6 +12,8 @@ const info = {
   question6: String,
   question7: String,
   state: String,
+  avg: String,
+  day:String
 };
 
 const questionSchema = new Schema({

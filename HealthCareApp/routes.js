@@ -15,6 +15,11 @@ const AppRoutes = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+          name="Nav"
+          options={{headerShown: false}}
+          component={Navpage}
+        />
+        <Stack.Screen
           name="Splash"
           options={{headerShown: false}}
           component={Splash}
@@ -33,11 +38,6 @@ const AppRoutes = () => {
           name="signupQuestion"
           options={{headerShown: false}}
           component={SignupQuestion}
-        />
-        <Stack.Screen
-          name="Nav"
-          options={{headerShown: false}}
-          component={Navpage}
         />
         <Stack.Screen
           name="AddFeed"

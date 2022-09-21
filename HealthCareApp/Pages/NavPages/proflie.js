@@ -7,34 +7,30 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {StackActions} from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
+
 export default function Proflie({navigation}) {
-  const [photo, setphoto] = useState(false);
-  const [posts, setposts] = useState(true);
-
+  // const [photo, setphoto] = useState(false);
+  // const [posts, setposts] = useState(true);
   const logoutHandler = () => {
-    navigation.dispatch(
-      StackActions.replace(
-        'Login' 
-      )
-    );
+    navigation.dispatch(StackActions.replace('Login'));
   };
-
-  const photohandler = () => {
-    setphoto(true);
-    setposts(false);
-  };
-  const postshandler = () => {
-    setposts(true);
-    setphoto(false);
-  };
+  
+  // const photohandler = () => {
+  //   setphoto(true);
+  //   setposts(false);
+  // };
+  // const postshandler = () => {
+  //   setposts(true);
+  //   setphoto(false);
+  // };
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
-        <ScrollView>
+        <ScrollView> 
           <View style={styles.box}>
             <TouchableOpacity>
-              <Text style={styles.setting}>Setting</Text>
+              <Text style={styles.setting}></Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={logoutHandler}>
               <Text style={styles.logout}>Logout</Text>
@@ -53,7 +49,7 @@ export default function Proflie({navigation}) {
             <Text style={styles.name}>Andrea Carol</Text>
             <Text style={styles.subname}>A mantra goes here</Text>
             <View style={styles.profilebox}>
-              <View style={styles.profileboxtopic}>
+              {/* <View style={styles.profileboxtopic}>
                 <Text
                   style={
                     photo
@@ -72,54 +68,50 @@ export default function Proflie({navigation}) {
                   onPress={photohandler}>
                   Photos
                 </Text>
+              </View> */}
+              {/* {photo && ( */}
+              <View style={styles.profileboxsub1}>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
+                <Text>
+                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
+                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                </Text>
               </View>
-              {photo && (
-                <View style={styles.profileboxsub1}>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                  <Text>
-                    Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                    jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                  </Text>
-                </View>
-              )}
-              {posts && (
+              {/* )} */}
+              {/* {posts && (
                 <View style={styles.profileboxsub1}>
                   <Text>Sample Text</Text>
                 </View>
-              )}
+              )} */}
             </View>
           </View>
-          {/* <Button
-        title="Press Me"
-        onPress={() => alert('wow You press me Proflie')}
-      /> */}
         </ScrollView>
       </View>
       <View style={{flex: 1.7}}></View>

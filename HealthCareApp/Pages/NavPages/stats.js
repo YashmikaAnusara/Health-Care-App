@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,30 +7,36 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import {
- 
-  BarChart,
-  
-} from 'react-native-chart-kit';
+import { BarChart } from 'react-native-chart-kit';
+import axios from 'axios';
+import IP from '../../ip_address';
 
 export default function Stats() {
+  let email="test2"
+
+  const [details,setDetails]=useState([])
+
+  useEffect(() => {
+    axios
+      .get(`http://${IP}:8000/details/employee/daily/stat/${email}`, data)
+      .then(res => {
+        setDetails(res.data);
+        console.log(res.data);
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  },[])
+
+  
+  
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43],
+        data: [50, 45, 28, 80, 70, 10, 20],
       },
     ],
-  };
-
-  const chartConfig = {
-    backgroundGradientFrom: 'gray',
-    backgroundGradientTo: 'gray',
-    color: (opacity = 255) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 3, // optional, default 3
-    useShadowColorFromDataset: false, // optional
-    decimalPlaces:0
-    
   };
 
   return (
@@ -75,10 +81,21 @@ export default function Stats() {
               <BarChart
                 data={data}
                 width={Dimensions.get('window').width}
-                height={220}
-                yAxisLabel="$"
-                chartConfig={chartConfig}
-                verticalLabelRotation={0}
+                height={250}
+                chartConfig={{
+                  backgroundColor: '#efefef',
+                  backgroundGradientFrom: '#0BAB64',
+                  backgroundGradientTo: '#3BB78F',
+                  decimalPlaces: 2,
+                  color: (opacity = 100) => `rgba(239, 239, 239, ${opacity})`,
+                  style: {
+                    borderRadius: 16,
+                  },
+                }}
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 30,
+                }}
               />
             </View>
 

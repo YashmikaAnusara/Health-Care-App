@@ -18,8 +18,8 @@ const Feed = () => {
   const [active, setActive] = useState(true);
   const email = 'test2';
 
-  var todayTime = new Date();
-  var time = todayTime.getHours() + ':' + todayTime.getMinutes();
+  // var todayTime = new Date();
+  // var time = todayTime.getHours() + ':' + todayTime.getMinutes();
 
   const butttonOneHandler = () => {
     setActive(true);
@@ -41,7 +41,7 @@ const Feed = () => {
   const [isVisible2, setVisible2] = useState(false);
 
   const saveInHandler = () => {
-    alert(question1 + '+' + question2);
+    alert("done");
   };
 
   useEffect(() => {
