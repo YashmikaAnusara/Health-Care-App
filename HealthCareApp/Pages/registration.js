@@ -84,8 +84,8 @@ const Registration = () => {
                 <Text
                   style={{
                     fontSize: 30,
+                    color: '#5DB075',
                     fontWeight: 'bold',
-                    color: 'green',
                     marginTop: 20,
                     marginBottom: 15,
                   }}>

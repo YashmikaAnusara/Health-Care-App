@@ -11,9 +11,8 @@ import {
 import IP from '../../ip_address';
 import axios from 'axios';
 
-export default function Pins({ navigation }) {
-  
-   const email = "test";
+export default function Pins({navigation}) {
+  const email = 'test';
 
   const [r1, setR1] = useState(false);
   const [r2, setR2] = useState(false);
@@ -83,9 +82,8 @@ export default function Pins({ navigation }) {
             <Text
               style={{
                 fontSize: 30,
+                color: '#5DB075',
                 fontWeight: 'bold',
-                color: 'green',
-                fontFamily: 'Arial',
                 marginTop: 20,
               }}>
               My Options
@@ -292,7 +290,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderColor: 'rgb(224, 224, 224)',
     flexDirection: 'row',
-     
   },
   button: {
     width: '80%',

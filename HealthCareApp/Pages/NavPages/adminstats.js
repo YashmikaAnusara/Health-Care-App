@@ -60,7 +60,7 @@ export default function Admin_stats({navigation}) {
                   },
                 ],
               }}
-              width={Dimensions.get('window').width}
+              width={370}
               height={250}
               chartConfig={{
                 backgroundColor: '#efefef',
@@ -160,6 +160,9 @@ const styles = StyleSheet.create({
   chartcontainer: {
     flex: 2,
     marginTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    // backgroundColor: 'red',
   },
   topic: {
     marginTop: 20,

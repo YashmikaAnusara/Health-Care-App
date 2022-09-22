@@ -36,9 +36,9 @@ const DayStartQuestion = props => {
   const [q6a2, setQ6A2] = useState(false);
   const [answer6, setQuestion6] = useState('Normal');
 
-    const continueHandler = () => {
-      props.setVisible(false)
-    };
+  const continueHandler = () => {
+    props.setVisible(false);
+  };
 
   return (
     <Modal visible={props.visible}>
@@ -377,9 +377,8 @@ const styles = StyleSheet.create({
   },
   TopicText: {
     fontSize: 30,
+    color: '#5DB075',
     fontWeight: 'bold',
-    color: 'green',
-    fontFamily: 'Arial',
     marginTop: 20,
   },
   Body: {

@@ -235,6 +235,50 @@ router.route("/chat").get((req, res) => {
     });
 });
 
+router.route("/adddoctor").post((req, res) => {
+  const docname = req.body.docname;
+  const docemail = req.body.docemail;
+  const docpassword = req.body.docpassword;
+  const permission = "true";
+  const type = "Doctor";
+  const requestmonth = new Date();
+
+  const month = requestmonth.getMonth();
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const newfeed = new User({
+    name: docname,
+    email: docemail,
+    password: docpassword,
+    month: months[month],
+    permission: permission,
+    type: type,
+  });
+
+  newfeed
+    .save()
+    .then(() => {
+      res.json("Feed Added");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 // // student Registration
 
 // // router.route("/leader/register").post((req, res) => {

@@ -213,6 +213,8 @@ export default function Navpage({route}) {
           name="Admin_alert"
           component={Admin_alert}
           options={{
+            tabBarBadge: 0,
+            tabBarBadgeStyle: {marginTop: 10},
             headerShown: false,
             tabBarIcon: ({focused}) => (
               <View

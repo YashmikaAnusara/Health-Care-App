@@ -13,11 +13,7 @@ export default function Proflie({navigation}) {
   const [posts, setposts] = useState(true);
 
   const logoutHandler = () => {
-    navigation.dispatch(
-      StackActions.replace(
-        'Login' 
-      )
-    );
+    navigation.dispatch(StackActions.replace('Login'));
   };
 
   const photohandler = () => {
@@ -146,7 +142,9 @@ const styles = StyleSheet.create({
   topic: {
     textAlign: 'center',
     top: 0,
-    fontSize: 35,
+    fontSize: 30,
+
+    fontWeight: 'bold',
     color: 'white',
     // alignContent: 'center',
     // justifyContent: 'center',

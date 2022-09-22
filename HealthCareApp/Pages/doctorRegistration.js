@@ -6,11 +6,32 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import IP from '../ip_address';
+import axios from 'axios';
 
 export default function DoctorRegistration({navigation}) {
+  const [docname, setdocname] = useState('');
+  const [docemail, setdocemail] = useState('');
+  const [docpassword, setdocpassword] = useState('');
+
   const back = () => {
     navigation.navigate('Admin_proflie');
+  };
+
+  const submit = () => {
+    const doc = {docname, docemail, docpassword};
+    if (docname === '') {
+      alert('Enter the Doctor Name');
+    } else if (docemail === '') {
+      alert('Ente the Doctor Email');
+    } else if (docpassword === '') {
+      alert('Enter the Doctor Password');
+    } else {
+      axios.post(`http://${IP}:8000/details/adddoctor`, doc).then(res => {
+        navigation.navigate('Admin_proflie');
+      });
+    }
   };
 
   return (
@@ -51,7 +72,7 @@ export default function DoctorRegistration({navigation}) {
             }}
             placeholder="Enter the Name"
             placeholderTextColor="rgb(119, 119, 119)"
-            //   onChangeText={setName}
+            onChangeText={setdocname}
           />
           <TextInput
             style={{
@@ -67,7 +88,7 @@ export default function DoctorRegistration({navigation}) {
             }}
             placeholder="Enter the Email"
             placeholderTextColor="rgb(119, 119, 119)"
-            //   onChangeText={setName}
+            onChangeText={setdocemail}
           />
           <TextInput
             style={{
@@ -83,10 +104,10 @@ export default function DoctorRegistration({navigation}) {
             }}
             placeholder="Enter the Password"
             placeholderTextColor="rgb(119, 119, 119)"
-            //   onChangeText={setName}
+            onChangeText={setdocpassword}
           />
           <View style={{height: 250}}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={submit}>
               <View
                 style={{
                   top: 10,

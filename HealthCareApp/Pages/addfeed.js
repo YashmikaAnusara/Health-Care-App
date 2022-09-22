@@ -83,36 +83,50 @@ export default function Addfeed({navigation}) {
             <Text style={{marginLeft: 20, marginTop: 10}}>
               Enter the Feed Topic
             </Text>
-            <TextInput
-              style={{
-                marginTop: 5,
-                height: 50,
-                margin: 12,
-                borderWidth: 0.8,
-                padding: 10,
-                borderRadius: 20,
-              }}
-              onChangeText={setfeedtopic}
-              placeholder="Enter the Feed Topic"
-              keyboardType="default"
-            />
+            <View style={{paddingRight: 5, paddingLeft: 5}}>
+              <TextInput
+                style={{
+                  top: 5,
+                  backgroundColor: 'rgb(247, 247, 247)',
+                  borderRadius: 30,
+                  borderWidth: 1,
+                  borderColor: 'rgb(224, 224, 224)',
+                  paddingLeft: 20,
+                  fontSize: 20,
+                  marginBottom: 12,
+                  height: 47,
+                  color: 'rgb(119, 119, 119)',
+                }}
+                onChangeText={setfeedtopic}
+                placeholder="Enter the Feed Topic"
+                placeholderTextColor="rgb(119, 119, 119)"
+                keyboardType="default"
+              />
+            </View>
             <Text style={{marginLeft: 20, marginTop: 10}}>
               Enter the Feed Body
             </Text>
-            <TextInput
-              style={{
-                marginTop: 5,
-                height: 'auto',
-                margin: 12,
-                borderWidth: 0.8,
-                padding: 10,
-                borderRadius: 20,
-              }}
-              onChangeText={setfeedbody}
-              placeholder="Enter the Feed Body"
-              keyboardType="default"
-              multiline={true}
-            />
+            <View style={{paddingRight: 5, paddingLeft: 5}}>
+              <TextInput
+                style={{
+                  top: 5,
+                  backgroundColor: 'rgb(247, 247, 247)',
+                  borderRadius: 30,
+                  borderWidth: 1,
+                  borderColor: 'rgb(224, 224, 224)',
+                  paddingLeft: 20,
+                  fontSize: 20,
+                  marginBottom: 12,
+                  // height: 47,
+                  color: 'rgb(119, 119, 119)',
+                }}
+                onChangeText={setfeedbody}
+                placeholder="Enter the Feed Body"
+                placeholderTextColor="rgb(119, 119, 119)"
+                keyboardType="default"
+                multiline={true}
+              />
+            </View>
           </View>
         </ScrollView>
       </View>

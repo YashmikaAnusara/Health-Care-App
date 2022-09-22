@@ -70,9 +70,8 @@ const Login = () => {
             <Text
               style={{
                 fontSize: 30,
+                color: '#5DB075',
                 fontWeight: 'bold',
-                color: 'green',
-                fontFamily: 'Arial',
                 marginTop: 25,
               }}>
               SIGN-IN

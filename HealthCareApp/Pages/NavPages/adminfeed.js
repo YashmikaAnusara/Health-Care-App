@@ -81,57 +81,72 @@ export default function Admin_feed({navigation}) {
               Add
             </Text>
           </TouchableOpacity>
-          <TextInput
-            style={{
-              marginTop: 20,
-              height: 50,
-              margin: 12,
-              borderWidth: 0.8,
-              padding: 10,
-              borderRadius: 20,
-            }}
-            onChangeText={setsearch}
-            placeholder="Search"
-            keyboardType="default"
-          />
-          {feeds.map((data, index) => (
-            <View style={{flex: 2, marginTop: 10}} key={index}>
-              <TouchableOpacity onPress={() => deletehandler(data._id)}>
-                <View style={{paddingRight: 10, paddingLeft: 10}}>
-                  <Image
-                    source={require('../../Assets/feed_i.png')}
-                    resizeMode="contain"
+          <View style={{paddingLeft: 10, paddingRight: 10}}>
+            <TextInput
+              style={{
+                top: 25,
+                backgroundColor: 'rgb(247, 247, 247)',
+                borderRadius: 30,
+                borderWidth: 1,
+                borderColor: 'rgb(224, 224, 224)',
+                paddingLeft: 20,
+                fontSize: 20,
+                marginBottom: 12,
+                height: 47,
+                color: 'rgb(119, 119, 119)',
+              }}
+              onChangeText={setsearch}
+              placeholder="Search"
+              placeholderTextColor="rgb(119, 119, 119)"
+              keyboardType="default"
+            />
+          </View>
+          <View style={{top: 15}}>
+            {feeds.map((data, index) => (
+              <View style={{flex: 2, marginTop: 5}} key={index}>
+                <TouchableOpacity onPress={() => deletehandler(data._id)}>
+                  <View
                     style={{
-                      marginTop: 10,
-                      marginLeft: 0,
-                      width: 100,
-                      height: 100,
-                      top: 22,
-                      // alignSelf: 'center',
-                    }}
-                  />
-                  <Text
-                    style={{
-                      marginLeft: 100,
-                      fontWeight: 'bold',
-                      marginTop: -57,
-                      fontSize: 18,
+                      paddingRight: 10,
+                      paddingLeft: 10,
+                      // backgroundColor: 'red',
                     }}>
-                    {data.feedtopic}
-                  </Text>
-                  <Text
-                    style={{
-                      marginLeft: 100,
-                      marginTop: 0,
-                      fontSize: 18,
-                    }}>
-                    {data.feedbody}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-              {/* ============================================= */}
-            </View>
-          ))}
+                    <Image
+                      source={require('../../Assets/feed_i.png')}
+                      resizeMode="contain"
+                      style={{
+                        // marginTop: 10,
+                        marginLeft: 0,
+                        width: 100,
+                        height: 100,
+                        // top: 22,
+                        // alignSelf: 'center',
+                      }}
+                    />
+                    <Text
+                      style={{
+                        marginLeft: 100,
+                        fontWeight: 'bold',
+                        marginTop: -77,
+                        fontSize: 18,
+                      }}>
+                      {data.feedtopic}
+                    </Text>
+                    <Text
+                      style={{
+                        marginLeft: 100,
+                        marginTop: 0,
+                        marginBottom: 20,
+                        fontSize: 18,
+                      }}>
+                      {data.feedbody}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                {/* ============================================= */}
+              </View>
+            ))}
+          </View>
         </ScrollView>
       </View>
       <View style={{flex: 1.4}}></View>

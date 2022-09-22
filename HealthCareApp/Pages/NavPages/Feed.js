@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -31,16 +31,16 @@ const Feed = () => {
   const [question1, setQuestion1] = useState();
   const [question2, setQuestion2] = useState();
 
-  const [isVisible,setVisible]=useState(false)
+  const [isVisible, setVisible] = useState(false);
 
   const saveInHandler = () => {
-    alert(question1+"+"+ question2)
+    alert(question1 + '+' + question2);
   };
   useEffect(() => {
     setTimeout(() => {
-      setVisible(true)
-    },2000)
-  },[])
+      setVisible(true);
+    }, 2000);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,9 +51,9 @@ const Feed = () => {
             <Text
               style={{
                 fontSize: 30,
+                color: '#5DB075',
                 fontWeight: 'bold',
-                color: 'green',
-                fontFamily: 'Arial',
+                // fontFamily: 'Arial',
                 marginTop: 20,
               }}>
               My Health Info
@@ -339,7 +339,8 @@ const Suggestion = () => {
           style={{
             marginLeft: 8,
             marginBottom: 8,
-            marginRight: 8,color: 'rgb(119, 119, 119)'
+            marginRight: 8,
+            color: 'rgb(119, 119, 119)',
           }}>
           Every 3 hour you get a remainder for drink water in a day time.
         </Text>
