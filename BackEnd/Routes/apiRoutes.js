@@ -3,7 +3,6 @@ const User = require("../Models/user");
 const DayStart = require("../Models/dayStart");
 const AdminFeed = require("../Models/adminfeed");
 
-
 router.route("/user/save").post((req, res) => {
   const { name, email, password, type, permission } = req.body;
   const requestmonth = new Date();
@@ -75,7 +74,7 @@ router.route("/user/signin/:email/:password").get((req, res) => {
 
 router.route("/profile/:email").get((req, res) => {
   let email = req.params.email;
-  User.find({ email: email })
+  User.findOne({ email: email })
     .then((data) => {
       res.json(data);
     })
@@ -172,9 +171,6 @@ router.route("/user/helth/info/save/:email").post((req, res) => {
     });
 });
 
- 
- 
- 
 router.route("/addfeed").post((req, res) => {
   const feedtopic = req.body.feedtopic;
   const feedbody = req.body.feedbody;
@@ -485,7 +481,7 @@ router.route("/day-end/target/update").post((req, res) => {
 router.route("/employee/daily/stat/:email").get((req, res) => {
   let email = req.params.email;
   let array = [];
-    let Finalarray = [];
+  let Finalarray = [];
   DayStart.findOne({ email: email }).exec(function (err, details) {
     if (err) {
       res.json({ status: false, message: "Try again later!" });
@@ -498,18 +494,17 @@ router.route("/employee/daily/stat/:email").get((req, res) => {
       }
       const newArray = array.reverse();
       for (let i = 0; i < newArray.length; i++) {
-        if (newArray[i].day === "Mon") { 
+        if (newArray[i].day === "Mon") {
           Finalarray.push({
             avg: newArray[i].avg,
             day: newArray[i].day,
           });
-           break
+          break;
         }
-          Finalarray.push({
-            avg: newArray[i].avg,
-            day: newArray[i].day,
-          });
-         
+        Finalarray.push({
+          avg: newArray[i].avg,
+          day: newArray[i].day,
+        });
       }
 
       res.json(Finalarray);

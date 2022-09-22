@@ -45,10 +45,17 @@ const Login = () => {
               );
             } else if (res.data.type === 'Doctor') {
               // alert(res.data.type);
-              navigation.navigate('Nav', {position: res.data.type});
+              navigation.navigate(
+                'Nav',
+                {position: res.data.type},
+                {email: res.data.email},
+              );
             } else {
               // alert(res.data.type);
-              navigation.navigate('Nav', {position: res.data.type});
+              navigation.navigate('Nav', {
+                position: res.data.type,
+                email: res.data.email,
+              });
             }
           } else {
             alert(res.data.message);

@@ -8,8 +8,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import IP from '../../ip_address';
 
 export default function Admin_proflie({navigation, route}) {
+  const user = route.params.position;
+  const useremail = route.params.email;
+
+  const [username, setusername] = useState('');
+
   const logoutHandler = () => {
     navigation.navigate('Login');
   };
@@ -19,11 +25,17 @@ export default function Admin_proflie({navigation, route}) {
   };
   // const {position} = route.params;
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://${IP}:8000/details/profile/${route.params.email}`)
-  //     .then(res => {});
-  // });
+  useEffect(() => {
+    axios
+      .get(`http://${IP}:8000/details/profile/${useremail}`)
+      .then(res => {
+        setusername(res.data.name);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
@@ -44,9 +56,9 @@ export default function Admin_proflie({navigation, route}) {
                 alignSelf: 'center',
               }}
             />
-            <Text style={styles.name}>Yashmika Saparamadu</Text>
-            <Text style={styles.subname}>A mantra goes here</Text>
-            <Text style={styles.subname}>Admin </Text>
+            <Text style={styles.name}>{username}</Text>
+            <Text style={styles.subname}>{useremail}</Text>
+            <Text style={styles.subname}>{user}</Text>
 
             <View
               style={{

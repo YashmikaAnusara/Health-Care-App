@@ -18,7 +18,8 @@ const Tab = createBottomTabNavigator();
 
 export default function Navpage({route}) {
   const user = route.params.position;
-  // route.params.position;
+  const useremail = route.params.email;
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -283,6 +284,7 @@ export default function Navpage({route}) {
         <Tab.Screen
           name="Admin_proflie"
           component={Admin_proflie}
+          initialParams={{position: user, email: useremail}}
           options={{
             headerShown: false,
             tabBarIcon: ({focused}) => (
