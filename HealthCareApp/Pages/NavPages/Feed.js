@@ -35,8 +35,8 @@ const Feed = () => {
   const [q2a1, setQ2A1] = useState(false);
   const [q2a2, setQ2A2] = useState(false);
   const [q2a3, setQ2A3] = useState(false);
-  const [question1, setQuestion1] = useState();
-  const [question2, setQuestion2] = useState();
+  const [question1, setQuestion1] = useState('');
+  const [question2, setQuestion2] = useState('');
   const [isVisible, setVisible] = useState(false);
   const [isVisible2, setVisible2] = useState(false);
 
@@ -46,7 +46,6 @@ const Feed = () => {
   };
 
   useEffect(() => {
-
     axios
       .get(`http://${IP}:8000/details/day-start/targert/find/${email}`)
       .then(res => {

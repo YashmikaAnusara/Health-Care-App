@@ -75,7 +75,7 @@ const DayStartQuestion = props => {
         .catch(err => {
           alert(err.message);
         });
-    }
+   
     };
 
   };

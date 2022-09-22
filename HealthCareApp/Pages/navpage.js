@@ -17,7 +17,7 @@ import Admin_alert from './NavPages/adminalert';
 const Tab = createBottomTabNavigator();
 
 export default function Navpage({route}) {
-  const user = "User";
+  const user = route.params.position;
   // route.params.position;
   return (
     <Tab.Navigator
