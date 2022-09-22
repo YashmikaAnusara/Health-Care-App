@@ -1,7 +1,43 @@
-import React from 'react';
-import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
+import React,{useEffect,useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+import { BarChart } from 'react-native-chart-kit';
+import axios from 'axios';
+import IP from '../../ip_address';
+
 
 export default function Stats() {
+  let email="test2"
+
+  const [details,setDetails]=useState([])
+
+  useEffect(() => {
+    axios
+      .get(`http://${IP}:8000/details/employee/daily/stat/${email}`, data)
+      .then(res => {
+        setDetails(res.data);
+        console.log(res.data);
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  },[])
+
+  const data = {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [
+      {
+        data: [50, 45, 28, 80, 70, 10, 20],
+      },
+    ],
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.Body}>
@@ -35,12 +71,32 @@ export default function Stats() {
             </View>
             <View
               style={{
-                paddingLeft: 20,
-                paddingRight: 20,
-                color: 'rgb(119, 119, 119)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
               }}>
-              <Text>Graph 01</Text>
+              <BarChart
+                data={data}
+                width={Dimensions.get('window').width}
+                height={250}
+                chartConfig={{
+                  backgroundColor: '#efefef',
+                  backgroundGradientFrom: '#0BAB64',
+                  backgroundGradientTo: '#3BB78F',
+                  decimalPlaces: 2,
+                  color: (opacity = 100) => `rgba(239, 239, 239, ${opacity})`,
+                  style: {
+                    borderRadius: 16,
+                  },
+                }}
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 30,
+                }}
+              />
             </View>
+
             <View style={{padding: 20}}>
               <Text style={{fontSize: 25, fontWeight: '600', color: 'black'}}>
                 Stats

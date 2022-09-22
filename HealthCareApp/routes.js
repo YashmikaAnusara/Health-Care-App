@@ -36,11 +36,6 @@ const AppRoutes = () => {
           component={SignupQuestion}
         />
         <Stack.Screen
-          name="Nav"
-          options={{headerShown: false}}
-          component={Navpage}
-        />
-        <Stack.Screen
           name="AddFeed"
           options={{headerShown: false}}
           component={Addfeed}
@@ -49,6 +44,11 @@ const AppRoutes = () => {
           name="DoctorRegistration"
           options={{headerShown: false}}
           component={DoctorRegistration}
+        />
+        <Stack.Screen
+          name="Nav"
+          options={{headerShown: false}}
+          component={Navpage}
         />
       </Stack.Navigator>
     </NavigationContainer>

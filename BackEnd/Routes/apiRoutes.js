@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const User = require("../Models/user");
+const DayStart = require("../Models/dayStart");
 const AdminFeed = require("../Models/adminfeed");
+
 
 router.route("/user/save").post((req, res) => {
   const { name, email, password, type, permission } = req.body;
@@ -170,6 +172,9 @@ router.route("/user/helth/info/save/:email").post((req, res) => {
     });
 });
 
+ 
+ 
+ 
 router.route("/addfeed").post((req, res) => {
   const feedtopic = req.body.feedtopic;
   const feedbody = req.body.feedbody;
@@ -279,333 +284,248 @@ router.route("/adddoctor").post((req, res) => {
     });
 });
 
-// // student Registration
+router.route("/day-start/targert/find/:email").get((req, res) => {
+  const email = req.params.email;
+  let dateObj = new Date();
+  let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  let year = dateObj.getFullYear();
+  let day = String(dateObj.getDate()).padStart(2, "0");
+  let today = year + "-" + month + "-" + day;
 
-// // router.route("/leader/register").post((req, res) => {
-// //     const { LeaderRegNo, LeaderName, LeaderEmail, LeaderContact, faculty } = req.body
-// //     const register = new LeaderReg({ LeaderRegNo: LeaderRegNo, LeaderName: LeaderName, LeaderEmail: LeaderEmail, LeaderContact: LeaderContact, faculty: faculty })
-// //     register.save((err, data) => {
-// //         if (err) {
-// //             return res.status(400).json({
-// //                 error: err
-// //             })
-// //         }
-// //         return res.status(200).json({
-// //             data: data
-// //         })
-// //     })
-// // })
+  DayStart.findOne({ email: { $eq: email } })
+    .then((data) => {
+      if (data === null) {
+        res.json({ status: true });
+      } else {
+        const check = () => {
+          for (let i = 0; i < data.todayPlan.length; i++) {
+            if (data.todayPlan[i].date === today) {
+              return { status: false, state: data.todayPlan[i].state };
+            }
+          }
+          return { status: true };
+        };
+        let statee = check();
+        if (statee.status === true) {
+          res.json(statee);
+        } else {
+          res.json(statee);
+        }
+      }
+    })
+    .catch((err) => {
+      res.json({
+        status: false,
+        message: "Something went wrong!",
+      });
+    });
+});
 
-// router.route("/reg/:grpId/:id").post((req, res) => {
-//   let grpId = req.params.grpId;
-//   let id = req.params.id;
-//   const {
-//     LeaderRegNo,
-//     LeaderName,
-//     LeaderEmail,
-//     LeaderContact,
-//     faculty,
-//     password,
-//   } = req.body;
-//   const register = new StudentReg({
-//     GrpID: grpId,
-//     ID: id,
-//     FistrMemberRegNo: LeaderRegNo,
-//     FistrMemberName: LeaderName,
-//     FistrMemberEmail: LeaderEmail,
-//     FistrMemberContact: LeaderContact,
-//     faculty: faculty,
-//     password: password,
-//   });
-//   register.save((err, data) => {
+router.route("/day-start/targert/save").post((req, res) => {
+  const {
+    email,
+    question1,
+    question2,
+    question3,
+    question4,
+    question5,
+    question6,
+  } = req.body;
+
+  let dateObj = new Date();
+  let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  let year = dateObj.getFullYear();
+  let day = String(dateObj.getDate()).padStart(2, "0");
+  let todayDate = year + "-" + month + "-" + day;
+  var time = dateObj.getHours() + ":" + dateObj.getMinutes();
+  const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let todayday = weekday[dateObj.getDay()];
+
+  DayStart.findOne({ email: email })
+    .then((data) => {
+      if (data === null) {
+        const data = new DayStart({
+          email: email,
+        });
+        data.save((error, data) => {
+          if (error) {
+            return res.status(400).json({
+              status: false,
+              err: error,
+            });
+          } else {
+            DayStart.findOneAndUpdate(
+              { email: email },
+              {
+                $push: {
+                  todayPlan: [
+                    {
+                      date: todayDate,
+                      time: time,
+                      question1: question1,
+                      question2: question2,
+                      question3: question3,
+                      question4: question4,
+                      question5: question5,
+                      question6: question6,
+                      state: "ongoing",
+                      avg: "0",
+                      day: todayday,
+                    },
+                  ],
+                },
+              }
+            )
+              .then((data) => {
+                res.json({
+                  status: true,
+                });
+              })
+              .catch((err) => {
+                res.json({ status: false, message: "Something went wrong!" });
+              });
+          }
+        });
+      } else {
+        DayStart.findOneAndUpdate(
+          { email: email },
+          {
+            $push: {
+              todayPlan: [
+                {
+                  date: todayDate,
+                  time: time,
+                  question1: question1,
+                  question2: question2,
+                  question3: question3,
+                  question4: question4,
+                  question5: question5,
+                  question6: question6,
+                  state: "ongoing",
+                  avg: "0",
+                  day: todayday,
+                },
+              ],
+            },
+          }
+        )
+          .then((data) => {
+            res.json({
+              status: true,
+            });
+          })
+          .catch((err) => {
+            res.json({ status: false, message: "Something went wrong!" });
+          });
+      }
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Something went wrong!" });
+    });
+});
+
+router.route("/day-end/target/update").post((req, res) => {
+  let dateObj = new Date();
+  let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  let year = dateObj.getFullYear();
+  let day = String(dateObj.getDate()).padStart(2, "0");
+
+  let todayDate = year + "-" + month + "-" + day;
+  let summery = "finished";
+
+  const {
+    email,
+    question1,
+    question2,
+    question3,
+    question4,
+    question5,
+    question6,
+  } = req.body;
+
+  let a =
+    parseInt(question1) * 4 +
+    parseInt(question2) * 4 +
+    parseInt(question3) * 4 +
+    parseInt(question4) * 4 +
+    parseInt(question5) * 4 +
+    parseInt(question6) * 4;
+
+  let avg = a / 24;
+
+  DayStart.updateOne(
+    { email: email, "todayPlan.date": todayDate },
+    {
+      $set: {
+        "todayPlan.$.question1": question1,
+        "todayPlan.$.question2": question2,
+        "todayPlan.$.question3": question3,
+        "todayPlan.$.question4": question4,
+        "todayPlan.$.question5": question5,
+        "todayPlan.$.question6": question6,
+        "todayPlan.$.state": summery,
+        "todayPlan.$.avg": avg,
+      },
+    }
+  )
+    .then((data) => {
+      if (avg < 2) {
+        res.json({ status: true, message: 1 });
+      } else if (avg > 2 && avg < 3.2) {
+        res.json({ status: true, message: 2 });
+      } else {
+        res.json({ status: true, message: 3 });
+      }
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Try again!" });
+    });
+});
+
+router.route("/employee/daily/stat/:email").get((req, res) => {
+  let email = req.params.email;
+  let array = [];
+    let Finalarray = [];
+  DayStart.findOne({ email: email }).exec(function (err, details) {
+    if (err) {
+      res.json({ status: false, message: "Try again later!" });
+    } else {
+      for (let i = 0; i < details.todayPlan.length; i++) {
+        array.push({
+          avg: details.todayPlan[i].avg,
+          day: details.todayPlan[i].day,
+        });
+      }
+      const newArray = array.reverse();
+      for (let i = 0; i < newArray.length; i++) {
+        if (newArray[i].day === "Mon") { 
+          Finalarray.push({
+            avg: newArray[i].avg,
+            day: newArray[i].day,
+          });
+           break
+        }
+          Finalarray.push({
+            avg: newArray[i].avg,
+            day: newArray[i].day,
+          });
+         
+      }
+
+      res.json(Finalarray);
+    }
+  });
+});
+
+// router.route("/employee/daily/stat/:email").get((req, res) => {
+//   let email = req.params.email;
+//   DayStart.findOne({ email: email }).exec(function (err, details) {
 //     if (err) {
-//       return res.status(400).json({
-//         error: err,
-//       });
+//       res.json({ status: false, message: "Try again later!" });
+//     } else {
+//       res.json(details.todayPlan);
 //     }
-//     return res.status(200).json({
-//       data: data,
-//     });
 //   });
-// });
-// //request a id
-// router.route("/request/id").get((req, res) => {
-//   StudentReg.find().exec(function (err, details) {
-//     var tot = 0;
-//     var max = 0;
-//     var newId = 1;
-//     while (tot < details.length) {
-//       if (max < details[tot].ID) {
-//         max = details[tot].ID;
-//       }
-//       tot++;
-//     }
-//     newId = newId + parseInt(max);
-//     res.json(String(newId));
-//   });
-// });
-
-// // student login
-// router.route("/login/:id/:password").get((req, res) => {
-//   let id = req.params.id;
-//   let pass = req.params.password;
-//   StudentReg.find({
-//     $and: [{ GrpID: { $eq: id } }, { password: { $eq: pass } }],
-//   }).exec(function (err, details) {
-//     res.json(details.length);
-//   });
-// });
-// // get leader's id
-// router.route("/leader/id/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.FistrMemberRegNo);
-//   });
-// });
-// // get leader's name
-// router.route("/leader/name/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.FistrMemberName);
-//   });
-// });
-
-// router.route("/second/id/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.secondMemberRegNo);
-//   });
-// });
-
-// router.route("/second/name/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.secondMemberName);
-//   });
-// });
-
-// router.route("/third/id/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.thirdMemberRegNo);
-//   });
-// });
-
-// router.route("/third/name/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.thirdMemberName);
-//   });
-// });
-
-// router.route("/fourth/id/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.fourthMemberRegNo);
-//   });
-// });
-
-// router.route("/fourth/name/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.fourthMemberName);
-//   });
-// });
-
-// router.route("/fifth/id/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.fivthMemberRegNo);
-//   });
-// });
-
-// router.route("/fifth/name/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.fivthMemberName);
-//   });
-// });
-
-// router.route("/sixth/id/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.sixthMemberRegNo);
-//   });
-// });
-
-// router.route("/sixth/name/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } }).exec(function (err, details) {
-//     res.json(details.sixthMemberName);
-//   });
-// });
-
-// // other members registration
-// router.route("/group/reg/:groupID").put((req, res) => {
-//   let GrpID = req.params.groupID;
-//   const {
-//     secondMemberRegNo,
-//     secondMemberName,
-//     thirdMemberRegNo,
-//     thirdMemberName,
-//     fourthMemberRegNo,
-//     fourthMemberName,
-//     fivthMemberRegNo,
-//     fivthMemberName,
-//     sixthMemberRegNo,
-//     sixthMemberName,
-//   } = req.body;
-//   StudentReg.findOneAndUpdate(
-//     { GrpID: GrpID },
-//     {
-//       secondMemberRegNo: secondMemberRegNo,
-//       secondMemberName: secondMemberName,
-//       thirdMemberRegNo: thirdMemberRegNo,
-//       thirdMemberName: thirdMemberName,
-//       fourthMemberRegNo: fourthMemberRegNo,
-//       fourthMemberName: fourthMemberName,
-//       fivthMemberRegNo: fivthMemberRegNo,
-//       fivthMemberName: fivthMemberName,
-//       sixthMemberRegNo: sixthMemberRegNo,
-//       sixthMemberName: sixthMemberName,
-//     }
-//   )
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
-// // get gorup details
-// router.route("/group/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentReg.findOne({ GrpID: { $eq: id } })
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
-
-// //student Request save
-// router.route("/request/save").post((req, res) => {
-//   const { name, email, position, id, topic, topicDis, submitdate } = req.body;
-//   const register = new StudentRequest({
-//     Name: name,
-//     email: email,
-//     position: position,
-//     GrpID: id,
-//     Topic: topic,
-//     TopicDiscription: topicDis,
-//     submitdate: submitdate,
-//     status: "pending",
-//   });
-//   register.save((err, data) => {
-//     if (err) {
-//       return res.status(400).json({
-//         error: err,
-//       });
-//     }
-//     return res.status(200).json({
-//       data: data,
-//     });
-//   });
-// });
-// //find student request
-// router.route("/get/studentRequest/:id").get((req, res) => {
-//   let id = req.params.id;
-//   StudentRequest.find({ GrpID: { $eq: id } })
-//     .then((result) => res.send(result))
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-
-// //delete requests
-
-// router.route("/remove/studentRequest/:id/:name").get((req, res) => {
-//   let id = req.params.id;
-//   let name = req.params.name;
-//   StudentRequest.deleteOne({
-//     $and: [{ GrpID: { $eq: id } }, { Name: { $eq: name } }],
-//   })
-//     .then((curds) => {
-//       res.json(curds);
-//     })
-//     .catch((errr) => {
-//       res.json(errr);
-//     });
-// });
-
-// //topic request details
-
-// router.route("/request/save").post((req, res) => {
-//   const { ID } = req.body;
-//   const { Faculty } = req.body;
-//   const { Topic } = req.body;
-//   const { Discription } = req.body;
-//   const paths = req.file.path;
-
-//   console.log("ID");
-
-//   const files = new File({
-//     ID: ID,
-//     Faculty: Faculty,
-//     Topic: Topic,
-//     Discription: Discription,
-//     avatar: paths,
-//   });
-//   files
-//     .save()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
-
-// //get topic request details
-
-// router.route("/file/get").get((req, res) => {
-//   File.find()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
-
-// //delete members findOneAndDelete  { FistrMemberName: { $eq: name },FistrMemberRegNo: { $eq: regNo } }||{ secondMemberName: { $eq: name },secondMemberRegNo: { $eq: regNo } }||{ thirdMemberName: { $eq: name },thirdMemberRegNo: { $eq: regNo } }||{ fourthMemberName: { $eq: name },fourthMemberRegNo: { $eq: regNo } }||{ fivthMemberName: { $eq: name },fivthMemberRegNo: { $eq: regNo } }|| { sixthMemberName: { $eq: name },sixthMemberRegNo: { $eq: regNo } }
-
-// // router.route("/student/delete/:id/:name/:reg").get((req, res) => {
-// //     let id = req.params.id;
-// //     let name = req.params.name;
-// //     let regNo=req.params.reg;
-
-// //     StudentReg.findByIdAndUpdate({$replaceOne: { input: "$FistrMemberName", find: name, replacement: "" }})
-// //         .then((data) => {
-// //             res.json(data)
-// //         })
-// //         .catch(err => {
-// //             res.json(err)
-// //         })
-// // })
-
-// //-------------------  Thivanka - Student API End -------------------------------------------------------------------------------------------------------
-
-// router.route("/get/:position").get((req, res) => {
-//   const position = req.params.position;
-//   Staff.find({ position: { $eq: position } })
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
 // });
 
 module.exports = router;

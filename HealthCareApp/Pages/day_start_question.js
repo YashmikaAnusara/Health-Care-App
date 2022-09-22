@@ -8,37 +8,78 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
+import axios from 'axios'
+import IP from '../ip_address';
 
 const DayStartQuestion = props => {
   const [q1a1, setQ1A1] = useState(false);
   const [q1a2, setQ1A2] = useState(false);
   const [q1a3, setQ1A3] = useState(false);
-  const [answer1, setQuestion1] = useState();
+  const [answer1, setQuestion1] = useState("");
 
   const [q2a1, setQ2A1] = useState(false);
   const [q2a2, setQ2A2] = useState(false);
-  const [answer2, setQuestion2] = useState();
+  const [answer2, setQuestion2] = useState("");
 
   const [q3a1, setQ3A1] = useState(false);
   const [q3a2, setQ3A2] = useState(false);
-  const [answer3, setQuestion3] = useState();
+  const [answer3, setQuestion3] = useState("");
 
   const [q4a1, setQ4A1] = useState(false);
   const [q4a2, setQ4A2] = useState(false);
   const [q4a3, setQ4A3] = useState(false);
-  const [answer4, setQuestion4] = useState('Normal');
+  const [answer4, setQuestion4] = useState("");
 
   const [q5a1, setQ5A1] = useState(false);
   const [q5a2, setQ5A2] = useState(false);
-  const [answer5, setQuestion5] = useState();
+  const [q5a3, setQ5A3] = useState(false);
+  const [answer5, setQuestion5] = useState("");
 
   const [q6a1, setQ6A1] = useState(false);
   const [q6a2, setQ6A2] = useState(false);
-  const [answer6, setQuestion6] = useState('Normal');
+  const [answer6, setQuestion6] = useState("");
 
   const continueHandler = () => {
-    props.setVisible(false);
+    if (answer1.trim().length === 0) {
+      alert("All the questions are required!")
+    } else if (answer2.trim().length === 0) {
+        alert('All the questions are required!');
+    } else if (answer3.trim().length === 0) {
+       alert('All the questions are required!');
+    } else if (answer4.trim().length === 0) {
+       alert('All the questions are required!');
+    } else if (answer5.trim().length === 0) {
+       alert('All the questions are required!');
+    } else if (answer6.trim().length === 0) {
+       alert('All the questions are required!');
+    }
+    else {
+      const data = {
+        email: props.email,
+        question1: answer1,
+        question2: answer2,
+        question3: answer3,
+        question4: answer4,
+        question5: answer5,
+        question6: answer6,
+      };
+      axios
+        .post(`http://${IP}:8000/details/day-start/targert/save`, data)
+        .then(res => {
+          if (res.data.status === true) {
+             props.setVisible(false)
+          } else {
+            alert(res.data.message);
+          }
+        })
+        .catch(err => {
+          alert(err.message);
+        });
+   
+    };
+
   };
+
 
   return (
     <Modal visible={props.visible}>
@@ -50,7 +91,7 @@ const DayStartQuestion = props => {
           <View style={styles.Body}>
             <View style={styles.QuestionContainer}>
               <Text style={{color: 'rgb(119, 119, 119)'}}>
-                01. How many water do you think to drink?
+                01. How many liters of water will you think to drink?
               </Text>
               <View style={styles.AnswerWrapper}>
                 <Text
@@ -65,7 +106,7 @@ const DayStartQuestion = props => {
                       setQ1A1(newValue),
                         setQ1A2(!newValue),
                         setQ1A3(!newValue),
-                        setQuestion1('20 - 30');
+                        setQuestion1('1');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -85,7 +126,7 @@ const DayStartQuestion = props => {
                       setQ1A1(!newValue),
                         setQ1A2(newValue),
                         setQ1A3(!newValue),
-                        setQuestion1('31-40');
+                        setQuestion1('2');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -105,7 +146,7 @@ const DayStartQuestion = props => {
                       setQ1A1(!newValue),
                         setQ1A2(!newValue),
                         setQ1A3(newValue),
-                        setQuestion1('Above 40');
+                        setQuestion1('3');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -116,8 +157,7 @@ const DayStartQuestion = props => {
 
             <View style={styles.QuestionContainer}>
               <Text style={{color: 'rgb(119, 119, 119)'}}>
-                02. Do you suffer from chronic pain? (2 months or more of
-                continuous pain)?
+                02. How far will you wish to walk?
               </Text>
               <View style={styles.AnswerWrapper}>
                 <Text
@@ -131,7 +171,7 @@ const DayStartQuestion = props => {
                     onValueChange={newValue => {
                       setQ2A1(newValue),
                         setQ2A2(!newValue),
-                        setQuestion2('Yes');
+                        setQuestion2('1');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -148,7 +188,7 @@ const DayStartQuestion = props => {
                     disabled={false}
                     value={q2a2}
                     onValueChange={newValue => {
-                      setQ2A1(!newValue), setQ2A2(newValue), setQuestion2('No');
+                      setQ2A1(!newValue), setQ2A2(newValue), setQuestion2('2');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -173,7 +213,7 @@ const DayStartQuestion = props => {
                     onValueChange={newValue => {
                       setQ3A1(newValue),
                         setQ3A2(!newValue),
-                        setQuestion3('Yes');
+                        setQuestion3('1');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -190,7 +230,7 @@ const DayStartQuestion = props => {
                     disabled={false}
                     value={q3a2}
                     onValueChange={newValue => {
-                      setQ3A1(!newValue), setQ3A2(newValue), setQuestion3('No');
+                      setQ3A1(!newValue), setQ3A2(newValue), setQuestion3('2');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -201,12 +241,12 @@ const DayStartQuestion = props => {
 
             <View style={styles.QuestionContainer}>
               <Text style={{color: 'rgb(119, 119, 119)'}}>
-                04. Range? (If you suffer from diabetes)
+                04. How far will you wish to walk?
               </Text>
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  100 - 125 mg/dL
+                  1 Km
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
@@ -216,7 +256,7 @@ const DayStartQuestion = props => {
                       setQ4A1(newValue),
                         setQ4A2(!newValue),
                         setQ4A3(!newValue),
-                        setQuestion4('100-125 mg/dL');
+                        setQuestion4('1');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -226,7 +266,7 @@ const DayStartQuestion = props => {
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  126 - 151 mg/dL
+                  2 Km
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
@@ -236,7 +276,7 @@ const DayStartQuestion = props => {
                       setQ4A1(!newValue),
                         setQ4A2(newValue),
                         setQ4A3(!newValue),
-                        setQuestion4('126-151 mg/dL');
+                        setQuestion4('2');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -246,7 +286,7 @@ const DayStartQuestion = props => {
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  151 mg/dL or higher
+                  3 Km
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
@@ -256,7 +296,7 @@ const DayStartQuestion = props => {
                       setQ4A1(!newValue),
                         setQ4A2(!newValue),
                         setQ4A3(newValue),
-                        setQuestion4('151 mg/dL or higher');
+                        setQuestion4('3');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -267,12 +307,12 @@ const DayStartQuestion = props => {
 
             <View style={styles.QuestionContainer}>
               <Text style={{color: 'rgb(119, 119, 119)'}}>
-                05. Do you suffer from high/low blood pressure?
+                05. How many time do you hope to do workout today?
               </Text>
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  Yes
+                  1.5 hours
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
@@ -281,7 +321,8 @@ const DayStartQuestion = props => {
                     onValueChange={newValue => {
                       setQ5A1(newValue),
                         setQ5A2(!newValue),
-                        setQuestion5('Yes');
+                        setQ5A3(!newValue),
+                        setQuestion5('1');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -291,14 +332,34 @@ const DayStartQuestion = props => {
               <View style={styles.AnswerWrapper}>
                 <Text
                   style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
-                  No
+                  2 hours
                 </Text>
                 <View style={{flex: 1}}>
                   <CheckBox
                     disabled={false}
                     value={q5a2}
                     onValueChange={newValue => {
-                      setQ5A1(!newValue), setQ5A2(newValue), setQuestion5('No');
+                      setQ5A1(!newValue),
+                        setQ5A2(newValue),
+                        setQ5A3(!newValue),
+                        setQuestion5('2');
+                    }}
+                    tintColor={'green'}
+                    onCheckColor={'green'}
+                  />
+                </View>
+              </View>
+              <View style={styles.AnswerWrapper}>
+                <Text
+                  style={{marginTop: 4, flex: 4, color: 'rgb(119, 119, 119)'}}>
+                  2.5 hours
+                </Text>
+                <View style={{flex: 1}}>
+                  <CheckBox
+                    disabled={false}
+                    value={q5a3}
+                    onValueChange={newValue => {
+                      setQ5A1(!newValue), setQ5A2(!newValue),setQ5A3(newValue), setQuestion5('3');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -323,7 +384,7 @@ const DayStartQuestion = props => {
                     onValueChange={newValue => {
                       setQ6A1(newValue),
                         setQ6A2(!newValue),
-                        setQuestion6('140/90mmHg or higher');
+                        setQuestion6('1');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
@@ -342,7 +403,7 @@ const DayStartQuestion = props => {
                     onValueChange={newValue => {
                       setQ6A1(!newValue),
                         setQ6A2(newValue),
-                        setQuestion6('90/60mmHg or lower');
+                        setQuestion6('2');
                     }}
                     tintColor={'green'}
                     onCheckColor={'green'}
