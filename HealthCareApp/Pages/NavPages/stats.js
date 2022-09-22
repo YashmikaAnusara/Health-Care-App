@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
 
 export default function Stats() {
   return (
@@ -16,9 +10,8 @@ export default function Stats() {
             <Text
               style={{
                 fontSize: 30,
+                color: '#5DB075',
                 fontWeight: 'bold',
-                color: 'green',
-                fontFamily: 'Arial',
                 marginTop: 20,
               }}>
               My Stats
@@ -57,7 +50,6 @@ export default function Stats() {
               style={{
                 paddingLeft: 20,
                 paddingRight: 20,
-                 
               }}>
               <Text>Graph 02</Text>
             </View>
@@ -80,9 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   ItemHeader: {alignItems: 'center', justifyContent: 'center'},
-  ItemBody: {
-     
-  },
+  ItemBody: {},
 
   Footter: {
     flex: 1.7,

@@ -13,7 +13,6 @@ import {
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import SelectDropdown from 'react-native-select-dropdown';
- 
 
 const job = ['User', 'Doctor', 'Manager'];
 
@@ -40,16 +39,14 @@ const Registration = () => {
     } else if (type.trim().length === 0) {
       alert('Please Select a User ...');
     } else {
-       
       navigation.navigate('signupQuestion', {
         name: name,
         email: email,
         type: type,
         password: password,
-        permission: permission
+        permission: permission,
       });
     }
-          
   };
 
   return (
@@ -87,8 +84,8 @@ const Registration = () => {
                 <Text
                   style={{
                     fontSize: 30,
+                    color: '#5DB075',
                     fontWeight: 'bold',
-                    color: 'green',
                     marginTop: 20,
                     marginBottom: 15,
                   }}>
@@ -103,7 +100,10 @@ const Registration = () => {
                   alignItems: 'flex-end',
                 }}></View>
             </View>
-            <Image source={require('../Assets/signup.png')} />
+            <Image
+              source={require('../Assets/signup.png')}
+              style={{width: 250, height: 250}}
+            />
           </View>
           <View style={styles.inputWrapper}>
             <TextInput
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 12,
     height: 47,
-    color: 'rgb(119, 119, 119)'
+    color: 'rgb(119, 119, 119)',
   },
   button: {
     backgroundColor: '#5DB075',
