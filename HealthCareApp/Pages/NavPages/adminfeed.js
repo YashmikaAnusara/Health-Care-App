@@ -103,25 +103,25 @@ export default function Admin_feed({navigation}) {
                     resizeMode="contain"
                     style={{
                       marginTop: 10,
-                      marginLeft: 10,
-                      width: 25,
-                      height: 25,
+                      marginLeft: 0,
+                      width: 100,
+                      height: 100,
                       top: 22,
                       // alignSelf: 'center',
                     }}
                   />
                   <Text
                     style={{
-                      marginLeft: 50,
+                      marginLeft: 100,
                       fontWeight: 'bold',
-                      marginTop: -15,
+                      marginTop: -57,
                       fontSize: 18,
                     }}>
                     {data.feedtopic}
                   </Text>
                   <Text
                     style={{
-                      marginLeft: 50,
+                      marginLeft: 100,
                       marginTop: 0,
                       fontSize: 18,
                     }}>

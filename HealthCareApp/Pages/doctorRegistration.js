@@ -1,7 +1,18 @@
-import {View, Text, ScrollView, Image, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 
-export default function DoctorRegistration() {
+export default function DoctorRegistration({navigation}) {
+  const back = () => {
+    navigation.navigate('Admin_proflie');
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: '#ffffff'}}>
       <ScrollView>
@@ -74,6 +85,46 @@ export default function DoctorRegistration() {
             placeholderTextColor="rgb(119, 119, 119)"
             //   onChangeText={setName}
           />
+          <View style={{height: 250}}>
+            <TouchableOpacity>
+              <View
+                style={{
+                  top: 10,
+                  backgroundColor: '#5DB075',
+                  height: 50,
+                  borderRadius: 25,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    alignSelf: 'center',
+                    top: 10,
+                    color: '#ffffff',
+                  }}>
+                  Register
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={back}>
+              <View
+                style={{
+                  top: 20,
+                  backgroundColor: '#5DB075',
+                  height: 50,
+                  borderRadius: 25,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    alignSelf: 'center',
+                    top: 10,
+                    color: '#ffffff',
+                  }}>
+                  Back
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </View>

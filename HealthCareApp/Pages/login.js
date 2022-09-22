@@ -77,7 +77,10 @@ const Login = () => {
               }}>
               SIGN-IN
             </Text>
-            <Image source={require('../Assets/login.png')} />
+            <Image
+              source={require('../Assets/login.png')}
+              style={{width: 300, height: 300}}
+            />
           </View>
           <View style={styles.inputWrapper}>
             <TextInput

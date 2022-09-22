@@ -4,6 +4,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import axios from 'axios';
@@ -68,6 +69,16 @@ export default function Addfeed({navigation}) {
               Submit
             </Text>
           </TouchableOpacity>
+          <Image
+            source={require('../Assets/feedpic.png')}
+            resizeMode="contain"
+            style={{
+              width: 300,
+              height: 250,
+              top: 10,
+              alignSelf: 'center',
+            }}
+          />
           <View style={{marginTop: 15}}>
             <Text style={{marginLeft: 20, marginTop: 10}}>
               Enter the Feed Topic

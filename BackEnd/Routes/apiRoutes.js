@@ -201,9 +201,7 @@ router.route("/feed").get((req, res) => {
 router.route("/emp/:month").get((req, res) => {
   let type = "User";
   let month = req.params.month;
-  User.find({
-    $and: [{ type: { $eq: type } }, { month: { $eq: month } }],
-  })
+  User.find({ type: type })
     .then((emp) => {
       if (emp.length === 0) {
         res.json({ status: false, emp });

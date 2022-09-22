@@ -60,7 +60,7 @@ export default function Admin_proflie({navigation, route}) {
                 <View
                   style={{
                     borderRadius: 25,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: '#6b6b6b',
                     width: '100%',
                     height: 120,
@@ -70,20 +70,29 @@ export default function Admin_proflie({navigation, route}) {
                     source={require('../../Assets/doctor.png')}
                     resizeMode="contain"
                     style={{
-                      width: 100,
-                      height: 100,
-                      top: 2,
+                      width: 180,
+                      height: 120,
+                      // top: 2,
                       left: 2,
                     }}
                   />
                   <Text
                     style={{
                       color: '#ffffff',
-                      left: 110,
-                      marginTop: -60,
+                      left: 180,
+                      marginTop: -90,
                       fontSize: 25,
                     }}>
-                    Doctor Registration
+                    Doctor
+                  </Text>
+                  <Text
+                    style={{
+                      color: '#ffffff',
+                      left: 180,
+                      marginTop: -5,
+                      fontSize: 25,
+                    }}>
+                    Registration
                   </Text>
                 </View>
               </TouchableOpacity>
