@@ -78,6 +78,9 @@ const DayStartQuestion = props => {
     }
     };
 
+  };
+
+
   return (
     <Modal visible={props.visible}>
       <View style={{flex: 1, backgroundColor: 'gray'}}>
@@ -435,9 +438,8 @@ const styles = StyleSheet.create({
   },
   TopicText: {
     fontSize: 30,
+    color: '#5DB075',
     fontWeight: 'bold',
-    color: 'green',
-    fontFamily: 'Arial',
     marginTop: 20,
   },
   Body: {

@@ -1,12 +1,22 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 export default function Admin_proflie({navigation, route}) {
   const logoutHandler = () => {
     navigation.navigate('Login');
   };
 
+  const doctorreg = () => {
+    navigation.navigate('DoctorRegistration');
+  };
   // const {position} = route.params;
 
   // useEffect(() => {
@@ -16,32 +26,82 @@ export default function Admin_proflie({navigation, route}) {
   // });
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
-        <Text style={styles.setting}>Setting</Text>
-        <Text style={styles.logout} onPress={logoutHandler}>
-          Logout
-        </Text>
-        <Text style={styles.topic}>Profile</Text>
-        <Image
-          source={require('../../Assets/pic.png')}
-          resizeMode="contain"
-          style={{
-            width: 200,
-            height: 200,
-            top: 10,
-            alignSelf: 'center',
-          }}
-        />
-        <Text style={styles.name}>Yashmika Saparamadu</Text>
-        <Text style={styles.subname}>A mantra goes here</Text>
-        <Text style={styles.subname}>Admin </Text>
+      <View style={{flex: 8}}>
+        <ScrollView>
+          <View style={styles.box}>
+            <Text style={styles.setting}></Text>
+            <Text style={styles.logout} onPress={logoutHandler}>
+              Logout
+            </Text>
+            <Text style={styles.topic}>Profile</Text>
+            <Image
+              source={require('../../Assets/pic.png')}
+              resizeMode="contain"
+              style={{
+                width: 200,
+                height: 200,
+                top: 10,
+                alignSelf: 'center',
+              }}
+            />
+            <Text style={styles.name}>Yashmika Saparamadu</Text>
+            <Text style={styles.subname}>A mantra goes here</Text>
+            <Text style={styles.subname}>Admin </Text>
+
+            <View
+              style={{
+                // backgroundColor: 'red',
+                marginTop: 50,
+                width: '100%',
+                paddingLeft: 20,
+                paddingRight: 20,
+              }}>
+              <TouchableOpacity onPress={doctorreg}>
+                <View
+                  style={{
+                    borderRadius: 25,
+                    borderWidth: 1,
+                    borderColor: '#6b6b6b',
+                    width: '100%',
+                    height: 120,
+                    backgroundColor: '#6b6b6b',
+                  }}>
+                  <Image
+                    source={require('../../Assets/doctor.png')}
+                    resizeMode="contain"
+                    style={{
+                      width: 180,
+                      height: 120,
+                      // top: 2,
+                      left: 2,
+                    }}
+                  />
+                  <Text
+                    style={{
+                      color: '#ffffff',
+                      left: 180,
+                      marginTop: -90,
+                      fontSize: 25,
+                    }}>
+                    Doctor
+                  </Text>
+                  <Text
+                    style={{
+                      color: '#ffffff',
+                      left: 180,
+                      marginTop: -5,
+                      fontSize: 25,
+                    }}>
+                    Registration
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
       </View>
-      {/* <Button
-        title="Press Me"
-        onPress={() => alert('wow You press me Proflie')}
-      /> */}
+      <View style={{flex: 1.7}}></View>
     </View>
-    // </SafeAreaView>
   );
 }
 
@@ -54,7 +114,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '100%',
-    height: '30%',
+    height: '40%',
     backgroundColor: '#5DB075',
     display: 'flex',
     // alignItems: 'center',
@@ -65,6 +125,7 @@ const styles = StyleSheet.create({
     top: 0,
     fontSize: 35,
     color: 'white',
+    fontWeight: 'bold',
     // alignContent: 'center',
     // justifyContent: 'center',
   },

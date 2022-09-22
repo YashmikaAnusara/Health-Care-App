@@ -7,6 +7,7 @@ import Registration from './Pages/registration';
 import SignupQuestion from './Pages/signup_question';
 import Navpage from './Pages/navpage';
 import Addfeed from './Pages/addfeed';
+import DoctorRegistration from './Pages/doctorRegistration';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,11 @@ const AppRoutes = () => {
           name="AddFeed"
           options={{headerShown: false}}
           component={Addfeed}
+        />
+        <Stack.Screen
+          name="DoctorRegistration"
+          options={{headerShown: false}}
+          component={DoctorRegistration}
         />
       </Stack.Navigator>
     </NavigationContainer>

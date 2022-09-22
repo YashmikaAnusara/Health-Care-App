@@ -11,6 +11,7 @@ import { BarChart } from 'react-native-chart-kit';
 import axios from 'axios';
 import IP from '../../ip_address';
 
+
 export default function Stats() {
   let email="test2"
 
@@ -45,9 +46,8 @@ export default function Stats() {
             <Text
               style={{
                 fontSize: 30,
+                color: '#5DB075',
                 fontWeight: 'bold',
-                color: 'green',
-                fontFamily: 'Arial',
                 marginTop: 20,
               }}>
               My Stats

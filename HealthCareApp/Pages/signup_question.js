@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import IP from '../ip_address';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import {StackActions} from '@react-navigation/native';
 
 const SignupQuestion = ({route}) => {
@@ -117,8 +117,8 @@ const SignupQuestion = ({route}) => {
             <Text
               style={{
                 fontSize: 30,
+                color: '#5DB075',
                 fontWeight: 'bold',
-                color: 'green',
                 marginTop: 20,
                 marginBottom: 15,
               }}>

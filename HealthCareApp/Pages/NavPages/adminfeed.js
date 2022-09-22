@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,13 +8,54 @@ import {
   TextInput,
   ScrollView,
   Image,
+  Alert,
 } from 'react-native';
+import IP from '../../ip_address';
 
 export default function Admin_feed({navigation}) {
+  const [feed, setfeed] = useState([]);
+  const [search, setsearch] = useState('');
+
   const addfeed = () => {
     navigation.navigate('AddFeed');
   };
 
+  const deletehandler = id =>
+    Alert.alert(
+      '',
+      'Do you want to delete this feed ?',
+      [
+        {
+          text: 'Cancel',
+          // onPress: () => console.log(''),
+        },
+
+        {
+          text: 'Delete',
+          onPress: () => {
+            axios
+              .delete(`http://${IP}:8000/details/feed/${id}`)
+              .then(res => {
+                console.log(`This ${id} deleted`);
+              })
+              .catch(err => {
+                alert(err);
+              });
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+
+  useEffect(() => {
+    axios.get(`http://${IP}:8000/details/feed`).then(res => {
+      setfeed(res.data);
+    });
+  }, [feed]);
+
+  const feeds = feed.filter(data => {
+    return data.feedtopic.toLowerCase().includes(search.toLowerCase());
+  });
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
@@ -24,6 +66,7 @@ export default function Admin_feed({navigation}) {
               fontSize: 30,
               marginTop: 20,
               color: '#5DB075',
+              fontWeight: 'bold',
             }}>
             Feed
           </Text>
@@ -38,53 +81,71 @@ export default function Admin_feed({navigation}) {
               Add
             </Text>
           </TouchableOpacity>
-          <TextInput
-            style={{
-              marginTop: 20,
-              height: 50,
-              margin: 12,
-              borderWidth: 0.8,
-              padding: 10,
-              borderRadius: 20,
-            }}
-            // onChangeText={onChangeNumber}
-            // value={number}
-            placeholder="Search"
-            keyboardType="default"
-          />
-          <View style={{flex: 2, marginTop: 10}}>
-            <View style={{paddingRight: 10, paddingLeft: 10}}>
-              <Image
-                source={require('../../Assets/feed_i.png')}
-                resizeMode="contain"
-                style={{
-                  marginTop: 10,
-                  marginLeft: 10,
-                  width: 25,
-                  height: 25,
-                  top: 22,
-                  // alignSelf: 'center',
-                }}
-              />
-              <Text
-                style={{
-                  marginLeft: 50,
-                  fontWeight: 'bold',
-                  marginTop: -15,
-                  fontSize: 18,
-                }}>
-                Test
-              </Text>
-              <Text
-                style={{
-                  marginLeft: 50,
-                  marginTop: 0,
-                  fontSize: 18,
-                }}>
-                dsfsdfdsfdsfdsfsdfdsfsd df sd fsdfsd fhsd fsd fsd f
-              </Text>
-            </View>
-            {/* ============================================= */}
+          <View style={{paddingLeft: 10, paddingRight: 10}}>
+            <TextInput
+              style={{
+                top: 25,
+                backgroundColor: 'rgb(247, 247, 247)',
+                borderRadius: 30,
+                borderWidth: 1,
+                borderColor: 'rgb(224, 224, 224)',
+                paddingLeft: 20,
+                fontSize: 20,
+                marginBottom: 12,
+                height: 47,
+                color: 'rgb(119, 119, 119)',
+              }}
+              onChangeText={setsearch}
+              placeholder="Search"
+              placeholderTextColor="rgb(119, 119, 119)"
+              keyboardType="default"
+            />
+          </View>
+          <View style={{top: 15}}>
+            {feeds.map((data, index) => (
+              <View style={{flex: 2, marginTop: 5}} key={index}>
+                <TouchableOpacity onPress={() => deletehandler(data._id)}>
+                  <View
+                    style={{
+                      paddingRight: 10,
+                      paddingLeft: 10,
+                      // backgroundColor: 'red',
+                    }}>
+                    <Image
+                      source={require('../../Assets/feed_i.png')}
+                      resizeMode="contain"
+                      style={{
+                        // marginTop: 10,
+                        marginLeft: 0,
+                        width: 100,
+                        height: 100,
+                        // top: 22,
+                        // alignSelf: 'center',
+                      }}
+                    />
+                    <Text
+                      style={{
+                        marginLeft: 100,
+                        fontWeight: 'bold',
+                        marginTop: -77,
+                        fontSize: 18,
+                      }}>
+                      {data.feedtopic}
+                    </Text>
+                    <Text
+                      style={{
+                        marginLeft: 100,
+                        marginTop: 0,
+                        marginBottom: 20,
+                        fontSize: 18,
+                      }}>
+                      {data.feedbody}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                {/* ============================================= */}
+              </View>
+            ))}
           </View>
         </ScrollView>
       </View>

@@ -1,10 +1,29 @@
 const router = require("express").Router();
 const User = require("../Models/user");
 const DayStart = require("../Models/dayStart");
+const AdminFeed = require("../Models/adminfeed");
+
 
 router.route("/user/save").post((req, res) => {
   const { name, email, password, type, permission } = req.body;
+  const requestmonth = new Date();
 
+  const month = requestmonth.getMonth();
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   User.findOne({ email: email })
     .then((data) => {
       if (data) {
@@ -16,6 +35,7 @@ router.route("/user/save").post((req, res) => {
           password: password,
           type: type,
           permission: permission,
+          month: months[month],
         });
         data.save((error, data) => {
           if (error) {
@@ -152,9 +172,120 @@ router.route("/user/helth/info/save/:email").post((req, res) => {
     });
 });
 
+ 
+ 
+ 
+router.route("/addfeed").post((req, res) => {
+  const feedtopic = req.body.feedtopic;
+  const feedbody = req.body.feedbody;
+
+  const newfeed = new AdminFeed({
+    feedtopic: feedtopic,
+    feedbody: feedbody,
+  });
+
+  newfeed
+    .save()
+    .then(() => {
+      res.json("Feed Added");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.route("/feed").get((req, res) => {
+  AdminFeed.find()
+    .then((feed) => {
+      res.json(feed);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+router.route("/emp/:month").get((req, res) => {
+  let type = "User";
+  let month = req.params.month;
+  User.find({ type: type })
+    .then((emp) => {
+      if (emp.length === 0) {
+        res.json({ status: false, emp });
+      } else {
+        res.json({ status: true, emp });
+      }
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+router.route("/feed/:_id").delete((req, res) => {
+  let _id = req.params._id;
+  AdminFeed.findOneAndDelete({ _id: _id })
+    .then((emp) => {
+      res.json(emp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.route("/chat").get((req, res) => {
+  User.find()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+router.route("/adddoctor").post((req, res) => {
+  const docname = req.body.docname;
+  const docemail = req.body.docemail;
+  const docpassword = req.body.docpassword;
+  const permission = "true";
+  const type = "Doctor";
+  const requestmonth = new Date();
+
+  const month = requestmonth.getMonth();
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const newfeed = new User({
+    name: docname,
+    email: docemail,
+    password: docpassword,
+    month: months[month],
+    permission: permission,
+    type: type,
+  });
+
+  newfeed
+    .save()
+    .then(() => {
+      res.json("Feed Added");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 router.route("/day-start/targert/find/:email").get((req, res) => {
   const email = req.params.email;
-
   let dateObj = new Date();
   let month = String(dateObj.getMonth() + 1).padStart(2, "0");
   let year = dateObj.getFullYear();

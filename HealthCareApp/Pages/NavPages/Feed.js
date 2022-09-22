@@ -42,9 +42,11 @@ const Feed = () => {
 
   const saveInHandler = () => {
     alert("done");
+
   };
 
   useEffect(() => {
+
     axios
       .get(`http://${IP}:8000/details/day-start/targert/find/${email}`)
       .then(res => {
@@ -63,8 +65,6 @@ const Feed = () => {
       .catch(err => {
         alert(err.message);
       });
-    
-    
   }, []);
 
   return (
@@ -85,9 +85,9 @@ const Feed = () => {
             <Text
               style={{
                 fontSize: 30,
+                color: '#5DB075',
                 fontWeight: 'bold',
-                color: 'green',
-                fontFamily: 'Arial',
+                // fontFamily: 'Arial',
                 marginTop: 20,
               }}>
               My Health Info
