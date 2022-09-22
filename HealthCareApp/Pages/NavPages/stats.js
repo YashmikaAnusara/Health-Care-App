@@ -28,8 +28,6 @@ export default function Stats() {
       });
   },[])
 
-  
-  
   const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
