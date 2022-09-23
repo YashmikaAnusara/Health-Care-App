@@ -8,8 +8,15 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import IP from '../../ip_address';
 
 export default function Admin_proflie({navigation, route}) {
+  const user = route.params.position;
+  const useremail = route.params.email;
+  // console.log(route.params);
+
+  const [username, setusername] = useState('');
+
   const logoutHandler = () => {
     navigation.navigate('Login');
   };
@@ -19,11 +26,17 @@ export default function Admin_proflie({navigation, route}) {
   };
   // const {position} = route.params;
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://${IP}:8000/details/profile/${route.params.email}`)
-  //     .then(res => {});
-  // });
+  useEffect(() => {
+    axios
+      .get(`http://${IP}:8000/details/profile/${useremail}`)
+      .then(res => {
+        setusername(res.data.name);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
@@ -44,9 +57,9 @@ export default function Admin_proflie({navigation, route}) {
                 alignSelf: 'center',
               }}
             />
-            <Text style={styles.name}>Yashmika Saparamadu</Text>
-            <Text style={styles.subname}>A mantra goes here</Text>
-            <Text style={styles.subname}>Admin </Text>
+            <Text style={styles.name}>{username}</Text>
+            <Text style={styles.subname}>{useremail}</Text>
+            <Text style={styles.subname}>{user}</Text>
 
             <View
               style={{
@@ -56,46 +69,62 @@ export default function Admin_proflie({navigation, route}) {
                 paddingLeft: 20,
                 paddingRight: 20,
               }}>
-              <TouchableOpacity onPress={doctorreg}>
-                <View
-                  style={{
-                    borderRadius: 25,
-                    borderWidth: 1,
-                    borderColor: '#6b6b6b',
-                    width: '100%',
-                    height: 120,
-                    backgroundColor: '#6b6b6b',
-                  }}>
+              {user === 'Admin' ? (
+                <TouchableOpacity onPress={doctorreg}>
+                  <View
+                    style={{
+                      borderRadius: 25,
+                      borderWidth: 1,
+                      borderColor: '#6b6b6b',
+                      width: '100%',
+                      height: 120,
+                      backgroundColor: '#6b6b6b',
+                    }}>
+                    <Image
+                      source={require('../../Assets/doctor.png')}
+                      resizeMode="contain"
+                      style={{
+                        width: 180,
+                        height: 120,
+                        // top: 2,
+                        left: 2,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        left: 180,
+                        marginTop: -90,
+                        fontSize: 25,
+                      }}>
+                      Doctor
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        left: 180,
+                        marginTop: -5,
+                        fontSize: 25,
+                      }}>
+                      Registration
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              ) : (
+                <View>
                   <Image
-                    source={require('../../Assets/doctor.png')}
+                    source={require('../../Assets/doctorpic.png')}
                     resizeMode="contain"
                     style={{
-                      width: 180,
-                      height: 120,
-                      // top: 2,
-                      left: 2,
+                      alignSelf: 'center',
+                      width: 350,
+                      height: 200,
+                      top: -30,
+                      // left: 0,
                     }}
                   />
-                  <Text
-                    style={{
-                      color: '#ffffff',
-                      left: 180,
-                      marginTop: -90,
-                      fontSize: 25,
-                    }}>
-                    Doctor
-                  </Text>
-                  <Text
-                    style={{
-                      color: '#ffffff',
-                      left: 180,
-                      marginTop: -5,
-                      fontSize: 25,
-                    }}>
-                    Registration
-                  </Text>
                 </View>
-              </TouchableOpacity>
+              )}
             </View>
           </View>
         </ScrollView>
@@ -114,7 +143,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '100%',
-    height: '40%',
+    height: '34%',
     backgroundColor: '#5DB075',
     display: 'flex',
     // alignItems: 'center',

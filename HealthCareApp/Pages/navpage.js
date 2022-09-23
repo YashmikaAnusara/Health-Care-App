@@ -12,13 +12,14 @@ import Pins from './NavPages/pins';
 import Admin_proflie from './NavPages/adminproflie';
 import Admin_stats from './NavPages/adminstats';
 import Admin_feed from './NavPages/adminfeed';
-import Admin_alert from './NavPages/adminalert';
+import Admin_message from './NavPages/adminmessage';
 
 const Tab = createBottomTabNavigator();
 
 export default function Navpage({route}) {
   const user = route.params.position;
-  // route.params.position;
+  const useremail = route.params.email;
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -210,11 +211,11 @@ export default function Navpage({route}) {
         />
       ) : (
         <Tab.Screen
-          name="Admin_alert"
-          component={Admin_alert}
+          name="Admin_message"
+          component={Admin_message}
           options={{
-            tabBarBadge: 0,
-            tabBarBadgeStyle: {marginTop: 10},
+            // tabBarBadge: 0,
+            // tabBarBadgeStyle: {marginTop: 10},
             headerShown: false,
             tabBarIcon: ({focused}) => (
               <View
@@ -224,7 +225,7 @@ export default function Navpage({route}) {
                   top: 5,
                 }}>
                 <Image
-                  source={require('../Assets/bell.png')}
+                  source={require('../Assets/chat.png')}
                   resizeMode="contain"
                   style={{
                     width: 35,
@@ -238,7 +239,7 @@ export default function Navpage({route}) {
                     fontSize: 12,
                     //   textAlign:'center'
                   }}>
-                  Alert
+                  Message
                 </Text>
               </View>
             ),
@@ -283,6 +284,7 @@ export default function Navpage({route}) {
         <Tab.Screen
           name="Admin_proflie"
           component={Admin_proflie}
+          initialParams={{position: user, email: useremail}}
           options={{
             headerShown: false,
             tabBarIcon: ({focused}) => (

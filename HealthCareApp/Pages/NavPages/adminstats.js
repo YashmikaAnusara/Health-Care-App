@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Dimensions,
+  TouchableOpacity,
   Image,
   ScrollView,
 } from 'react-native';
@@ -45,6 +46,18 @@ export default function Admin_stats({navigation}) {
       }
     });
   }, [emp]);
+
+  useEffect(() => {
+    axios
+      .get(`http://${IP}:8000/details/chart`)
+      .then(res => {
+        setchart(res.data);
+      })
+      .catch(errr => {
+        console.log(errr);
+      });
+  }, [chart]);
+
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
@@ -56,11 +69,11 @@ export default function Admin_stats({navigation}) {
                 labels: ['Jan-Mar', 'Apr-Jun', 'Jul-Sep', 'Oct-Dec'],
                 datasets: [
                   {
-                    data: [40, 45, 50, 60],
+                    data: chart,
                   },
                 ],
               }}
-              width={370}
+              width={Dimensions.get('window').width}
               height={250}
               chartConfig={{
                 backgroundColor: '#efefef',
@@ -111,34 +124,35 @@ export default function Admin_stats({navigation}) {
             ) : (
               <>
                 {emp.map((data, index) => (
-                  <View
-                    key={index}
-                    style={{
-                      marginTop: 10,
-                      paddingBottom: 10,
-                      borderBottomWidth: 1,
-                      borderBottomColor: 'rgba(38, 38, 38, .2)',
-                    }}>
-                    <Image
-                      source={require('../../Assets/dot.png')}
-                      resizeMode="contain"
+                  <TouchableOpacity key={index}>
+                    <View
                       style={{
-                        marginLeft: 10,
-                        width: 12,
-                        height: 12,
-                        top: 10,
-                        // alignSelf: 'center',
-                      }}
-                    />
-                    <Text
-                      style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                      {data.name}
-                    </Text>
-                    <Text
-                      style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                      Statistic
-                    </Text>
-                  </View>
+                        marginTop: 10,
+                        paddingBottom: 10,
+                        borderBottomWidth: 1,
+                        borderBottomColor: 'rgba(38, 38, 38, .2)',
+                      }}>
+                      <Image
+                        source={require('../../Assets/dot.png')}
+                        resizeMode="contain"
+                        style={{
+                          marginLeft: 10,
+                          width: 12,
+                          height: 12,
+                          top: 10,
+                          // alignSelf: 'center',
+                        }}
+                      />
+                      <Text
+                        style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
+                        {data.name}
+                      </Text>
+                      <Text
+                        style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
+                        Statistic
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
                 ))}
               </>
             )}
@@ -160,8 +174,8 @@ const styles = StyleSheet.create({
   chartcontainer: {
     flex: 2,
     marginTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    // paddingLeft: 10,
+    // paddingRight: 10,
     // backgroundColor: 'red',
   },
   topic: {
