@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   RefreshControl,
+  Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
@@ -91,12 +92,30 @@ const ClientChat = props => {
         <View style={styles.ChatHeader}>
           <View style={{flex: 1, marginLeft: 20}}>
             <TouchableOpacity onPress={backHandler}>
-              <Text style={styles.SendText}>Back</Text>
+              <Image
+                source={require('../Assets/back.png')}
+                resizeMode="contain"
+                style={{
+                  width: 40,
+                  height: 30,
+                  right: 10,
+                  tintColor: '#ffffff',
+                }}
+              />
             </TouchableOpacity>
           </View>
           <View style={{flex: 0.2, marginRight: 20}}>
             <TouchableOpacity onPress={refreshHandler}>
-              <Text style={styles.SendText}>refresh</Text>
+              <Image
+                source={require('../Assets/back.png')}
+                resizeMode="contain"
+                style={{
+                  width: 40,
+                  height: 30,
+                  left: 20,
+                  tintColor: '#ffffff',
+                }}
+              />
             </TouchableOpacity>
           </View>
         </View>
