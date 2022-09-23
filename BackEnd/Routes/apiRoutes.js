@@ -78,7 +78,7 @@ router.route("/user/signin/:email/:password").get((req, res) => {
 
 router.route("/profile/:email").get((req, res) => {
   let email = req.params.email;
-  User.find({ email: email })
+  User.findOne({ email: email })
     .then((data) => {
       res.json(data);
     })
@@ -230,10 +230,43 @@ router.route("/feed/:_id").delete((req, res) => {
     });
 });
 
-router.route("/chat").get((req, res) => {
-  User.find()
+router.route("/chart").get((req, res) => {
+  let user = "User";
+  let i = 0;
+  let jan_mar = 0;
+  let apr_jun = 0;
+  let jul_sep = 0;
+  let oct_dec = 0;
+
+  User.find({ type: user })
     .then((data) => {
-      res.json(data);
+      if (data) {
+        while (i < data.length) {
+          if (data[i].month == "Jan") {
+            jan_mar++;
+          } else if (
+            data[i].month == "Apr" ||
+            data[i].month == "May" ||
+            data[i].month == "Jun"
+          ) {
+            apr_jun++;
+          } else if (
+            data[i].month == "Jul" ||
+            data[i].month == "Aug" ||
+            data[i].month == "Sep"
+          ) {
+            jul_sep++;
+          } else if (
+            data[i].month == "Oct" ||
+            data[i].month == "Nov" ||
+            data[i].month == "Dec"
+          ) {
+            oct_dec++;
+          }
+          i++;
+        }
+      }
+      res.json([jan_mar, apr_jun, jul_sep, oct_dec]);
     })
     .catch((err) => {
       res.json(err);
@@ -487,6 +520,7 @@ router.route("/employee/daily/stat/:email").get((req, res) => {
   let array = [];
   let arr1 = [];
   let arr2 = [];
+
   DayStart.findOne({ email: email }).exec(function (err, details) {
     if (err) {
       res.json({ status: false, message: "Try again later!" });
@@ -606,17 +640,26 @@ router.route("/user/chat/:email").post((req, res) => {
     res.send(result);
   }
 });
- 
+
 router.route("/user/chat/get/:email").get((req, res) => {
   let email = req.params.email;
   Chat.findOne({ email: email })
     .then((data) => {
       const messages = data.message;
-      res.json({ status: true, messages});
+      res.json({ status: true, messages });
     })
     .catch((err) => {
       res.json({ status: false, message: "Welcome!" });
     });
 });
 
+router.route("/chat").get((req, res) => {
+  Chat.find()
+    .then((emp) => {
+      res.json(emp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 module.exports = router;
