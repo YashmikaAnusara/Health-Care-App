@@ -85,7 +85,6 @@ const ClientChat = props => {
     }, 3000);
   };
 
-
   return (
     <Modal>
       <View style={styles.Container}>
