@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Dimensions,
+  TouchableOpacity,
   Image,
   ScrollView,
 } from 'react-native';
@@ -123,34 +124,35 @@ export default function Admin_stats({navigation}) {
             ) : (
               <>
                 {emp.map((data, index) => (
-                  <View
-                    key={index}
-                    style={{
-                      marginTop: 10,
-                      paddingBottom: 10,
-                      borderBottomWidth: 1,
-                      borderBottomColor: 'rgba(38, 38, 38, .2)',
-                    }}>
-                    <Image
-                      source={require('../../Assets/dot.png')}
-                      resizeMode="contain"
+                  <TouchableOpacity key={index}>
+                    <View
                       style={{
-                        marginLeft: 10,
-                        width: 12,
-                        height: 12,
-                        top: 10,
-                        // alignSelf: 'center',
-                      }}
-                    />
-                    <Text
-                      style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
-                      {data.name}
-                    </Text>
-                    <Text
-                      style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
-                      Statistic
-                    </Text>
-                  </View>
+                        marginTop: 10,
+                        paddingBottom: 10,
+                        borderBottomWidth: 1,
+                        borderBottomColor: 'rgba(38, 38, 38, .2)',
+                      }}>
+                      <Image
+                        source={require('../../Assets/dot.png')}
+                        resizeMode="contain"
+                        style={{
+                          marginLeft: 10,
+                          width: 12,
+                          height: 12,
+                          top: 10,
+                          // alignSelf: 'center',
+                        }}
+                      />
+                      <Text
+                        style={{fontSize: 20, marginTop: -11, marginLeft: 35}}>
+                        {data.name}
+                      </Text>
+                      <Text
+                        style={{marginLeft: 300, marginTop: -24, fontSize: 17}}>
+                        Statistic
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
                 ))}
               </>
             )}

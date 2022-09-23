@@ -13,6 +13,7 @@ import IP from '../../ip_address';
 export default function Admin_proflie({navigation, route}) {
   const user = route.params.position;
   const useremail = route.params.email;
+  // console.log(route.params);
 
   const [username, setusername] = useState('');
 
@@ -68,46 +69,48 @@ export default function Admin_proflie({navigation, route}) {
                 paddingLeft: 20,
                 paddingRight: 20,
               }}>
-              <TouchableOpacity onPress={doctorreg}>
-                <View
-                  style={{
-                    borderRadius: 25,
-                    borderWidth: 1,
-                    borderColor: '#6b6b6b',
-                    width: '100%',
-                    height: 120,
-                    backgroundColor: '#6b6b6b',
-                  }}>
-                  <Image
-                    source={require('../../Assets/doctor.png')}
-                    resizeMode="contain"
+              {user === 'Admin' ? (
+                <TouchableOpacity onPress={doctorreg}>
+                  <View
                     style={{
-                      width: 180,
+                      borderRadius: 25,
+                      borderWidth: 1,
+                      borderColor: '#6b6b6b',
+                      width: '100%',
                       height: 120,
-                      // top: 2,
-                      left: 2,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      color: '#ffffff',
-                      left: 180,
-                      marginTop: -90,
-                      fontSize: 25,
+                      backgroundColor: '#6b6b6b',
                     }}>
-                    Doctor
-                  </Text>
-                  <Text
-                    style={{
-                      color: '#ffffff',
-                      left: 180,
-                      marginTop: -5,
-                      fontSize: 25,
-                    }}>
-                    Registration
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                    <Image
+                      source={require('../../Assets/doctor.png')}
+                      resizeMode="contain"
+                      style={{
+                        width: 180,
+                        height: 120,
+                        // top: 2,
+                        left: 2,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        left: 180,
+                        marginTop: -90,
+                        fontSize: 25,
+                      }}>
+                      Doctor
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        left: 180,
+                        marginTop: -5,
+                        fontSize: 25,
+                      }}>
+                      Registration
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              ) : null}
             </View>
           </View>
         </ScrollView>
