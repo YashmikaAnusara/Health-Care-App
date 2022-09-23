@@ -9,6 +9,7 @@ import Navpage from './Pages/navpage';
 import Addfeed from './Pages/addfeed';
 import DoctorRegistration from './Pages/doctorRegistration';
 import AdminChat from './Pages/adminChat';
+import Adminempstats from './Pages/adminempstats';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,6 +51,11 @@ const AppRoutes = () => {
           name="AdminChat"
           options={{headerShown: false}}
           component={AdminChat}
+        />
+        <Stack.Screen
+          name="AdminEmpStats"
+          options={{headerShown: false}}
+          component={Adminempstats}
         />
         <Stack.Screen
           name="Nav"
