@@ -10,6 +10,9 @@ export default function Admin_alert({navigation}) {
       setchat(res.data);
     });
   }, [chat]);
+  const adminchat = (email, name) => {
+    navigation.navigate('AdminChat', {useremail: email, username: name});
+  };
   return (
     <View style={{flex: 1}}>
       <View style={{flex: 8}}>
@@ -35,7 +38,9 @@ export default function Admin_alert({navigation}) {
                 paddingRight: 10,
               }}>
               {chat.map((data, index) => (
-                <TouchableOpacity key={index}>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => adminchat(data.email, data.name)}>
                   <View
                     style={{
                       top: 20,
