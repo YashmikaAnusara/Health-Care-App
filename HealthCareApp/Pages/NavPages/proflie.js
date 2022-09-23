@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -8,11 +8,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { StackActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Proflie({navigation}) {
+export default function Proflie({ navigation }) {
+  const [email,setEmail]=useState()
   // const [photo, setphoto] = useState(false);
   // const [posts, setposts] = useState(true);
   const logoutHandler = () => {
+    remove()
     navigation.dispatch(StackActions.replace('Login'));
   };  
   // const photohandler = () => {
@@ -23,10 +26,38 @@ export default function Proflie({navigation}) {
   //   setposts(true);
   //   setphoto(false);
   // };
+
+  const retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('email');
+      if (value !== null) {
+        // We have data!!
+        // console.log(value);
+        setEmail(value);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
+  
+  const remove = async () => {
+    try {
+      await AsyncStorage.removeItem('email');
+       
+    } catch (error) {
+      alert(error)
+    }
+  };
+
+  useEffect(() => {
+   retrieveData() 
+  },[])
+
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
-        <ScrollView> 
+        <ScrollView>
           <View style={styles.box}>
             <TouchableOpacity>
               <Text style={styles.setting}></Text>
@@ -45,7 +76,7 @@ export default function Proflie({navigation}) {
                 alignSelf: 'center',
               }}
             />
-            <Text style={styles.name}>Andrea Carol</Text>
+            <Text style={styles.name}>{email}</Text>
             <Text style={styles.subname}>A mantra goes here</Text>
             <View style={styles.profilebox}>
               {/* <View style={styles.profileboxtopic}>
@@ -70,9 +101,8 @@ export default function Proflie({navigation}) {
               </View> */}
               {/* {photo && ( */}
               <View style={styles.profileboxsub1}>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
+                {/* <Text>
+                   .
                 </Text>
                 <Text>
                   Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
@@ -97,11 +127,7 @@ export default function Proflie({navigation}) {
                 <Text>
                   Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
                   jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
-                <Text>
-                  Test One Two Three Four Five photo djfnsjdbfnjkds fdnfjsdnf
-                  jsdn fjsdfjsdfjsdn fnjfnsdjfnsdjfbsdjfbsdjfbj
-                </Text>
+                </Text> */}
               </View>
               {/* )} */}
               {/* {posts && (
@@ -128,7 +154,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '100%',
-    height: '30%',
+    height: '52%',
     backgroundColor: '#5DB075',
     display: 'flex',
     // alignItems: 'center',
