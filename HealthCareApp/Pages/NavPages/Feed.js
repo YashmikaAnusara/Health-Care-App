@@ -394,9 +394,7 @@ const Feed = () => {
         <FAB
           style={styles.fab}
           onPress={() => setChatActive(true)}
-          icon={{
-            uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400',
-          }}
+          icon={require('../../Assets/chat.png')}
         />
       </View>
       <View style={styles.Footter}></View>
