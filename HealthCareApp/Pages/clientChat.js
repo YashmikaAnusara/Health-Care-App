@@ -30,7 +30,7 @@ const ClientChat = props => {
           .post(`http://${IP}:8000/details/user/chat/${value}`, data)
           .then(res => {})
           .catch(err => {
-            alert(err.message);
+            // alert(err.message);
           });
       }
     } catch (error) {
@@ -52,7 +52,7 @@ const ClientChat = props => {
             }
           })
           .catch(err => {
-            alert(err.message);
+            // alert(err.message);
           });
       }
     } catch (error) {
@@ -107,7 +107,7 @@ const ClientChat = props => {
           <View style={{flex: 0.2, marginRight: 20}}>
             <TouchableOpacity onPress={refreshHandler}>
               <Image
-                source={require('../Assets/back.png')}
+                source={require('../Assets/refresh.png')}
                 resizeMode="contain"
                 style={{
                   width: 40,
