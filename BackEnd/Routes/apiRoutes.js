@@ -2,14 +2,12 @@ const router = require("express").Router();
 const User = require("../Models/user");
 const DayStart = require("../Models/dayStart");
 const AdminFeed = require("../Models/adminfeed");
-
+const Chat = require("../Models/chat");
 
 router.route("/user/save").post((req, res) => {
   const { name, email, password, type, permission } = req.body;
   const requestmonth = new Date();
-
   const month = requestmonth.getMonth();
-
   const months = [
     "Jan",
     "Feb",
@@ -172,9 +170,6 @@ router.route("/user/helth/info/save/:email").post((req, res) => {
     });
 });
 
- 
- 
- 
 router.route("/addfeed").post((req, res) => {
   const feedtopic = req.body.feedtopic;
   const feedbody = req.body.feedbody;
@@ -485,7 +480,8 @@ router.route("/day-end/target/update").post((req, res) => {
 router.route("/employee/daily/stat/:email").get((req, res) => {
   let email = req.params.email;
   let array = [];
-    let Finalarray = [];
+  let arr1 = [];
+  let arr2 = [];
   DayStart.findOne({ email: email }).exec(function (err, details) {
     if (err) {
       res.json({ status: false, message: "Try again later!" });
@@ -498,34 +494,122 @@ router.route("/employee/daily/stat/:email").get((req, res) => {
       }
       const newArray = array.reverse();
       for (let i = 0; i < newArray.length; i++) {
-        if (newArray[i].day === "Mon") { 
-          Finalarray.push({
-            avg: newArray[i].avg,
-            day: newArray[i].day,
-          });
-           break
+        if (newArray[i].day === "Mon") {
+          arr1.push(parseFloat(newArray[i].avg));
+          arr2.push(newArray[i].day);
+          break;
         }
-          Finalarray.push({
-            avg: newArray[i].avg,
-            day: newArray[i].day,
-          });
-         
+        arr1.push(parseFloat(newArray[i].avg));
+        arr2.push(newArray[i].day);
       }
 
-      res.json(Finalarray);
+      let obj = { day: arr2, avg: arr1 };
+      res.json(obj);
     }
   });
 });
 
-// router.route("/employee/daily/stat/:email").get((req, res) => {
-//   let email = req.params.email;
-//   DayStart.findOne({ email: email }).exec(function (err, details) {
-//     if (err) {
-//       res.json({ status: false, message: "Try again later!" });
-//     } else {
-//       res.json(details.todayPlan);
-//     }
-//   });
-// });
+router.route("/employee/daily/avg/:email").get((req, res) => {
+  let email = req.params.email;
+  DayStart.findOne({ email: email }).exec(function (err, details) {
+    if (err) {
+      res.json({ status: false, message: "Try again later!" });
+    } else {
+      res.json(details.todayPlan.reverse());
+    }
+  });
+});
+
+router.route("/my/feed").get((req, res) => {
+  AdminFeed.find().exec(function (err, details) {
+    if (err) {
+      res.json({ status: false, message: "Try again later!" });
+    } else {
+      res.json(details.reverse());
+    }
+  });
+});
+
+router.route("/user/chat/:email").post((req, res) => {
+  const email = req.params.email;
+  const { type, message } = req.body;
+
+  startFunction(email, message, type);
+  function checkUser(email) {
+    return new Promise((resolve, reject) => {
+      Chat.findOne({ email: { $eq: email } })
+        .then((data) => {
+          if (data == null) {
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+  function makeChat(status, message, type, email) {
+    return new Promise((resolve, reject) => {
+      if (status === false) {
+        const data = new Chat({
+          email: email,
+          message: [
+            {
+              sender: type,
+              mes: message,
+            },
+          ],
+        });
+        data.save((error, data) => {
+          if (error) {
+            resolve({ status: false });
+          } else {
+            resolve({ status: true });
+          }
+        });
+      } else {
+        Chat.findOneAndUpdate(
+          { email: email },
+          {
+            $push: {
+              message: [
+                {
+                  sender: type,
+                  mes: message,
+                },
+              ],
+            },
+          }
+        ).exec(function (err, details) {
+          if (err) {
+            resolve(err);
+          } else {
+            resolve({ status: true });
+          }
+        });
+      }
+    });
+  }
+  async function startFunction(email, message, type) {
+    const status = await checkUser(email);
+    const result = await makeChat(status, message, type, email);
+    res.send(result);
+  }
+});
+ 
+router.route("/user/chat/get/:email").get((req, res) => {
+  let email = req.params.email;
+  Chat.findOne({ email: email })
+    .then((data) => {
+      const messages = data.message;
+      res.json({ status: true, messages});
+    })
+    .catch((err) => {
+      res.json({ status: false, message: "Try again later!" });
+    });
+});
 
 module.exports = router;

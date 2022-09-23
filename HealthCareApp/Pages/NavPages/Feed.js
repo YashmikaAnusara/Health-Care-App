@@ -5,60 +5,87 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  Pressable,
+  // Pressable,
+  RefreshControl,
   Image,
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+// import CheckBox from '@react-native-community/checkbox';
 import DayStartQuestion from '../day_start_question';
 import IP from '../../ip_address';
 import axios from 'axios';
 import DayEndQuestion from '../day_end_question';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {FAB} from 'react-native-paper';
+import ClientChat from '../clientChat';
 
 const Feed = () => {
-  const [active, setActive] = useState(true);
-  const email = 'test2';
-
+  // const [q1a1, setQ1A1] = useState(false);
+  // const [q1a2, setQ1A2] = useState(false);
+  // const [q1a3, setQ1A3] = useState(false);
+  // const [q1a4, setQ1A4] = useState(false);
+  // const [q2a1, setQ2A1] = useState(false);
+  // const [q2a2, setQ2A2] = useState(false);
+  // const [q2a3, setQ2A3] = useState(false);
+  // const [question1, setQuestion1] = useState('');
+  // const [question2, setQuestion2] = useState('');
+  // const [active, setActive] = useState(true);
   // var todayTime = new Date();
   // var time = todayTime.getHours() + ':' + todayTime.getMinutes();
-
-  const butttonOneHandler = () => {
-    setActive(true);
-  };
-  const butttonTwoHandler = () => {
-    setActive(false);
-  };
-
-  const [q1a1, setQ1A1] = useState(false);
-  const [q1a2, setQ1A2] = useState(false);
-  const [q1a3, setQ1A3] = useState(false);
-  const [q1a4, setQ1A4] = useState(false);
-  const [q2a1, setQ2A1] = useState(false);
-  const [q2a2, setQ2A2] = useState(false);
-  const [q2a3, setQ2A3] = useState(false);
-  const [question1, setQuestion1] = useState('');
-  const [question2, setQuestion2] = useState('');
+  // const butttonOneHandler = () => {
+  //   setActive(true);
+  // };
+  // const butttonTwoHandler = () => {
+  //   setActive(false);
+  // };
+  // const saveInHandler = () => {
+  //   alert('done');
+  // };
+  const [feeds, setFeeds] = useState([]);
   const [isVisible, setVisible] = useState(false);
   const [isVisible2, setVisible2] = useState(false);
+  const [email, setEmail] = useState('');
+  const [chatActive, setChatActive] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
-  const saveInHandler = () => {
-    alert("done");
-
+  const retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('email');
+      if (value !== null) {
+        setEmail(value);
+        axios
+          .get(`http://${IP}:8000/details/day-start/targert/find/${value}`)
+          .then(res => {
+            if (res.data.status === true) {
+              setTimeout(() => {
+                setVisible(true);
+              }, 3000);
+            } else {
+              if (res.data.state === 'ongoing') {
+                setTimeout(() => {
+                  setVisible2(true);
+                }, 3000);
+              }
+            }
+          })
+          .catch(err => {
+            alert(err.message);
+          });
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   useEffect(() => {
+    retrieveData();
+
     axios
-      .get(`http://${IP}:8000/details/day-start/targert/find/${email}`)
+      .get(`http://${IP}:8000/details/my/feed`)
       .then(res => {
-        if (res.data.status === true) {
-          setTimeout(() => {
-            setVisible(true);
-          }, 3000);
+        if (res.data.status === false) {
+          alert(res.data.message);
         } else {
-          if (res.data.state === 'ongoing') {
-              setTimeout(() => {
-                setVisible2(true);
-              }, 3000);
-          }
+          setFeeds(res.data);
         }
       })
       .catch(err => {
@@ -66,9 +93,29 @@ const Feed = () => {
       });
   }, []);
 
+  const refreshHandler = () => {
+    setRefresh(true);
+    axios
+      .get(`http://${IP}:8000/details/my/feed`)
+      .then(res => {
+        if (res.data.status === false) {
+          alert(res.data.message);
+        } else {
+          setFeeds(res.data);
+          setTimeout(() => {
+            setRefresh(false);
+          }, 2000);
+        }
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.Body}>
+        {chatActive && <ClientChat setChatActive={setChatActive} />}
         <DayStartQuestion
           visible={isVisible}
           setVisible={setVisible}
@@ -79,7 +126,10 @@ const Feed = () => {
           setVisible={setVisible2}
           email={email}
         />
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refresh} onRefresh={refreshHandler} />
+          }>
           <View style={styles.ItemHeader}>
             <Text
               style={{
@@ -93,7 +143,7 @@ const Feed = () => {
             </Text>
           </View>
           <View style={styles.ItemBody}>
-            <View style={styles.ButtonWrapper}>
+            {/* <View style={styles.ButtonWrapper}>
               <Pressable
                 style={active ? styles.ButtonOne : styles.ButtonTwo}
                 onPress={butttonOneHandler}>
@@ -118,29 +168,27 @@ const Feed = () => {
                   Question
                 </Text>
               </Pressable>
+            </View> */}
+            {/* {active ? ( */}
+            <View style={styles.ContentBody}>
+              {feeds.map((data, index) => (
+                <Suggestion
+                  topic={data.feedtopic}
+                  body={data.feedbody}
+                  key={index}
+                />
+              ))}
+              {feeds.map((data, index) => (
+                <Suggestion
+                  topic={data.feedtopic}
+                  body={data.feedbody}
+                  key={index}
+                />
+              ))}
             </View>
-            {active ? (
+            {/*) : (
               <View style={styles.ContentBody}>
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-                <Suggestion />
-              </View>
-            ) : (
-              <View style={styles.ContentBody}>
-                {/* Question start */}
+                
                 <View style={styles.QuestionContainer}>
                   <Text style={{color: 'rgb(119, 119, 119)'}}>
                     01. How many times a day do you drink water?
@@ -324,7 +372,7 @@ const Feed = () => {
                   </View>
                 </View>
 
-                {/* Question end */}
+                 
                 <View
                   style={{
                     flex: 1,
@@ -340,16 +388,23 @@ const Feed = () => {
                   </Pressable>
                 </View>
               </View>
-            )}
+            )}*/}
           </View>
         </ScrollView>
+        <FAB
+          style={styles.fab}
+          onPress={() => setChatActive(true)}
+          icon={{
+            uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400',
+          }}
+        />
       </View>
       <View style={styles.Footter}></View>
     </SafeAreaView>
   );
 };
 
-const Suggestion = () => {
+const Suggestion = props => {
   return (
     <View style={styles.SuggestionContainer}>
       <View style={{flex: 1, padding: 8}}>
@@ -366,7 +421,7 @@ const Suggestion = () => {
             fontWeight: 'bold',
             color: 'black',
           }}>
-          Drink more water
+          {props.topic}
         </Text>
         <Text
           style={{
@@ -375,7 +430,7 @@ const Suggestion = () => {
             marginRight: 8,
             color: 'rgb(119, 119, 119)',
           }}>
-          Every 3 hour you get a remainder for drink water in a day time.
+          {props.body}
         </Text>
       </View>
     </View>
@@ -474,6 +529,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+  },
+  fab: {
+    backgroundColor: 'green',
+    position: 'absolute',
+    marginRight: 20,
+    right: 0,
+    bottom: 0,
   },
 });
 

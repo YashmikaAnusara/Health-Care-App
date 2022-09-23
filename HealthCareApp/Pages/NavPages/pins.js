@@ -7,12 +7,15 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import IP from '../../ip_address';
 import axios from 'axios';
 
-export default function Pins({navigation}) {
-  const email = 'test';
+export default function Pins() {
+  const [email, setEmail] = useState();
+  const [refresh, setRefresh] = useState(false);
 
   const [r1, setR1] = useState(false);
   const [r2, setR2] = useState(false);
@@ -23,43 +26,56 @@ export default function Pins({navigation}) {
   const [r7, setR7] = useState(false);
   const [r8, setR8] = useState(false);
 
-  useEffect(() => {
-    function rimind() {
-      return new Promise(resolve => {
-        axios
-          .get(`http://${IP}:8000/details/rimind/${email}`)
-          .then(res => {
-            resolve(res.data);
-          })
-          .catch(err => {
-            alert(err.message);
-          });
-      });
+  const retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('email');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        setEmail(value);
+      }
+    } catch (error) {
+      alert(error);
     }
+  };
 
-    const functions = () => {
-      rimind()
-        .then(data => {
-          setR1(data.r1);
-          setR2(data.r2);
-          setR3(data.r3);
-          setR4(data.r4);
-          setR5(data.r5);
-          setR6(data.r6);
-          setR7(data.r7);
-          setR8(data.r8);
+  function rimind() {
+    return new Promise(resolve => {
+      axios
+        .get(`http://${IP}:8000/details/rimind/${email}`)
+        .then(res => {
+          resolve(res.data);
         })
         .catch(err => {
           alert(err.message);
         });
-    };
+    });
+  }
+  const functions = () => {
+    rimind()
+      .then(data => {
+        setR1(data.r1);
+        setR2(data.r2);
+        setR3(data.r3);
+        setR4(data.r4);
+        setR5(data.r5);
+        setR6(data.r6);
+        setR7(data.r7);
+        setR8(data.r8);
+         
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  };
 
+  useEffect(() => {
+    retrieveData();
     functions();
-  }, [email]);
+  }, []);
 
   const saveInHandler = () => {
     const data = {r1, r2, r3, r4, r5, r6, r7, r8};
-
     axios
       .post(`http://${IP}:8000/details/user/remind/update/${email}`, data)
       .then(res => {
@@ -74,10 +90,21 @@ export default function Pins({navigation}) {
       });
   };
 
+  const refreshHandler = () => {
+    setRefresh(true);
+    functions();
+    setTimeout(() => {
+      setRefresh(false);
+    },3000)
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.Body}>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refresh} onRefresh={refreshHandler} />
+          }>
           <View style={styles.ItemHeader}>
             <Text
               style={{

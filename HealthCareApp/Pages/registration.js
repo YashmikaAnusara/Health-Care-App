@@ -9,19 +9,20 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import SelectDropdown from 'react-native-select-dropdown';
+// import SelectDropdown from 'react-native-select-dropdown';
 
 const job = ['User', 'Doctor', 'Manager'];
 
 const Registration = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [type, setType] = useState('');
+  const [type, setType] = useState('User');
   const [password, setPassword] = useState('');
-  const [permission, setPermission] = useState(true);
+  const [permission, setPermission] = useState(false);
 
   const navigation = useNavigation();
 
@@ -125,7 +126,7 @@ const Registration = () => {
               textContentType="password"
               onChangeText={setPassword}
             />
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <Text
                 style={{
                   marginTop: 13,
@@ -148,9 +149,18 @@ const Registration = () => {
                   return item;
                 }}
               />
-            </View>
+            </View> */}
             <View style={styles.checkboxWrapper}>
-              <Text style={{flex: 1}}>Hi</Text>
+              <CheckBox
+                disabled={false}
+                value={permission}
+                onValueChange={newValue => {
+                  setPermission(newValue)
+                     
+                }}
+                tintColor={'green'}
+                onCheckColor={'green'}
+              />
               <Text style={{flex: 9, fontSize: 15}}>
                 I would like to receive your newsletter and other promotional
                 information.
