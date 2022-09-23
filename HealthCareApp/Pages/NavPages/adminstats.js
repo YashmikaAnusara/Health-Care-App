@@ -58,6 +58,10 @@ export default function Admin_stats({navigation}) {
       });
   }, [chart]);
 
+  const empstats = () => {
+    navigation.navigate('AdminEmpStats');
+  };
+
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
@@ -124,7 +128,7 @@ export default function Admin_stats({navigation}) {
             ) : (
               <>
                 {emp.map((data, index) => (
-                  <TouchableOpacity key={index}>
+                  <TouchableOpacity key={index} onPress={empstats}>
                     <View
                       style={{
                         marginTop: 10,
