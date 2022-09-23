@@ -22,8 +22,9 @@ const ClientChat = props => {
   const sendData = async () => {
     try {
       const value = await AsyncStorage.getItem('email');
+      const name = await AsyncStorage.getItem('name');
       if (value !== null) {
-        const data = {message, type};
+        const data = {message, type, name};
         axios
           .post(`http://${IP}:8000/details/user/chat/${value}`, data)
           .then(res => {})
@@ -46,7 +47,7 @@ const ClientChat = props => {
             if (res.data.status === true) {
               setChat(res.data.messages);
             } else {
-              alert(res.data.message);
+              // alert(res.data.message);
             }
           })
           .catch(err => {
