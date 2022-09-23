@@ -646,4 +646,13 @@ router.route("/user/chat/get/:email").get((req, res) => {
     });
 });
 
+router.route("/chat").get((req, res) => {
+  Chat.find()
+    .then((emp) => {
+      res.json(emp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 module.exports = router;
