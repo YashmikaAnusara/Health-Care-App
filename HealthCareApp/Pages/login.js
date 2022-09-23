@@ -27,9 +27,13 @@ const Login = () => {
     navigation.navigate('Registration');
   };
 
-  const storeData = async (email) => {
+  const storeData = async (email, name) => {
+    const items = [
+      ['email', email],
+      ['name', name],
+    ];
     try {
-      await AsyncStorage.setItem('email', email);
+      await AsyncStorage.multiSet(items);
     } catch (error) {
       alert(error)
     }
@@ -49,7 +53,7 @@ const Login = () => {
             
             if (res.data.type === 'User') {
               // alert(res.data.type);
-              storeData(res.data.email);
+              storeData(res.data.email, res.data.name);
               navigation.dispatch(
                 StackActions.replace(
                   'Nav',
