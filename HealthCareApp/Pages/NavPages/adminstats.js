@@ -45,6 +45,18 @@ export default function Admin_stats({navigation}) {
       }
     });
   }, [emp]);
+
+  useEffect(() => {
+    axios
+      .get(`http://${IP}:8000/details/chart`)
+      .then(res => {
+        setchart(res.data);
+      })
+      .catch(errr => {
+        console.log(errr);
+      });
+  }, [chart]);
+
   return (
     <View style={styles.container}>
       <View style={{flex: 8}}>
@@ -56,11 +68,11 @@ export default function Admin_stats({navigation}) {
                 labels: ['Jan-Mar', 'Apr-Jun', 'Jul-Sep', 'Oct-Dec'],
                 datasets: [
                   {
-                    data: [40, 45, 50, 60],
+                    data: chart,
                   },
                 ],
               }}
-              width={370}
+              width={Dimensions.get('window').width}
               height={250}
               chartConfig={{
                 backgroundColor: '#efefef',
@@ -160,8 +172,8 @@ const styles = StyleSheet.create({
   chartcontainer: {
     flex: 2,
     marginTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    // paddingLeft: 10,
+    // paddingRight: 10,
     // backgroundColor: 'red',
   },
   topic: {
