@@ -110,7 +110,21 @@ export default function Admin_proflie({navigation, route}) {
                     </Text>
                   </View>
                 </TouchableOpacity>
-              ) : null}
+              ) : (
+                <View>
+                  <Image
+                    source={require('../../Assets/doctorpic.png')}
+                    resizeMode="contain"
+                    style={{
+                      alignSelf: 'center',
+                      width: 350,
+                      height: 200,
+                      top: -30,
+                      // left: 0,
+                    }}
+                  />
+                </View>
+              )}
             </View>
           </View>
         </ScrollView>
@@ -129,7 +143,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '100%',
-    height: '40%',
+    height: '34%',
     backgroundColor: '#5DB075',
     display: 'flex',
     // alignItems: 'center',
