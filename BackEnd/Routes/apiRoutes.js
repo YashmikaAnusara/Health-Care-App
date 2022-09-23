@@ -64,7 +64,12 @@ router.route("/user/signin/:email/:password").get((req, res) => {
     $and: [{ email: { $eq: email } }, { password: { $eq: password } }],
   })
     .then((data) => {
-      res.json({ status: true, type: data.type, email: data.email });
+      res.json({
+        status: true,
+        type: data.type,
+        email: data.email,
+        name: data.name
+      });
     })
     .catch((err) => {
       res.json({ status: false, message: "Invalid Login Credintials!" });
@@ -532,9 +537,10 @@ router.route("/my/feed").get((req, res) => {
 
 router.route("/user/chat/:email").post((req, res) => {
   const email = req.params.email;
-  const { type, message } = req.body;
+  const { type, message, name } = req.body;
 
-  startFunction(email, message, type);
+  startFunction(email, message, type, name);
+
   function checkUser(email) {
     return new Promise((resolve, reject) => {
       Chat.findOne({ email: { $eq: email } })
@@ -551,11 +557,12 @@ router.route("/user/chat/:email").post((req, res) => {
     });
   }
 
-  function makeChat(status, message, type, email) {
+  function makeChat(status, message, type, email,name) {
     return new Promise((resolve, reject) => {
       if (status === false) {
         const data = new Chat({
           email: email,
+          name: name,
           message: [
             {
               sender: type,
@@ -593,9 +600,9 @@ router.route("/user/chat/:email").post((req, res) => {
       }
     });
   }
-  async function startFunction(email, message, type) {
+  async function startFunction(email, message, type,name) {
     const status = await checkUser(email);
-    const result = await makeChat(status, message, type, email);
+    const result = await makeChat(status, message, type, email, name);
     res.send(result);
   }
 });
@@ -608,7 +615,7 @@ router.route("/user/chat/get/:email").get((req, res) => {
       res.json({ status: true, messages});
     })
     .catch((err) => {
-      res.json({ status: false, message: "Try again later!" });
+      res.json({ status: false, message: "Welcome!" });
     });
 });
 
