@@ -139,7 +139,7 @@ export default function Adminempstats({route, navigation}) {
             bottom: 25,
           }}
           onPress={chatpage}
-          icon={require('../../Assets/chat.png')}
+          icon={require('../Assets/chat.png')}
         />
       </View>
     </View>
