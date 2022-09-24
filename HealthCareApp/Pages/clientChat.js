@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   RefreshControl,
+  Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
@@ -29,7 +30,7 @@ const ClientChat = props => {
           .post(`http://${IP}:8000/details/user/chat/${value}`, data)
           .then(res => {})
           .catch(err => {
-            alert(err.message);
+            // alert(err.message);
           });
       }
     } catch (error) {
@@ -51,7 +52,7 @@ const ClientChat = props => {
             }
           })
           .catch(err => {
-            alert(err.message);
+            // alert(err.message);
           });
       }
     } catch (error) {
@@ -85,19 +86,36 @@ const ClientChat = props => {
     }, 3000);
   };
 
-
   return (
     <Modal>
       <View style={styles.Container}>
         <View style={styles.ChatHeader}>
           <View style={{flex: 1, marginLeft: 20}}>
             <TouchableOpacity onPress={backHandler}>
-              <Text style={styles.SendText}>Back</Text>
+              <Image
+                source={require('../Assets/back.png')}
+                resizeMode="contain"
+                style={{
+                  width: 40,
+                  height: 30,
+                  right: 10,
+                  tintColor: '#ffffff',
+                }}
+              />
             </TouchableOpacity>
           </View>
           <View style={{flex: 0.2, marginRight: 20}}>
             <TouchableOpacity onPress={refreshHandler}>
-              <Text style={styles.SendText}>refresh</Text>
+              <Image
+                source={require('../Assets/refresh.png')}
+                resizeMode="contain"
+                style={{
+                  width: 40,
+                  height: 30,
+                  left: 20,
+                  tintColor: '#ffffff',
+                }}
+              />
             </TouchableOpacity>
           </View>
         </View>
