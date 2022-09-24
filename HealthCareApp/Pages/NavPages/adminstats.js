@@ -58,8 +58,8 @@ export default function Admin_stats({navigation}) {
       });
   }, [chart]);
 
-  const empstats = () => {
-    navigation.navigate('AdminEmpStats');
+  const empstats = (name, email) => {
+    navigation.navigate('AdminEmpStats', {useremail: email, username: name});
   };
 
   return (
@@ -128,7 +128,9 @@ export default function Admin_stats({navigation}) {
             ) : (
               <>
                 {emp.map((data, index) => (
-                  <TouchableOpacity key={index} onPress={empstats}>
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => empstats(data.email, data.name)}>
                     <View
                       style={{
                         marginTop: 10,
