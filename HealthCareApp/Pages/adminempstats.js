@@ -139,9 +139,7 @@ export default function Adminempstats({route, navigation}) {
             bottom: 25,
           }}
           onPress={chatpage}
-          icon={{
-            uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400',
-          }}
+          icon={require('../../Assets/chat.png')}
         />
       </View>
     </View>
