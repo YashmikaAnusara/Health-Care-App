@@ -1,5 +1,6 @@
 import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {FAB} from 'react-native-paper';
 
 export default function Adminempstats({route, navigation}) {
   const name = route.params.useremail;
@@ -9,34 +10,39 @@ export default function Adminempstats({route, navigation}) {
     navigation.navigate('Admin_stats');
   };
 
+  const chatpage = () => {
+    navigation.navigate('AdminChat', {useremail: email, username: name});
+  };
+
   return (
     <View style={{flex: 1}}>
       <View style={{flex: 8}}>
-        <TouchableOpacity onPress={backHandler}>
-          <Image
-            source={require('../Assets/back.png')}
-            resizeMode="contain"
-            style={{
-              width: 30,
-              height: 30,
-              top: 27,
-              left: 5,
-              tintColor: '#5DB075',
-            }}
-          />
-        </TouchableOpacity>
         <ScrollView>
+          <TouchableOpacity onPress={backHandler}>
+            <Image
+              source={require('../Assets/back.png')}
+              resizeMode="contain"
+              style={{
+                width: 30,
+                height: 30,
+                top: 27,
+                left: 15,
+                tintColor: '#5DB075',
+              }}
+            />
+          </TouchableOpacity>
+
           <View style={{paddingBottom: 25, height: 700}}>
             <Text
               style={{
                 color: '#5DB075',
                 fontSize: 25,
                 alignSelf: 'center',
-                top: -5,
+                top: -7,
               }}>
               {name} Stats
             </Text>
-            <View style={{paddingTop: 60}}>
+            <View style={{paddingTop: 30}}>
               <View
                 style={{marginBottom: 20, paddingLeft: 10, paddingRight: 10}}>
                 <Text style={{fontSize: 17}}>
@@ -124,6 +130,19 @@ export default function Adminempstats({route, navigation}) {
             </View>
           </View>
         </ScrollView>
+        <FAB
+          style={{
+            backgroundColor: 'green',
+            position: 'absolute',
+            marginRight: 20,
+            right: 0,
+            bottom: 25,
+          }}
+          onPress={chatpage}
+          icon={{
+            uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400',
+          }}
+        />
       </View>
     </View>
   );
