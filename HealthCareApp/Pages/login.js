@@ -13,10 +13,9 @@ import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import axios from 'axios';
 import IP from '../ip_address';
-import { StackActions } from '@react-navigation/native';
+import {StackActions} from '@react-navigation/native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
- 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -35,7 +34,7 @@ const Login = () => {
     try {
       await AsyncStorage.multiSet(items);
     } catch (error) {
-      alert(error)
+      alert(error);
     }
   };
 
@@ -48,9 +47,7 @@ const Login = () => {
       axios
         .get(`http://${IP}:8000/details/user/signin/${email}/${password}`)
         .then(async res => {
-
           if (res.data.status === true) {
-            
             if (res.data.type === 'User') {
               // alert(res.data.type);
               storeData(res.data.email, res.data.name);
@@ -116,6 +113,7 @@ const Login = () => {
               style={styles.input}
               placeholder="Password..."
               textContentType="password"
+              secureTextEntry={true}
               placeholderTextColor="rgb(119, 119, 119)"
               onChangeText={setPassword}
             />
