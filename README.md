@@ -15,4 +15,4 @@ This is a personal project which is conducted for education purposes. This proje
 ![My Skills](https://skillicons.dev/icons?i=mongodb)
 
 ### Admin Side & Client Side Common Interface
-<p > <img src="Interface/1.png" alt="" style="width: 250px;"/> </p>
+<p > <img src="Interface/1.png" alt="" /> </p>
