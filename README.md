@@ -1,7 +1,6 @@
 # Health-Care-App
 
-This is a group project which is conducted as an assignment of the module IT Project Management.
-AutoCare is a web based application developed to facilitate a vehicle service company name Auto Care.
+This is a personal project which is conducted for education purposes. This project is a software application called Health Care App and is a Admin Side and Client Side of this project.
 
 Programming Language | <img src = 'https://cdn.svgporn.com/logos/javascript.svg' width='35'/>
 ------------- | -------------
