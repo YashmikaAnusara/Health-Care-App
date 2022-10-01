@@ -21,3 +21,7 @@ This is a personal project which is conducted for education purposes. This proje
 <p > <img src="Interface/2.png" alt="" /> </p>
 <p > <img src="Interface/3.png" alt="" /> </p>
 <p > <img src="Interface/4.png" alt="" /> </p>
+
+### Client Side Interfaces
+<p > <img src="Interface/5.png" alt="" /> </p>
+<p > <img src="Interface/6.png" alt="" /> </p>
