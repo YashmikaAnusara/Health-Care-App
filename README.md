@@ -19,7 +19,7 @@ This is a personal project which is conducted for education purposes. This proje
 
 ### Admin Side Interfaces
 <p > <img src="Interface/2.png" alt="" /> </p>
-<p > <img src="Interface/3.png" alt="" /> </p>
+<p > <img src="Interface/7.png" alt="" /> </p>
 <p > <img src="Interface/4.png" alt="" /> </p>
 
 ### Client Side Interfaces
